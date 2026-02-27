@@ -37,7 +37,8 @@
           {{ getStatusText(meeting.meetingStatus) }}
         </span>
 
-        <button [class]="'action-btn ' + (meeting.meetingStatus === 1 ? 'status-ready-btn' : '')">
+        <button [class]="'action-btn ' + (meeting.meetingStatus === 1 ? 'status-ready-btn' : '')" 
+                (click)="navigateToMeeting(meeting.id)">
           @if (meeting.meetingStatus === 1) {
             View Brief
           } @else {

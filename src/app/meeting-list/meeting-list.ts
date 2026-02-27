@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { MeetingsListService } from '../services/meetings-list.service';
 import { Meeting, Meetings, MeetingStatus } from '../interfaces/meeting.interface';
 
@@ -23,7 +24,10 @@ export class MeetingList implements OnInit {
   // Expose MeetingStatus enum to template
   MeetingStatus = MeetingStatus;
   
-  constructor(private meetingsListService: MeetingsListService) { }
+  constructor(
+    private meetingsListService: MeetingsListService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     // Example: Get meeting by ID
@@ -79,5 +83,10 @@ export class MeetingList implements OnInit {
       default:
         return 'status-unknown';
     }
+  }
+
+  // Navigation method to meeting component
+  navigateToMeeting(meetingId: string): void {
+    this.router.navigate(['/meeting'], { queryParams: { id: meetingId } });
   }
 }

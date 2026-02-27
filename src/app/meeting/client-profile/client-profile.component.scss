@@ -1,0 +1,335 @@
+.client-profile-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.profile-header {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .client-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    
+    .client-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      .initials {
+        color: white;
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+    }
+    
+    .client-details {
+      .client-name {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1a202c;
+        margin: 0 0 8px 0;
+      }
+      
+      .client-title {
+        color: #718096;
+        font-size: 1.1rem;
+        margin: 0 0 12px 0;
+      }
+      
+      .client-tags {
+        display: flex;
+        gap: 8px;
+        
+        .tag {
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          
+          &.ultra-hni {
+            background-color: #fef5e7;
+            color: #d97706;
+          }
+          
+          &.active {
+            background-color: #f0f9ff;
+            color: #0284c7;
+          }
+        }
+      }
+    }
+  }
+  
+  .profile-actions {
+    display: flex;
+    gap: 12px;
+    
+    .action-btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      
+      &.primary {
+        background-color: #3182ce;
+        color: white;
+        
+        &:hover {
+          background-color: #2c5282;
+        }
+      }
+      
+      &.secondary {
+        background-color: transparent;
+        color: #3182ce;
+        border: 1px solid #3182ce;
+        
+        &:hover {
+          background-color: #3182ce;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.profile-content {
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    
+    .profile-section {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      
+      &.full-width {
+        grid-column: 1 / -1;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1a202c;
+        margin: 0 0 20px 0;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 12px;
+      }
+    }
+  }
+}
+
+.overview-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  
+  .stat-item {
+    .stat-label {
+      display: block;
+      font-size: 0.85rem;
+      color: #718096;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .stat-value {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1a202c;
+    }
+  }
+}
+
+.contact-info {
+  .contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .contact-label {
+      font-weight: 500;
+      color: #4a5568;
+    }
+    
+    .contact-value {
+      color: #1a202c;
+    }
+  }
+}
+
+.meetings-list {
+  .meeting-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .meeting-date {
+      font-size: 0.9rem;
+      color: #718096;
+      font-weight: 500;
+    }
+    
+    .meeting-details {
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1a202c;
+        margin: 0 0 4px 0;
+      }
+      
+      p {
+        font-size: 0.9rem;
+        color: #718096;
+        margin: 0;
+      }
+    }
+    
+    .meeting-status {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      
+      &.completed {
+        background-color: #f0fdf4;
+        color: #166534;
+      }
+      
+      &.upcoming {
+        background-color: #fef3c7;
+        color: #d97706;
+      }
+    }
+  }
+}
+
+.notes-list {
+  .note-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .note-date {
+      font-size: 0.9rem;
+      color: #718096;
+      font-weight: 500;
+      min-width: 120px;
+    }
+    
+    .note-content {
+      flex: 1;
+      
+      p {
+        margin: 0;
+        color: #4a5568;
+        line-height: 1.6;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .client-profile-container {
+    padding: 16px;
+  }
+  
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    
+    .client-info {
+      .client-avatar {
+        width: 60px;
+        height: 60px;
+        
+        .initials {
+          font-size: 1.4rem;
+        }
+      }
+      
+      .client-details {
+        .client-name {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    
+    .profile-actions {
+      align-self: stretch;
+      
+      .action-btn {
+        flex: 1;
+      }
+    }
+  }
+  
+  .profile-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+  
+  .overview-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .meetings-list .meeting-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    
+    .meeting-date {
+      order: -1;
+    }
+    
+    .meeting-status {
+      justify-self: start;
+    }
+  }
+  
+  .notes-list .note-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

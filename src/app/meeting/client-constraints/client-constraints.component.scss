@@ -1,0 +1,329 @@
+.client-constraints-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.constraints-header {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  h1 {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #1a202c;
+    margin: 0 0 8px 0;
+  }
+  
+  p {
+    color: #718096;
+    font-size: 1.1rem;
+    margin: 0 0 24px 0;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 12px;
+    
+    .action-btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      
+      &.primary {
+        background-color: #3182ce;
+        color: white;
+        
+        &:hover {
+          background-color: #2c5282;
+        }
+      }
+      
+      &.secondary {
+        background-color: transparent;
+        color: #3182ce;
+        border: 1px solid #3182ce;
+        
+        &:hover {
+          background-color: #3182ce;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.constraints-content {
+  .constraints-section {
+    margin-bottom: 32px;
+    
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 0 0 20px 0;
+      padding-left: 16px;
+      border-left: 4px solid #3182ce;
+    }
+    
+    .constraints-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+      
+      &.full-width {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}
+
+.constraint-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .constraint-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 0;
+    }
+    
+    .status {
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      
+      &.active {
+        background-color: #f0fdf4;
+        color: #166534;
+      }
+    }
+  }
+  
+  .constraint-content {
+    padding: 24px;
+    
+    .constraint-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+      
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      
+      .label {
+        font-weight: 500;
+        color: #4a5568;
+        flex: 1;
+      }
+      
+      .value {
+        color: #1a202c;
+        font-weight: 600;
+        text-align: right;
+      }
+    }
+  }
+  
+  .constraint-actions {
+    padding: 16px 24px;
+    border-top: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    
+    .edit-btn {
+      background-color: transparent;
+      color: #3182ce;
+      border: 1px solid #3182ce;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      
+      &:hover {
+        background-color: #3182ce;
+        color: white;
+      }
+    }
+  }
+}
+
+// Special styling for exclusion lists
+.exclusion-list {
+  .exclusion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    margin-bottom: 8px;
+    background-color: #fef5e7;
+    border-radius: 8px;
+    border-left: 4px solid #d97706;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    .exclusion-category {
+      font-weight: 500;
+      color: #92400e;
+    }
+    
+    .exclusion-type {
+      font-size: 0.85rem;
+      color: #b45309;
+      background-color: #fed7aa;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+  }
+}
+
+// Compliance grid styling
+.compliance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  
+  .compliance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    
+    .compliance-label {
+      font-weight: 500;
+      color: #4a5568;
+      font-size: 0.9rem;
+    }
+    
+    .compliance-status {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 12px;
+      
+      &.compliant {
+        background-color: #f0fdf4;
+        color: #166534;
+      }
+    }
+    
+    .compliance-value {
+      font-size: 0.9rem;
+      color: #1a202c;
+      font-weight: 500;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .client-constraints-container {
+    padding: 16px;
+  }
+  
+  .constraints-header {
+    padding: 24px;
+    
+    h1 {
+      font-size: 1.75rem;
+    }
+    
+    .header-actions {
+      flex-direction: column;
+      
+      .action-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+  
+  .constraints-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+  
+  .constraint-card {
+    .constraint-content {
+      padding: 20px;
+      
+      .constraint-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        
+        .value {
+          text-align: left;
+        }
+      }
+    }
+  }
+  
+  .exclusion-list .exclusion-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .compliance-grid {
+    grid-template-columns: 1fr;
+    
+    .compliance-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .constraints-header {
+    padding: 20px;
+    
+    h1 {
+      font-size: 1.5rem;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  .constraints-section h2 {
+    font-size: 1.5rem;
+  }
+}
