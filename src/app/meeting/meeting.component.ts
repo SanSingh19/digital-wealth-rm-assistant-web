@@ -10,13 +10,13 @@ import { ClientConstraintsComponent } from './client-constraints/client-constrai
   selector: 'app-meeting',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     MeetingDetailsComponent,
     ClientProfileComponent,
     OverviewComponent,
     PersonalAspectsComponent,
-    ClientConstraintsComponent
-  ],
+    ClientConstraintsComponent,
+],
   templateUrl: './meeting.component.html',
   styleUrls: ['./meeting.component.scss']
 })

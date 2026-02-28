@@ -83,6 +83,22 @@
   }
 }
 
+/* Grid layout for meeting components */
+.meeting-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Responsive grid - single column on smaller screens */
+@media (max-width: 768px) {
+  .meeting-content {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
 .meeting-header-content {
   background-color: rgba(26, 74, 122);
   color: white;
