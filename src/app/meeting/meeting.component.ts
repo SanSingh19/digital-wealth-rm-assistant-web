@@ -9,6 +9,7 @@ import { SummaryFromLastMeeting } from './summary-from-last-meeting/summary-from
 import { Performance } from "./performance/performance";
 import { LastFiveTransactions } from "./last-five-transactions/last-five-transactions";
 import { RiskIndicators } from "./risk-indicators/risk-indicators";
+import { MarketOutlook } from "./market-outlook/market-outlook";
 
 @Component({
   selector: 'app-meeting',
@@ -23,7 +24,8 @@ import { RiskIndicators } from "./risk-indicators/risk-indicators";
     SummaryFromLastMeeting,
     Performance,
     LastFiveTransactions,
-    RiskIndicators
+    RiskIndicators,
+    MarketOutlook
 ],
   templateUrl: './meeting.component.html',
   styleUrls: ['./meeting.component.scss']

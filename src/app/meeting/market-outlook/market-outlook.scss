@@ -1,0 +1,55 @@
+.card-title-desc {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    --tw-text-opacity: 1;
+    color: rgb(26 74 122 / var(--tw-text-opacity));
+  }
+  .market-outlook-desc {
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81);
+    line-height:1.625rem;
+    font-size:12px;
+    margin-bottom:5px;
+  }
+  .market-outlook-item {
+    display: flex;
+    align-items: flex-start;
+    font-size: 11px;
+    gap: 0.5rem;
+    padding: 5px;
+    border-radius: 0.375rem;
+    background-color: #fef2f280;
+    margin-bottom: 10px;
+  }
+  .market-outlook-item-label {
+    --tw-text-opacity:1;
+    color: rgb(239 68 68);
+    margin-top: 5px;
+  }
+  .market-outlook-item-value {
+    --tw-text-opacity:1;
+    color: rgb(31 41 55);
+    font-weight: 600;
+  }
+  .market-outlook-item-value1 {
+    --tw-text-opacity:1;
+    color: rgb(75 85 99);
+    margin-top: 5px;
+  } 
+ .market-outlook-item-blue {
+    display: flex;
+    align-items: flex-start;
+    font-size: 11px;
+    gap: 0.5rem;
+    padding: 5px;
+    border-radius: 0.375rem;
+    background-color: #ecfdf599;
+    margin-bottom: 10px;
+  }
+  .market-outlook-item-label-blue {
+    --tw-text-opacity: 1;
+    color: rgb(5 150 105);
+    margin-top: 5px;
+  }
