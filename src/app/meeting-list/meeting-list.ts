@@ -24,6 +24,9 @@ export class MeetingList implements OnInit {
   // Expose MeetingStatus enum to template
   MeetingStatus = MeetingStatus;
   
+  // Property to hold the current date
+  today = new Date();
+  
   constructor(
     private meetingsListService: MeetingsListService,
     private router: Router
@@ -31,7 +34,7 @@ export class MeetingList implements OnInit {
 
   ngOnInit(): void {
     // Example: Get meeting by ID
-    this.getMeetingByRMId('1');
+    this.getMeetingByRMId('2345');
   }
 
   getMeetingByRMId(id: string): void {
@@ -41,16 +44,29 @@ export class MeetingList implements OnInit {
         this.meetingsSignal.set(meetings.meetings);
         
         // Assign meeting statistics to signal variables
-        this.meetingsOfThisWeek.set(meetings.meetingsOfThisWeek);
-        this.briefsReady.set(meetings.briefsReady);
-        this.totalAum.set(meetings.totalAum);
-        this.avgAIPrepTime.set(meetings.avgAIPrepTime);
+        this.getMeetingReadyStats(meetings);
+        this.getTotalAum(meetings);
+        this.meetingsOfThisWeek.set(meetings.meetings.length);
+        this.avgAIPrepTime.set('38 sec');
 
       },
       error: (error) => {
         console.error('Error fetching meetings:', error);
       }
     });
+  }
+
+  getTotalAum(meetings: Meetings) {
+    const totalAum = meetings.meetings.reduce((sum, meeting) => {
+      const amount = parseFloat(meeting.amount.replace(/[^\d.-]/g, ''));
+      return sum + (isNaN(amount) ? 0 : amount);
+    }, 0);
+    this.totalAum.set(totalAum.toFixed(1) + 'M');
+  }
+
+  getMeetingReadyStats(meetings: Meetings) {
+    const readyMeetings = meetings.meetings.filter(meeting => meeting.meetingStatus === MeetingStatus.Ready);
+    this.briefsReady.set(readyMeetings.length);
   }
 
   // Helper method to get status display text

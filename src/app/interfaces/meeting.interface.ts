@@ -12,7 +12,8 @@ export interface Meeting {
   shortName: string;
   accountType: string;
   meetingStatus: MeetingStatus;
-  startDate: Date;
+  date: string;
+  time: string;
   meetingType:string;//inperson or virtual
   location: string;//Amsterdam — Zuid office
   currency: string;//AUM
