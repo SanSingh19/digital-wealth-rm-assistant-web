@@ -10,5 +10,10 @@ export interface ClientInfo {
   investmentGoals: string[];
 }
 
+export interface ClientConstraints {
+  clientId: string;
+  constraints: string[];
+}
+
 
 

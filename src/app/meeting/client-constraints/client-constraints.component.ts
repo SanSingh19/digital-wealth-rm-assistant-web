@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeetingsService } from '../../services/meetings.service';
+import { ClientConstraints } from '../../interfaces/client.interface';
 
 @Component({
   selector: 'app-client-constraints',
@@ -10,15 +11,17 @@ import { MeetingsService } from '../../services/meetings.service';
   styleUrls: ['../meeting.component.scss','./client-constraints.component.scss']
 })
 export class ClientConstraintsComponent implements OnInit {
-
-  constraints: string[] = [];
-
+  constraints = signal<ClientConstraints>({ clientId: '', constraints: [] });
+  @Input() clientId: string | null = null;
+  
   constructor(private meetingsService: MeetingsService) { }
 
   ngOnInit(): void {
-    this.meetingsService.getConstraints().subscribe((data: any) => {
-      this.constraints = data;
-    });
+    if (this.clientId) {
+      this.meetingsService.getConstraints(this.clientId).subscribe((data: ClientConstraints) => {
+        this.constraints.set(data);
+      });
+    }
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { ClientInfo } from '../interfaces/client.interface';
+import { ClientConstraints, ClientInfo } from '../interfaces/client.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,34 +11,13 @@ export class MeetingsService {
 
   constructor(private http: HttpClient) {}
 
-  getConstraints(): Observable<string[]> {
-    // Replace with actual HTTP call
-    // return this.http.get<string[]>(this.apiUrl);
-
-    // Mock data for now
-    return of([
-      'No exposure to fossil fuel companies',
-      'No structured products or derivatives',
-      'Wants to remain invested in ASML (min €500K)',
-      'Max 15% allocation to alternatives'
-    ]);
+  getConstraints(clientId:string): Observable<ClientConstraints> {
+    return this.http.get<ClientConstraints>(`${this.apiUrl}/constraints?clientId=${clientId}`);
   }
 
   getClientProfile(clientId:string): Observable<ClientInfo> {
     
     return this.http.get<ClientInfo>(`${this.apiUrl}/profile?clientId=${clientId}`);
-    
-    // Mock data for now
-
-    // return of({
-    //   name: 'Mr. Willem van der Berg',
-    //   age: 52,
-    //   profession: 'Entrepreneur (Tech)',
-    //   riskProfile: 'Moderately Offensive (RP4)',
-    //   esgPreference: 'ESG Leader',
-    //   serviceModel: 'Advisory — Active Advice',
-    //   investmentGoals: 'Wealth Growth, Sustainable Impact'
-    // });
   }
 
   getLastFiveTransactions(): Observable<any[]> {

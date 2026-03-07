@@ -16,14 +16,14 @@ export class MeetingDetailsComponent implements OnInit {
   constructor(private meetingsService: MeetingsService) { }
 
   ngOnInit(): void {
-    this.meetingsService.getConstraints().subscribe(data => {
-      this.meetingDetails = {
-        clientName: data[0],
-        meetingDateTime: data[1],
-        location: data[2],
-        relationshipManager: data[3]
-      };
-    });
+    // this.meetingsService.getConstraints().subscribe(data => {
+    //   this.meetingDetails = {
+    //     clientName: data[0],
+    //     meetingDateTime: data[1],
+    //     location: data[2],
+    //     relationshipManager: data[3]
+    //   };
+    // }); 
   }
 
 }
