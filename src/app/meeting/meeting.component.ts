@@ -8,10 +8,10 @@ import { ClientConstraintsComponent } from './client-constraints/client-constrai
 import { SummaryFromLastMeeting } from './summary-from-last-meeting/summary-from-last-meeting';
 import { Performance } from "./performance/performance";
 import { LastFiveTransactions } from "./last-five-transactions/last-five-transactions";
-import { RiskIndicators } from "./risk-indicators/risk-indicators";
 import { MarketOutlook } from "./market-outlook/market-outlook";
 import { AiRecommendations } from "./ai-recommendations/ai-recommendations";
-
+import { RiskIndicators } from "./risk-indicators/risk-indicators";
+ 
 @Component({
   selector: 'app-meeting',
   standalone: true,
@@ -25,9 +25,9 @@ import { AiRecommendations } from "./ai-recommendations/ai-recommendations";
     SummaryFromLastMeeting,
     Performance,
     LastFiveTransactions,
-    RiskIndicators,
     MarketOutlook,
-    AiRecommendations
+    AiRecommendations,
+    RiskIndicators
 ],
   templateUrl: './meeting.component.html',
   styleUrls: ['./meeting.component.scss']

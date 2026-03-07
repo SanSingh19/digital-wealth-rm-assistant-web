@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MeetingsService } from '../services/meetings.service';
+import { MeetingsService } from '../../services/meetings.service';
 
 @Component({
   selector: 'app-overview',

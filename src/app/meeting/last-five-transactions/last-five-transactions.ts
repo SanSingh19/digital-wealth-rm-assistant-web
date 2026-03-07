@@ -21,9 +21,9 @@ export class LastFiveTransactions implements OnInit {
       this.transactions = data;
     });
 
-    this.meetingsService.getTransactionTypes().subscribe(types => {
-      this.transactionTypes = types;
-    });
+    // this.meetingsService.getTransactionTypes().subscribe(types => {
+    //   this.transactionTypes = types;
+    // });
   }
 
 }
