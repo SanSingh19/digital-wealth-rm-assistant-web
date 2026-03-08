@@ -14,68 +14,33 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             </svg>
-             MiFID II: All Pass
+             {{aiRecommendations()?.complianceStatus}}
         </span>
         <span class="ai-recommendations-subheader-desc">
-            Suitability validated against Moderately Offensive (RP4)
+            {{aiRecommendations()?.suitabilityProfile}}
         </span>
       </div>
     <div>
-        <div class="ai-recommendations-content-box">
-<div class="ai-recommendations-content">
-            <div class="ai-recommendations-content-item">
-                <span class="ai-recommendations-content-item-label">
-                    BUY
+        <div class="ai-recommendations-content-box" *ngFor="let item of aiRecommendations()?.recommendations">
+           <div class="ai-recommendations-content">
+              <div class="ai-recommendations-content-item">
+                <span [ngClass]="{'ai-recommendations-content-item-label': item.action !== 'SWITCH', 'ai-recommendations-content-item-label-blue': item.action === 'SWITCH'}">
+                    {{item.action}}
                 </span>
                 <span class="ai-recommendations-content-item-label1">
-                    ESG European Small Cap Fund
+                    {{item.product}}
                 </span>
                 <span class="ai-recommendations-content-item-label2">
-                    High
+                    {{item.priority}}
                 </span>
             </div>
             <p class="ai-recommendations-content-item-value">
-                Aligns with ESG conviction + taxonomy expansion tailwind. Fills small-cap gap in portfolio.
-            </p>
+                    {{item.rationale}}  
+          </p>
         </div>
         </div>
-              <div class="ai-recommendations-content-box">
-<div class="ai-recommendations-content">
-            <div class="ai-recommendations-content-item">
-                <span class="ai-recommendations-content-item-label">
-                    BUY
-                </span>
-                <span class="ai-recommendations-content-item-label1">
-                    Nordea Climate &amp; Environment Fund
-                </span>
-                <span class="ai-recommendations-content-item-label2">
-                    High
-                </span>
-            </div>
-            <p class="ai-recommendations-content-item-value">
-                Green energy exposure requested by client. Strong track record + thematic fit.
-            </p>
-        </div>
-              </div>
-        
-   <div class="ai-recommendations-content-box">
-    <div class="ai-recommendations-content">
-            <div class="ai-recommendations-content-item">
-                <span class="ai-recommendations-content-item-label-blue">
-                    SWITCH
-                </span>
-                <span class="ai-recommendations-content-item-label1">
-                    Euro Gov Bonds → Short Duration Green Bond
-                </span>
-                <span class="ai-recommendations-content-item-label2">
-                    Medium
-                </span>
-            </div>
-            <p class="ai-recommendations-content-item-value">
-                Reduce rate sensitivity while maintaining sustainable mandate. ECB headwinds on long duration.
-            </p>
-        </div>    
-       </div>
+              
+    
 
         
     </div>

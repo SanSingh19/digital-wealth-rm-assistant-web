@@ -59,3 +59,16 @@ export interface MarketInsight {
   description: string;
   status: string;
 }
+
+export interface AIRecommendationsInfo {
+    complianceStatus: string;
+    suitabilityProfile: string;
+    recommendations: Recommendation[];
+}
+
+export interface Recommendation {
+    action: string;
+    product: string;
+    priority: string;
+    rationale: string;
+}

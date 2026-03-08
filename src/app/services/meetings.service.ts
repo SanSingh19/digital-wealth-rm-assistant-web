@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { ClientConstraints, ClientInfo, ClientPerformance, LastTransactions, MarketOutlookInfo, PersonalAspect } from '../interfaces/client.interface';
+import { AIRecommendationsInfo, ClientConstraints, ClientInfo, ClientPerformance, LastTransactions, MarketOutlookInfo, PersonalAspect } from '../interfaces/client.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -78,5 +78,10 @@ export class MeetingsService {
   getMarketOutlook(rmId:string, clientId:string): Observable<MarketOutlookInfo> {
 
    return this.http.get<MarketOutlookInfo>(`${this.apiUrl}/market/outlook?rmId=2345&clientId=${clientId}`);
+  }
+
+  getAIRecommendations(rmId:string, clientId:string): Observable<AIRecommendationsInfo> {
+
+   return this.http.get<AIRecommendationsInfo>(`${this.apiUrl}/ai-recommendations?rmId=2345&clientId=${clientId}`);
   }
 }
