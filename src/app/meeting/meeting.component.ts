@@ -11,7 +11,7 @@ import { LastFiveTransactions } from "./last-five-transactions/last-five-transac
 import { MarketOutlook } from "./market-outlook/market-outlook";
 import { AiRecommendations } from "./ai-recommendations/ai-recommendations";
 import { RiskIndicators } from "./risk-indicators/risk-indicators";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
  
 @Component({
   selector: 'app-meeting',
@@ -34,9 +34,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./meeting.component.scss']
 })
 export class MeetingComponent implements OnInit {
+
   clientUniqueId = signal<string | null>(null);
   relationshipManagerId = signal<string | null>(null);
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router
+) { }
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
@@ -44,6 +47,9 @@ export class MeetingComponent implements OnInit {
       this.clientUniqueId.set(params.get('clientId'));
       // You can now use this.clientUniqueId() in your component
     });
+  }
+  goBackToMeetings() {
+    this.router.navigate(['/']);
   }
 
 }
