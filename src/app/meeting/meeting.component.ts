@@ -14,7 +14,6 @@ import { RiskIndicators } from "./risk-indicators/risk-indicators";
 import { ActivatedRoute, Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { Meeting } from '../interfaces/meeting.interface';
  
 @Component({
   selector: 'app-meeting',
@@ -39,20 +38,16 @@ import { Meeting } from '../interfaces/meeting.interface';
 export class MeetingComponent implements OnInit {
 
   clientUniqueId = signal<string | null>(null);
-  clientMeetingDetails = signal<Meeting | null>(null);
   relationshipManagerId = signal<string | null>(null);
   constructor(private route: ActivatedRoute,
               private router: Router
 ) { }
 
   ngOnInit(): void {
-    const meetingParam = this.route.snapshot.queryParamMap.get('meeting');
-    const meetingObj = meetingParam ? JSON.parse(meetingParam) : null;
 
     this.route.queryParamMap.subscribe(params => {
       this.relationshipManagerId.set(params.get('rmId'));
       this.clientUniqueId.set(params.get('clientId'));
-      this.clientMeetingDetails.set(meetingObj);
     });
   }
   goBackToMeetings() {

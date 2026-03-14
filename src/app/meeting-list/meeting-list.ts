@@ -103,7 +103,6 @@ export class MeetingList implements OnInit {
 
   // Navigation method to meeting component
   navigateToMeeting(rmId:string, clientId: string): void {
-    const meeting = this.meetingsSignal().find(obj => obj.clientId === clientId);
-    this.router.navigate(['/meeting'], { queryParams: { rmId: rmId, clientId: clientId, meeting: JSON.stringify(meeting) } });
+    this.router.navigate(['/meeting'], { queryParams: { rmId: rmId, clientId: clientId } });
   }
 }
