@@ -208,7 +208,7 @@
   .card-title {
     font-size: 13px;
     font-weight: 700;
-    color: rgb(26 74 122 / var(--tw-text-opacity));
+    color: rgb(26 74 122);
     text-transform: uppercase;
     letter-spacing: 0.025em;
   }
@@ -220,14 +220,18 @@
     line-height: 1.5;
   }
   .info-label {
-    color: rgb(107 114 128 / var(--tw-text-opacity));
+    color: rgb(107 114 128);
     width: 140px;
     flex-shrink: 0;
+    line-height: 2;
   }
   .info-value {
     font-weight: 500;
-    color: rgb(31 41 55 / var(--tw-text-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(31 41 55);
+    line-height: 2;
   }
+  
   
   /* Portfolio styles */
   .portfolio-value {
