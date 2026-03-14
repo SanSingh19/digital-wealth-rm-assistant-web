@@ -1,23 +1,23 @@
-<div class="outer-box" style="background-color:ghostwhite;;margin-top:-252px">
+<div class="outer-box" style="background-color:ghostwhite;;margin-top:-200px">
   <div class="card anim-up" style="animation-delay: 60ms">
     <div class="card-header">
       <h3 class="card-title" style="color: rgb(26, 74, 122);">Client Personal Aspects</h3>
     </div>
     <div class="card-content" *ngIf="personalAspectsData(); else loading">
       <p class="info-row">
-        <span class="font-semibold text-gray-800">Family:</span>
+        <span class="font-semibold text-gray-800">Family</span>:
         <span class="text-gray-600">{{ personalAspectsData()?.family }}</span>
       </p>
       <p class="info-row">
-        <span class="font-semibold text-gray-800">Date of Birth:</span>
+        <span class="font-semibold text-gray-800">Date of Birth</span>:
         <span class="text-gray-600">{{ personalAspectsData()?.dateOfBirth }}</span>
       </p>
       <p class="info-row">
-        <span class="font-semibold text-gray-800">Hobbies:</span>
+        <span class="font-semibold text-gray-800">Hobbies</span>:
         <span class="text-gray-600">{{ personalAspectsData()?.hobbies }}</span>
       </p>
       <p class="info-row">
-        <span class="font-semibold text-gray-800">Other:</span>
+        <span class="font-semibold text-gray-800">Other</span>:
         <span class="text-gray-600">{{ personalAspectsData()?.other }}</span>
       </p>
     </div>

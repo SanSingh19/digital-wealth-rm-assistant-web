@@ -218,6 +218,7 @@
     display: flex;
     font-size: 12px;
     line-height: 1.5;
+    gap: 2px;
   }
   .info-label {
     color: rgb(107 114 128);
@@ -507,9 +508,13 @@
   }
   
   .text-gray-800 {
-    color: rgb(31 41 55 / var(--tw-text-opacity));
+    color: rgb(31 41 55);
   }
   
+  .text-gray-600 {
+    --tw-text-opacity: 1;
+    color: rgb(75 85 99);
+}
   .font-semibold {
     font-weight: 600;
   }
