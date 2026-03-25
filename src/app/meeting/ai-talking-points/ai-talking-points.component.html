@@ -1,0 +1,94 @@
+<div class="talking-points-card" style="background-color:ghostwhite;margin-top: 22px;">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="icon">💡</div>
+    <h3>AI-Generated Talking Points</h3>
+  </div>
+
+  <!-- Grid -->
+  <div class="points-grid">
+
+    <ng-container>
+
+      <div>
+
+        <!-- Section Title -->
+        <p class="section-title">
+          conversationOpeners
+        </p>
+
+        <!-- Points -->
+        <div class="points-list">
+          <div
+            *ngFor="let point of talkingPointsDB()?.conversationOpeners"
+            class="point-item opener"
+          >
+            {{ point }}
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+
+        <!-- Section Title -->
+        <p class="section-title">
+          portfolioDiscussion
+        </p>
+
+        <!-- Points -->
+        <div class="points-list">
+          <div
+            *ngFor="let point of talkingPointsDB()?.portfolioDiscussion"
+            class="point-item portfolio"
+          >
+            {{ point }}
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+
+        <!-- Section Title -->
+        <p class="section-title">
+          productIntroduction
+        </p>
+
+        <!-- Points -->
+        <div class="points-list">
+          <div
+            *ngFor="let point of talkingPointsDB()?.productIntroduction"
+            class="point-item product"
+          >
+            {{ point }}
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+
+        <!-- Section Title -->
+        <p class="section-title">
+          anticipatedObjections
+        </p>
+
+        <!-- Points -->
+        <div class="points-list">
+          <div
+            *ngFor="let point of talkingPointsDB()?.anticipatedObjections"
+            class="point-item objection"
+          >
+            {{ point }}
+          </div>
+        </div>
+
+      </div>
+
+    </ng-container>
+
+  </div>
+
+</div>

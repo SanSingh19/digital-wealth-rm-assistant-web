@@ -1,0 +1,73 @@
+.talking-points-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+
+    .icon {
+      font-size: 16px;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a4a7a;
+    }
+  }
+}
+
+.points-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.section-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.points-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.point-item {
+  font-size: 12px;
+  color: #374151;
+  padding: 10px;
+  border-radius: 8px;
+  border-left: 3px solid;
+  line-height: 1.4;
+}
+
+/* Type styles */
+.opener {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.portfolio {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.product {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.objection {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+}

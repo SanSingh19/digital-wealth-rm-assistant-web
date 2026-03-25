@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { AIRecommendationsInfo, ClientConstraints, ClientInfo, ClientMeetingSummary, ClientPerformance, ClientPortfolioOverview, LastTransactions, MarketOutlookInfo, PersonalAspect, RiskIndicator } from '../interfaces/client.interface';
+import { AIRecommendationsInfo, AiTakingPoints, ClientConstraints, ClientInfo, ClientMeetingSummary, ClientPerformance, ClientPortfolioOverview, LastTransactions, MarketOutlookInfo, PersonalAspect, RiskIndicator } from '../interfaces/client.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +74,9 @@ export class MeetingsService {
   getAIRecommendations(rmId:string, clientId:string): Observable<AIRecommendationsInfo> {
 
    return this.http.get<AIRecommendationsInfo>(`${this.apiUrl}/ai-recommendations?rmId=2345&clientId=${clientId}`);
+  } 
+  
+  getTalkingPoints(rmId:string, clientId:string): Observable<AiTakingPoints> {
+    return this.http.get<AiTakingPoints>(`${this.apiUrl}/ai-talking-points?rmId=2345&clientId=${clientId}`);
   }
 }

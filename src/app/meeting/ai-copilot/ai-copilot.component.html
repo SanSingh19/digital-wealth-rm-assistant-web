@@ -1,0 +1,61 @@
+<!-- Collapsed State -->
+<div *ngIf="!isOpen" class="copilot-card" style="background-color:ghostwhite;margin-top: 22px;">
+  <div class="copilot-info">
+    <div class="icon">🤖</div>
+    <div>
+      <h3>AI Copilot</h3>
+      <p>Ask questions, run what-if scenarios, or refine the brief</p>
+    </div>
+  </div>
+
+  <button class="open-btn" (click)="openCopilot()">
+    Open Copilot
+  </button>
+</div>
+
+<!-- Expanded State -->
+<div *ngIf="isOpen" class="copilot-container">
+
+  <!-- Header -->
+  <div class="copilot-header">
+    <div class="title">
+      🤖 AI Copilot — {{ clientName }}
+    </div>
+    <button (click)="closeCopilot()">Minimize</button>
+  </div>
+
+  <!-- Chat Window -->
+  <div class="chat-window" #chatContainer>
+    <div *ngFor="let msg of messages"
+         [ngClass]="msg.role === 'user' ? 'user-msg' : 'ai-msg'">
+      {{ msg.text }}
+    </div>
+
+    <!-- Typing indicator -->
+    <div *ngIf="isTyping" class="typing">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- Suggested Questions -->
+  <div class="suggestions">
+    <button *ngFor="let q of suggestions"
+            (click)="sendMessage(q)">
+      {{ q }}
+    </button>
+  </div>
+
+  <!-- Input -->
+  <div class="input-area">
+    <input
+      [(ngModel)]="inputText"
+      (keydown.enter)="sendMessage()"
+      placeholder="Ask about the portfolio, recommendations..."
+    />
+
+    <button (click)="sendMessage()" [disabled]="!inputText.trim()">
+      Send
+    </button>
+  </div>
+
+</div>

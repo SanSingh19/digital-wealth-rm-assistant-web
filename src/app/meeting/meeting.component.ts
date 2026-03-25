@@ -14,6 +14,8 @@ import { RiskIndicators } from "./risk-indicators/risk-indicators";
 import { ActivatedRoute, Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { AiTalkingPointsComponent } from './ai-talking-points/ai-talking-points.component';
+import { AiCopilotComponent } from "./ai-copilot/ai-copilot.component";
  
 @Component({
   selector: 'app-meeting',
@@ -30,7 +32,9 @@ import jsPDF from 'jspdf';
     LastFiveTransactions,
     MarketOutlook,
     AiRecommendations,
-    RiskIndicators
+    RiskIndicators,
+    AiTalkingPointsComponent,
+    AiCopilotComponent
 ],
   templateUrl: './meeting.component.html',
   styleUrls: ['./meeting.component.scss']
