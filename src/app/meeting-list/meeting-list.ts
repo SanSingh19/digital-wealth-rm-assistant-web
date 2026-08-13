@@ -34,7 +34,7 @@ export class MeetingList implements OnInit {
 
   ngOnInit(): void {
     // Example: Get meeting by ID
-    this.getMeetingByRMId('2345');
+    this.getMeetingByRMId('1001');
   }
 
   getMeetingByRMId(id: string): void {

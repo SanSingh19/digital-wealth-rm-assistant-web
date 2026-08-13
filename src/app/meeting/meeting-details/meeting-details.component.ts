@@ -22,7 +22,7 @@ export class MeetingDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.rmId && this.clientId) {
-      this.getMeetingByClientId('2345',this.clientId);
+      this.getMeetingByClientId('1001',this.clientId);
     }
   }
 

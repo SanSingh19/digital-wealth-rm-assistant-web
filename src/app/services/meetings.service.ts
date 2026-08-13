@@ -68,15 +68,15 @@ export class MeetingsService {
 
   getMarketOutlook(rmId:string, clientId:string): Observable<MarketOutlookInfo> {
 
-   return this.http.get<MarketOutlookInfo>(`${this.apiUrl}/market/outlook?rmId=2345&clientId=${clientId}`);
+   return this.http.get<MarketOutlookInfo>(`${this.apiUrl}/market/outlook?rmId=1001&clientId=${clientId}`);
   }
 
   getAIRecommendations(rmId:string, clientId:string): Observable<AIRecommendationsInfo> {
 
-   return this.http.get<AIRecommendationsInfo>(`${this.apiUrl}/ai-recommendations?rmId=2345&clientId=${clientId}`);
+   return this.http.get<AIRecommendationsInfo>(`${this.apiUrl}/ai-recommendations?rmId=1001&clientId=${clientId}`);
   } 
   
   getTalkingPoints(rmId:string, clientId:string): Observable<AiTakingPoints> {
-    return this.http.get<AiTakingPoints>(`${this.apiUrl}/ai-talking-points?rmId=2345&clientId=${clientId}`);
+    return this.http.get<AiTakingPoints>(`${this.apiUrl}/ai-talking-points?rmId=1001&clientId=${clientId}`);
   }
 }
