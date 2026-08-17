@@ -24,7 +24,10 @@
         <div class="ai-recommendations-content-box" *ngFor="let item of aiRecommendations()?.recommendations">
            <div class="ai-recommendations-content">
               <div class="ai-recommendations-content-item">
-                <span [ngClass]="{'ai-recommendations-content-item-label': item.action !== 'SWITCH', 'ai-recommendations-content-item-label-blue': item.action === 'SWITCH'}">
+                <span [ngClass]="{
+                          'ai-recommendations-content-item-label': item.action === 'BUY',
+                          'ai-recommendations-content-item-label-red': item.action === 'SELL'
+                }">
                     {{item.action}}
                 </span>
                 <span class="ai-recommendations-content-item-label1">
@@ -35,13 +38,13 @@
                 </span>
             </div>
             <p class="ai-recommendations-content-item-value">
-                    {{item.rationale}}  
+                    {{item.rationale}}
           </p>
         </div>
         </div>
-              
-    
 
-        
+
+
+
     </div>
     </div>
