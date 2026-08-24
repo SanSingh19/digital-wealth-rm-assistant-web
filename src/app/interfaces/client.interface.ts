@@ -74,7 +74,7 @@ export interface Recommendation {
 }
 
 export interface RiskIndicator {
-  
+
   concentrationRisk: string;
   sharpeRatio: string;
   valueAtRisk: string;
@@ -94,9 +94,16 @@ export interface AssetAllocationItem {
 }
 
 export interface ClientMeetingSummary {
+  clientId: number;
+  rmId: string;
   lastMeetingDate: string;
   mainDiscussionPoints: string[];
   clientQuestions: string[];
+}
+
+export interface ClientMeetingSummaryResponse {
+  clientId: number;
+  meetingSummaries: ClientMeetingSummary[];
 }
 
 export interface AiTakingPoints {

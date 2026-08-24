@@ -11,6 +11,8 @@ import { ClientMeetingSummary } from '../../interfaces/client.interface';
   styleUrls: ['../meeting.component.scss','./summary-from-last-meeting.scss']
 })
 export class SummaryFromLastMeeting implements OnInit {
+
+  meetingSummaries = signal<ClientMeetingSummary[]>([]);
   summaryData = signal<ClientMeetingSummary | null>(null);
   @Input() clientId: string | null = null;
 
@@ -19,9 +21,26 @@ export class SummaryFromLastMeeting implements OnInit {
   ngOnInit(): void {
   if (this.clientId) {
       this.meetingsService.getSummaryFromLastMeeting(this.clientId).subscribe(data => {
-        this.summaryData.set(data);
-      });  
+
+
+        this.meetingSummaries.set(data.meetingSummaries);
+
+        if(data.meetingSummaries.length > 0) {
+          this.summaryData.set(data.meetingSummaries[0]);
+        }
+      });
     }
 
     }
+
+  selectMeeting(lastMeetingDate: string): void {
+
+    const selectedMeeting = this.meetingSummaries().find(
+      meeting => meeting.lastMeetingDate === lastMeetingDate
+    );
+
+    if (selectedMeeting) {
+      this.summaryData.set(selectedMeeting);
+    }
+  }
   }

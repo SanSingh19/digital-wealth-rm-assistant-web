@@ -18,25 +18,41 @@
         </span>
         <h3 class="card-title-desc">Summary from Last Meeting</h3>
       </div>
-      <div *ngIf="summaryData">
+      <div *ngIf="summaryData()">
+
         <p class="card-content-desc">
-            Last meeting date: 
-            {{ summaryData()?.lastMeetingDate }}
+          Previous Meeting Date:
         </p>
+
+        <select
+          class="meeting-dropdown"
+          [value]="summaryData()?.lastMeetingDate"
+          (change)="selectMeeting($any($event.target).value)"
+        >
+          <option
+            *ngFor="let meeting of meetingSummaries()"
+            [value]="meeting.lastMeetingDate"
+          >
+            {{ meeting.lastMeetingDate }}
+          </option>
+        </select>
+
         <p class="card-heading-desc">
-            <span class="card-heading-content-desc">
-                Main Discussion Points: 
-            </span>
-            {{ summaryData()?.mainDiscussionPoints }}
+    <span class="card-heading-content-desc">
+      Main Discussion Points:
+    </span>
+          {{ summaryData()?.mainDiscussionPoints }}
         </p>
+
         <p class="card-heading-desc">
-            <span class="card-heading-content-desc">
-                Client Questions: 
-            </span>
-            {{ summaryData()?.clientQuestions }}
+    <span class="card-heading-content-desc">
+      Client Questions:
+    </span>
+          {{ summaryData()?.clientQuestions }}
         </p>
+
       </div>
-      <div *ngIf="!summaryData">
+      <div *ngIf="!summaryData()">
         <p>Loading summary...</p>
       </div>
     </div>

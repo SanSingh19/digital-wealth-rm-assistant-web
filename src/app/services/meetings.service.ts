@@ -1,7 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { AIRecommendationsInfo, AiTakingPoints, ClientConstraints, ClientInfo, ClientMeetingSummary, ClientPerformance, ClientPortfolioOverview, LastTransactions, MarketOutlookInfo, PersonalAspect, RiskIndicator } from '../interfaces/client.interface';
+import {
+  AIRecommendationsInfo,
+  AiTakingPoints,
+  ClientConstraints,
+  ClientInfo,
+  ClientMeetingSummary,
+  ClientMeetingSummaryResponse,
+  ClientPerformance,
+  ClientPortfolioOverview,
+  LastTransactions,
+  MarketOutlookInfo,
+  PersonalAspect,
+  RiskIndicator
+} from '../interfaces/client.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +29,7 @@ export class MeetingsService {
   }
 
   getClientProfile(clientId:string): Observable<ClientInfo> {
-    
+
     return this.http.get<ClientInfo>(`${this.apiUrl}/profile?clientId=${clientId}`);
   }
 
@@ -25,8 +38,12 @@ export class MeetingsService {
     return this.http.get<LastTransactions>(`${this.apiUrl}/last-transactions?clientId=${clientId}`);
   }
 
-  getSummaryFromLastMeeting(clientId:string): Observable<ClientMeetingSummary> {
-    return this.http.get<ClientMeetingSummary>(`${this.apiUrl}/last-meeting-summary?clientId=${clientId}`);
+  getSummaryFromLastMeeting(
+    clientId: string
+  ): Observable<ClientMeetingSummaryResponse> {
+    return this.http.get<ClientMeetingSummaryResponse>(
+      `${this.apiUrl}/last-meeting-summary?clientId=${clientId}`
+    );
   }
 
   getRiskIndicators(clientId: string): Observable<RiskIndicator> {
@@ -74,8 +91,8 @@ export class MeetingsService {
   getAIRecommendations(rmId:string, clientId:string): Observable<AIRecommendationsInfo> {
 
    return this.http.get<AIRecommendationsInfo>(`${this.apiUrl}/ai-recommendations?rmId=1001&clientId=${clientId}`);
-  } 
-  
+  }
+
   getTalkingPoints(rmId:string, clientId:string): Observable<AiTakingPoints> {
     return this.http.get<AiTakingPoints>(`${this.apiUrl}/ai-talking-points?rmId=1001&clientId=${clientId}`);
   }
