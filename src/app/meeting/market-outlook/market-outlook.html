@@ -1,31 +1,32 @@
 <div class="outer-box" style="background-color:ghostwhite;margin-top:-2px">
-    <div class="card anim-up">
-      <div class="card-header">
-        <h3 class="card-title-desc">Market Outlook — Contextual to Client</h3>
-      </div>
-      <p class="market-outlook-desc">
-        {{ marketOutlook()?.marketOutlookSummary }}
+  <div class="card anim-up">
+    <div class="card-header">
+      <h3 class="card-title-desc">Market Outlook — Contextual to Client</h3>
+    </div>
+    <p class="market-outlook-desc">
+      {{ marketOutlook()?.marketOutlookSummary }}
     </p>
     <div class="space-y-2" *ngFor="let item of marketOutlook()?.marketOutlook?.insights">
 
-        <div [ngClass]="{'market-outlook-item': item.status === 'Decrease', 'market-outlook-item-blue': item.status === 'Increase'}">
+      <div [ngClass]="{'market-outlook-item': item.status === 'Decrease', 'market-outlook-item-blue': item.status === 'Increase'}">
             <span class="market-outlook-item-label" *ngIf="item.status === 'Decrease'">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M23 18l-9.5-9.5-5 5L1 6"></path>
                 </svg>
             </span>
-             <span class="market-outlook-item-label-blue" *ngIf="item.status === 'Increase'">
+        <span class="market-outlook-item-label-blue" *ngIf="item.status === 'Increase'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M23 6l-9.5 9.5-5-5L1 18"></path>
             </svg>
         </span>
-          <div>
+        <div>
             <span class="market-outlook-item-value">
                 {{ item.title }}
             </span>
-            <p class="market-outlook-item-value1">
-                {{ item.description }}
-            </p>
-          </div>
+          <p class="market-outlook-item-value1">
+            {{ item.description }}
+          </p>
+        </div>
+      </div>
     </div>
-    </div>
+    <app-citation></app-citation>

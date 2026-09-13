@@ -2,11 +2,12 @@ import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeetingsService } from '../../services/meetings.service';
 import { AIRecommendationsInfo } from '../../interfaces/client.interface';
+import {CitationComponent} from '../citation/citation.component';
 
 @Component({
   selector: 'app-ai-recommendations',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CitationComponent],
   templateUrl: './ai-recommendations.html',
   styleUrls: ['../meeting.component.scss','./ai-recommendations.scss']
 })

@@ -1,0 +1,78 @@
+.citation-link {
+  border: none;
+  background: transparent;
+  padding: 0;
+
+  color: #2563eb;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.citation-link:hover {
+  text-decoration: underline;
+}
+
+
+.citation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+
+.citation-popup {
+  width: 600px;
+  max-width: 90%;
+
+  background: white;
+  border-radius: 10px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+.citation-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 20px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+.citation-header h3 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+.close-button {
+  border: none;
+  background: transparent;
+
+  font-size: 24px;
+  cursor: pointer;
+
+  color: #666;
+}
+
+
+.citation-content {
+  padding: 20px;
+
+  min-height: 150px;
+}

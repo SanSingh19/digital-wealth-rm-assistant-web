@@ -1,0 +1,38 @@
+<button
+  type="button"
+  class="citation-link"
+  (click)="openCitation()">
+  View sources
+</button>
+
+<div
+  class="citation-overlay"
+  *ngIf="showPopup"
+  (click)="closeCitation()">
+
+  <div
+    class="citation-popup"
+    (click)="$event.stopPropagation()">
+
+    <div class="citation-header">
+
+      <h3>Citations (AI Inputs)</h3>
+
+      <button
+        type="button"
+        class="close-button"
+        (click)="closeCitation()">
+        ×
+      </button>
+
+    </div>
+
+    <div class="citation-content">
+
+      <!-- Citation data will be connected later -->
+
+    </div>
+
+  </div>
+
+</div>

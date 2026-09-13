@@ -2,11 +2,12 @@ import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeetingsService } from '../../services/meetings.service';
 import { MarketOutlookInfo } from '../../interfaces/client.interface';
+import {CitationComponent} from '../citation/citation.component';
 
 @Component({
   selector: 'app-market-outlook',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CitationComponent],
   templateUrl: './market-outlook.html',
   styleUrls: ['../meeting.component.scss','./market-outlook.scss']
 })

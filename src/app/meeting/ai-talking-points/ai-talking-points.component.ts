@@ -3,19 +3,20 @@ import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeetingsService } from '../../services/meetings.service';
 import { AiTakingPoints } from '../../interfaces/client.interface';
+import {CitationComponent} from '../citation/citation.component';
 
 @Component({
   selector: 'app-ai-talking-points',
   templateUrl: './ai-talking-points.component.html',
   styleUrls: ['./ai-talking-points.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CitationComponent],
 })
 export class AiTalkingPointsComponent implements OnInit {
 
   talkingPointsDB = signal<AiTakingPoints | null>(null); // Property to hold fetched data as signal
 
-   
+
   @Input() clientId: string | null = null;
   @Input() rmId: string | null = null;
   constructor(private meetingsService: MeetingsService
