@@ -12,13 +12,9 @@
   text-decoration: underline;
 }
 
-
 .citation-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
 
   background: rgba(0, 0, 0, 0.45);
 
@@ -27,19 +23,26 @@
   justify-content: center;
 
   z-index: 1000;
+
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-
 .citation-popup {
-  width: 600px;
-  max-width: 90%;
+  width: 650px;
+  max-width: 100%;
+  max-height: 85vh;
 
   background: white;
   border-radius: 10px;
 
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
 
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
 
 .citation-header {
   display: flex;
@@ -49,8 +52,9 @@
   padding: 16px 20px;
 
   border-bottom: 1px solid #e5e7eb;
-}
 
+  flex-shrink: 0;
+}
 
 .citation-header h3 {
   margin: 0;
@@ -58,7 +62,6 @@
   font-size: 18px;
   font-weight: 600;
 }
-
 
 .close-button {
   border: none;
@@ -68,11 +71,47 @@
   cursor: pointer;
 
   color: #666;
+
+  line-height: 1;
 }
 
+.close-button:hover {
+  color: #111;
+}
 
 .citation-content {
   padding: 20px;
 
-  min-height: 150px;
+  overflow-y: auto;
+
+  min-height: 0;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.citation-content h4 {
+  margin: 0 0 10px;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.citation-content > div {
+  margin-bottom: 22px;
+}
+
+.citation-content > div > div {
+  margin-bottom: 6px;
+}
+
+.citation-content a {
+  color: #2563eb;
+  text-decoration: underline;
+
+  word-break: break-word;
+}
+
+.citation-content a:hover {
+  color: #1d4ed8;
 }

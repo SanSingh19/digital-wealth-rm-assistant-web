@@ -16,7 +16,7 @@
 
     <div class="citation-header">
 
-      <h3>Citations (AI Inputs)</h3>
+      <h3>AI Inputs</h3>
 
       <button
         type="button"
@@ -29,7 +29,361 @@
 
     <div class="citation-content">
 
-      <!-- Citation data will be connected later -->
+      <!-- ========================= -->
+      <!-- MARKET OUTLOOK CITATIONS -->
+      <!-- ========================= -->
+
+      <ng-container *ngIf="citation?.themes?.length">
+
+        <h4>Themes</h4>
+
+        <div *ngFor="let theme of citation.themes">
+          {{ theme }}
+        </div>
+
+      </ng-container>
+
+
+      <ng-container *ngIf="citation?.trends?.length">
+
+        <h4>Trends</h4>
+
+        <div *ngFor="let trend of citation.trends">
+          {{ trend }}
+        </div>
+
+      </ng-container>
+
+
+      <ng-container *ngIf="citation?.market_events?.length">
+
+        <h4>Market Events</h4>
+
+        <div *ngFor="let event of citation.market_events">
+          {{ event }}
+        </div>
+
+      </ng-container>
+
+
+      <ng-container *ngIf="citation?.news_articles?.length">
+
+        <h4>News Articles</h4>
+
+        <div *ngFor="let article of citation.news_articles">
+
+          <a
+            [href]="article"
+            target="_blank"
+            rel="noopener noreferrer">
+            {{ article }}
+          </a>
+
+        </div>
+
+      </ng-container>
+
+
+      <!-- ========================= -->
+      <!-- AI RECOMMENDATIONS -->
+      <!-- ========================= -->
+
+      <ng-container *ngIf="citation?.client_profile">
+
+        <h4>Client Profile</h4>
+
+        <div>
+          <strong>Risk Profile:</strong>
+          {{ citation.client_profile.risk_profile }}
+        </div>
+
+        <div>
+          <strong>Investment Goals:</strong>
+          {{ citation.client_profile.investment_goals }}
+        </div>
+
+        <div>
+          <strong>Profession:</strong>
+          {{ citation.client_profile.profession }}
+        </div>
+
+        <div>
+          <strong>Service Model:</strong>
+          {{ citation.client_profile.service_model }}
+        </div>
+
+        <div>
+          <strong>Preference:</strong>
+          {{ citation.client_profile.preference }}
+        </div>
+
+        <div>
+          <strong>Constraints:</strong>
+          {{ citation.client_profile.constraints }}
+        </div>
+
+
+        <h4>Market Context</h4>
+
+        <strong>Market Outlook Drivers</strong>
+
+        <div
+          *ngFor="let driver of citation.market_context['Market outlook drivers']">
+
+          {{ driver.title }}
+
+        </div>
+
+
+        <strong>Client Match Themes</strong>
+
+        <div
+          *ngFor="let theme of citation.market_context['Client match themes']">
+
+          {{ theme.theme }}
+
+        </div>
+
+
+        <h4>Portfolio Context</h4>
+
+        <strong>Owned Sectors</strong>
+
+        <div
+          *ngFor="let sector of citation.portfolio_context.owned_sector">
+
+          {{ sector.sector_name }}
+          — Signal Score: {{ sector.signal_score }}
+
+        </div>
+
+
+        <strong>Positive Opportunity Sectors</strong>
+
+        <div
+          *ngFor="let sector of citation.portfolio_context.positive_opportunity_sectors">
+
+          {{ sector.sector_name }}
+          — Signal Score: {{ sector.signal_score }}
+
+        </div>
+
+      </ng-container>
+
+      <!-- ========================= -->
+      <!-- TALKING POINTS CITATIONS -->
+      <!-- ========================= -->
+
+      <ng-container *ngIf="citation?.length">
+
+        <div *ngFor="let item of citation">
+
+          <!-- Conversation Openers -->
+          <ng-container *ngIf="item.hobbies !== undefined">
+
+            <h4>Client Details</h4>
+
+            <div>
+              <strong>Client ID:</strong>
+              {{ item.client_id }}
+            </div>
+
+            <div>
+              <strong>Date of Birth:</strong>
+              {{ item.date_of_Birth }}
+            </div>
+
+            <div>
+              <strong>Marital Status:</strong>
+              {{ item.marital_status }}
+            </div>
+
+            <div>
+              <strong>Kids:</strong>
+              {{ item.kids_details }}
+            </div>
+
+            <div>
+              <strong>Hobbies:</strong>
+              {{ item.hobbies }}
+            </div>
+
+            <div>
+              <strong>Other:</strong>
+              {{ item.other }}
+            </div>
+
+            <div>
+              <strong>Client Constraints:</strong>
+              {{ item.client_constraints }}
+            </div>
+
+            <h4>Main Discussion Points</h4>
+
+            <div *ngFor="let point of item.main_discussion_points">
+              {{ point }}
+            </div>
+
+          </ng-container>
+
+
+          <!-- Portfolio Discussion -->
+          <ng-container *ngIf="item.portfolio_details !== undefined">
+
+            <h4>Portfolio Discussion Context</h4>
+
+            <div>
+              <strong>Client ID:</strong>
+              {{ item.client_id }}
+            </div>
+
+            <div>
+              <strong>Risk Profile:</strong>
+              {{ item.risk_profile }}
+            </div>
+
+            <h4>Previous Meeting Summary</h4>
+
+            <div *ngFor="let summary of item.previous_meeting_summary">
+              {{ summary }}
+            </div>
+
+            <h4>Portfolio Details</h4>
+
+            <div>
+              {{ item.portfolio_details | json }}
+            </div>
+
+            <h4>Performance Details</h4>
+
+            <div>
+              {{ item.performance_details | json }}
+            </div>
+
+            <h4>Risk Overview</h4>
+
+            <div>
+              <strong>Concentration:</strong>
+              {{ item.risk_overview?.concentration }}
+            </div>
+
+            <div>
+              <strong>Largest Asset:</strong>
+              {{ item.risk_overview?.largest_asset }}
+            </div>
+
+            <div>
+              <strong>Sharpe Ratio:</strong>
+              {{ item.risk_overview?.sharpe_ratio }}
+            </div>
+
+            <div>
+              <strong>Value at Risk:</strong>
+              {{ item.risk_overview?.value_at_risk }}
+            </div>
+
+            <div>
+              <strong>Max Drawdown:</strong>
+              {{ item.risk_overview?.max_drawdown }}
+            </div>
+
+            <h4>Theme Matches</h4>
+
+            <div *ngFor="let theme of item.theme_matches">
+
+              <strong>{{ theme.theme }}</strong>
+              — Exposure: {{ theme.exposure }}
+              — Sentiment: {{ theme.sentiment }}
+              — Confidence: {{ theme.confidence }}
+
+            </div>
+
+          </ng-container>
+
+
+          <!-- Product Introduction -->
+          <ng-container *ngIf="item.client_question !== undefined">
+
+            <h4>Product Introduction Context</h4>
+
+            <div>
+              <strong>Client ID:</strong>
+              {{ item.client_id }}
+            </div>
+
+            <div>
+              <strong>Client Question:</strong>
+              {{ item.client_question }}
+            </div>
+
+            <div>
+              <strong>Market Outlook:</strong>
+              {{ item.market_outlook }}
+            </div>
+
+            <div>
+              <strong>Funds:</strong>
+              {{ item.funds }}
+            </div>
+
+          </ng-container>
+
+
+          <!-- Anticipated Objections -->
+          <ng-container *ngIf="item.recommended_funds !== undefined">
+
+            <h4>Anticipated Objection Context</h4>
+
+            <div>
+              <strong>Client ID:</strong>
+              {{ item.client_id }}
+            </div>
+
+            <div>
+              <strong>Risk Profile:</strong>
+              {{ item.risk_profile }}
+            </div>
+
+            <div>
+              <strong>Client Constraints:</strong>
+              {{ item.client_constraints }}
+            </div>
+
+            <h4>Previous Meeting Discussion</h4>
+
+            <div *ngFor="let discussion of item.previous_meeting_discussion">
+              {{ discussion }}
+            </div>
+
+            <h4>Previous Client Questions</h4>
+
+            <div *ngFor="let question of item.previous_client_questions">
+              {{ question }}
+            </div>
+
+            <h4>Recommended Funds</h4>
+
+            <div *ngFor="let fund of item.recommended_funds">
+
+              <strong>{{ fund.investment_name }}</strong>
+
+              — {{ fund.sector }}
+
+              — {{ fund.action }}
+
+              — {{ fund.priority }}
+
+              <div>
+                {{ fund.rationale }}
+              </div>
+
+            </div>
+
+          </ng-container>
+
+        </div>
+
+      </ng-container>
 
     </div>
 

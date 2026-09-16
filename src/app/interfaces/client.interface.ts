@@ -48,6 +48,7 @@ export interface PersonalAspect {
 export interface MarketOutlookInfo {
   marketOutlookSummary: string;
   marketOutlook: MarketOutlookInsight;
+  citation: MarketOutlookCitation;
 }
 
 export interface MarketOutlookInsight {
@@ -60,17 +61,63 @@ export interface MarketInsight {
   status: string;
 }
 
+export interface MarketContextCitation {
+  'Market outlook drivers': { [key: string]: any }[];
+  'Client match themes': { [key: string]: any }[];
+}
+
+export interface MarketOutlookCitation {
+  themes: string[];
+  trends: string[];
+  market_events: string[];
+  news_articles: string[];
+}
+
 export interface AIRecommendationsInfo {
-    complianceStatus: string;
-    suitabilityProfile: string;
-    recommendations: Recommendation[];
+  clientId: string;
+  rmId: string;
+  complianceStatus: string;
+  suitabilityProfile: string;
+  recommendations: Recommendation[];
+  citation: FundRecommendationCitation;
+  marketOutlook: MarketOutlook;
+  lastMeetingSummary: MeetingSummary;
 }
 
 export interface Recommendation {
-    action: string;
-    product: string;
-    priority: string;
-    rationale: string;
+  action: string;
+  product: string;
+  priority: string;
+  signal_score: number | null;
+  rationale: string;
+  confidence: number | null;
+}
+
+export interface MeetingSummary {
+  date: string;
+  mainDiscussionPoints: string;
+  clientQuestions: string;
+}
+
+
+export interface FundRecommendationCitation {
+  client_profile: ClientProfileCitation;
+  market_context: MarketContextCitation;
+  portfolio_context: PortfolioContextCitation;
+}
+
+export interface ClientProfileCitation {
+  risk_profile: string;
+  investment_goals: string;
+  profession: string;
+  service_model: string;
+  preference: string;
+  constraints: string;
+}
+
+export interface PortfolioContextCitation {
+  owned_sector: { [key: string]: any }[];
+  positive_opportunity_sectors: { [key: string]: any }[];
 }
 
 export interface RiskIndicator {
@@ -112,4 +159,69 @@ export interface AiTakingPoints {
 	portfolioDiscussion : string[];
 	productIntroduction : string[];
 	anticipatedObjections : string[];
+
+  conversationOpenersCitation: ConversationOpenerCitation[];
+  portfolioDiscussionCitation: PortfolioDiscussionCitation[];
+  productIntroductionCitation: ProductIntroductionCitation[];
+  anticipatedObjectionsCitation: AnticipatedObjectionCitation[];
+}
+
+export interface ConversationOpenerCitation {
+  client_id: number;
+  date_of_Birth: string;
+  marital_status: string;
+  kids_details: string;
+  hobbies: string;
+  other: string;
+  client_constraints: string;
+  main_discussion_points: string[];
+}
+
+export interface PortfolioDiscussionCitation {
+  client_id: number;
+  previous_meeting_summary: string[];
+  risk_profile: string;
+  portfolio_details: { [key: string]: any };
+  performance_details: { [key: string]: any };
+  risk_overview: RiskOverviewCitation;
+  theme_matches: ThemeMatchCitation[];
+}
+
+export interface RiskOverviewCitation {
+  concentration: any;
+  largest_asset: string;
+  sharpe_ratio: any;
+  value_at_risk: any;
+  max_drawdown: any;
+}
+
+export interface ThemeMatchCitation {
+  theme: string;
+  exposure: any;
+  sentiment: string;
+  confidence: any;
+}
+
+export interface ProductIntroductionCitation {
+  client_id: number;
+  client_question: string;
+  market_outlook: string;
+  funds: string;
+}
+
+export interface AnticipatedObjectionCitation {
+  client_id: number;
+  risk_profile: string;
+  client_constraints: string;
+  previous_meeting_discussion: string[];
+  previous_client_questions: string[];
+  recommended_funds: RecommendedFundCitation[];
+}
+
+export interface RecommendedFundCitation {
+  investment_name: string;
+  sector: string;
+  action: string;
+  priority: string;
+  rationale: string;
 }
