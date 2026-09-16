@@ -5,12 +5,19 @@
 
   color: #2563eb;
   font-size: 13px;
+  font-weight: 500;
+
   cursor: pointer;
 }
 
 .citation-link:hover {
   text-decoration: underline;
 }
+
+
+/* =========================================================
+   OVERLAY
+   ========================================================= */
 
 .citation-overlay {
   position: fixed;
@@ -28,15 +35,20 @@
   box-sizing: border-box;
 }
 
+
+/* =========================================================
+   POPUP
+   ========================================================= */
+
 .citation-popup {
-  width: 650px;
+  width: 700px;
   max-width: 100%;
-  max-height: 85vh;
+  max-height: 88vh;
 
-  background: white;
-  border-radius: 10px;
+  background: #ffffff;
+  border-radius: 12px;
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 
   display: flex;
   flex-direction: column;
@@ -44,14 +56,21 @@
   overflow: hidden;
 }
 
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 .citation-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 16px 20px;
+  padding: 18px 22px;
 
-  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+
+  border-bottom: 1px solid #e2e8f0;
 
   flex-shrink: 0;
 }
@@ -59,7 +78,9 @@
 .citation-header h3 {
   margin: 0;
 
-  font-size: 18px;
+  color: #1e3a5f;
+
+  font-size: 19px;
   font-weight: 600;
 }
 
@@ -67,51 +88,271 @@
   border: none;
   background: transparent;
 
-  font-size: 24px;
+  font-size: 25px;
   cursor: pointer;
 
-  color: #666;
+  color: #64748b;
 
   line-height: 1;
+
+  padding: 2px 5px;
 }
 
 .close-button:hover {
-  color: #111;
+  color: #111827;
 }
 
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
 .citation-content {
-  padding: 20px;
+  padding: 22px;
 
   overflow-y: auto;
 
   min-height: 0;
 
+  color: #334155;
+
   font-size: 14px;
+
   line-height: 1.5;
 }
 
-.citation-content h4 {
+
+/* =========================================================
+   MAIN SECTIONS
+   ========================================================= */
+
+.citation-section {
+  margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   MAIN SECTION HEADING
+   ========================================================= */
+
+.section-title {
+  margin: 0 0 14px;
+
+  padding: 0 0 9px;
+
+  color: #1e3a5f;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  border-bottom: 1px solid #dbe3ec;
+}
+
+
+/* =========================================================
+   SUBSECTION
+   ========================================================= */
+
+.subsection {
+  margin-top: 18px;
+}
+
+.subsection-title {
   margin: 0 0 10px;
 
-  font-size: 16px;
+  color: #475569;
+
+  font-size: 14px;
   font-weight: 600;
 }
 
-.citation-content > div {
-  margin-bottom: 22px;
+
+/* =========================================================
+   SIMPLE LIST
+   ========================================================= */
+
+.simple-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
 }
 
-.citation-content > div > div {
-  margin-bottom: 6px;
+.simple-list-item {
+  padding: 11px 13px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 8px;
+
+  color: #334155;
 }
+
+
+/* =========================================================
+   DETAIL CARD
+   ========================================================= */
+
+.detail-card {
+  padding: 14px 16px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 8px;
+}
+
+
+/* =========================================================
+   ITEM LIST
+   ========================================================= */
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+/* =========================================================
+   ITEM CARD
+   ========================================================= */
+
+.item-card {
+  padding: 14px 16px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 8px;
+}
+
+
+/* =========================================================
+   DETAIL ROW
+   ========================================================= */
+
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  margin-bottom: 9px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  min-width: 145px;
+
+  color: #64748b;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.detail-value {
+  flex: 1;
+
+  color: #334155;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
 
 .citation-content a {
   color: #2563eb;
-  text-decoration: underline;
+
+  text-decoration: none;
 
   word-break: break-word;
 }
 
 .citation-content a:hover {
+  text-decoration: underline;
+
   color: #1d4ed8;
+}
+
+
+/* =========================================================
+   TALKING POINTS SEPARATION
+   ========================================================= */
+
+.talking-point-citation {
+  padding-bottom: 8px;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.citation-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.citation-content::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.citation-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+
+  border-radius: 10px;
+}
+
+.citation-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  .citation-overlay {
+    padding: 10px;
+  }
+
+  .citation-popup {
+    width: 100%;
+
+    max-height: 92vh;
+
+    border-radius: 10px;
+  }
+
+  .citation-header {
+    padding: 15px 17px;
+  }
+
+  .citation-content {
+    padding: 17px;
+  }
+
+  .detail-row {
+    flex-direction: column;
+
+    gap: 3px;
+  }
+
+  .detail-label {
+    min-width: 0;
+  }
+
 }
