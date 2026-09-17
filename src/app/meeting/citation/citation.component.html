@@ -806,21 +806,62 @@
 
                   <div class="detail-card">
 
+                    <!-- Asset Allocation -->
                     <div
-                      class="detail-row"
-                      *ngFor="
-                        let entry
-                        of (item.portfolio_details | keyvalue)
-                      "
+                      class="subsection"
+                      *ngIf="item.portfolio_details.assetAllocation?.length"
                     >
 
-                      <span class="detail-label">
-                        {{ entry.key }}
-                      </span>
+                      <h5 class="subsection-title">
+                        Asset Allocation
+                      </h5>
 
-                      <span class="detail-value">
-                        {{ entry.value }}
-                      </span>
+                      <div class="item-list">
+
+                        <div
+                          class="item-card"
+                          *ngFor="let allocation of item.portfolio_details.assetAllocation"
+                        >
+
+                          <div
+                            class="detail-row"
+                            *ngFor="let field of (allocation | keyvalue)"
+                          >
+
+                            <span class="detail-label">
+                              {{ field.key }}
+                            </span>
+
+                            <span class="detail-value">
+                              {{ field.value }}
+                            </span>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                    <!-- Other Portfolio Details -->
+                    <div
+                      class="detail-row"
+                      *ngFor="let entry of (item.portfolio_details | keyvalue)"
+                    >
+
+                      <ng-container *ngIf="entry.key !== 'assetAllocation'">
+
+                        <span class="detail-label">
+                          {{ entry.key }}
+                        </span>
+
+                        <span class="detail-value">
+                          {{ entry.value }}
+                        </span>
+
+                      </ng-container>
 
                     </div>
 
