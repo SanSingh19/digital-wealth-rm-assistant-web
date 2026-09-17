@@ -1,53 +1,185 @@
-<div class="outer-box" style="background-color:ghostwhite;margin-left: 578px;margin-top: 22px;">
-    <div class="card anim-up">
-      <div class="card-header">
-        <span class="text-[#1a4a7a]">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z">
-                </path>
-            </svg>
-        </span>
-        <h3 class="card-title-desc">AI Recommendations</h3>
-      </div>
-      <div class="ai-recommendations-subheader">
-        <span class="ai-recommendations-subheader-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-             {{aiRecommendations()?.complianceStatus}}
-        </span>
-        <span class="ai-recommendations-subheader-desc">
-            {{aiRecommendations()?.suitabilityProfile}}
-        </span>
-      </div>
+<div
+  class="outer-box"
+  style="background-color: ghostwhite; margin-left: 578px; margin-top: 22px;"
+>
+  <div class="card anim-up">
+
+    <!-- Header -->
+    <div class="card-header">
+
+      <span class="text-[#1a4a7a]">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"
+          ></path>
+        </svg>
+      </span>
+
+      <h3 class="card-title-desc">
+        AI Recommendations
+      </h3>
+
+    </div>
+
+
+    <!-- Compliance / Suitability -->
+    <div class="ai-recommendations-subheader">
+
+      <span class="ai-recommendations-subheader-icon">
+
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+          ></path>
+        </svg>
+
+        {{ aiRecommendations()?.complianceStatus }}
+
+      </span>
+
+      <span class="ai-recommendations-subheader-desc">
+        {{ aiRecommendations()?.suitabilityProfile }}
+      </span>
+
+    </div>
+
+
+    <!-- Recommendations -->
     <div>
-        <div class="ai-recommendations-content-box" *ngFor="let item of aiRecommendations()?.recommendations">
-           <div class="ai-recommendations-content">
-              <div class="ai-recommendations-content-item">
-                <span [ngClass]="{
-                          'ai-recommendations-content-item-label': item.action === 'BUY',
-                          'ai-recommendations-content-item-label-red': item.action === 'SELL'
-                }">
-                    {{item.action}}
-                </span>
-                <span class="ai-recommendations-content-item-label1">
-                    {{item.product}}
-                </span>
-                <span class="ai-recommendations-content-item-label2">
-                    {{item.priority}}
-                </span>
-            </div>
-            <p class="ai-recommendations-content-item-value">
-                    {{item.rationale}}
+
+      <div
+        class="ai-recommendations-content-box"
+        *ngFor="let item of aiRecommendations()?.recommendations"
+      >
+
+        <div class="ai-recommendations-content">
+
+
+          <!-- Action / Product / Priority -->
+          <div class="ai-recommendations-content-item">
+
+            <!-- Action -->
+            <span
+              [ngClass]="{
+                'ai-recommendations-content-item-label':
+                  item.action === 'BUY',
+
+                'ai-recommendations-content-item-label-red':
+                  item.action === 'SELL'
+              }"
+            >
+              {{ item.action }}
+            </span>
+
+
+            <!-- Product -->
+            <span class="ai-recommendations-content-item-label1">
+              {{ item.product }}
+            </span>
+
+
+            <!-- Priority -->
+            <span class="ai-recommendations-content-item-label2">
+
+              {{ item.priority }}
+
+              <!-- Signal Score -->
+              <span
+                style="
+                  display: block;
+                  margin-top: 4px;
+                  font-size: 11px;
+                  font-weight: 500;
+                  color: #64748b;
+                  line-height: 1.2;
+                "
+              >
+                Signal Score:
+                <strong
+                  style="
+                    color: #475569;
+                    font-weight: 600;
+                  "
+                >
+                  {{ item.signal_score }}
+                </strong>
+              </span>
+
+            </span>
+
+          </div>
+
+
+          <!-- Rationale -->
+          <p class="ai-recommendations-content-item-value">
+            {{ item.rationale }}
           </p>
+
+
+          <!-- Confidence -->
+          <div
+            style="
+              margin-top: 6px;
+              font-size: 12px;
+              color: #64748b;
+              font-weight: 500;
+            "
+          >
+            Confidence:
+
+            <span
+              style="
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 20px;
+                height: 20px;
+                margin-left: 4px;
+                padding: 0 6px;
+                border-radius: 5px;
+                background: #f1f5f9;
+                color: #475569;
+                font-size: 11px;
+                font-weight: 600;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              {{ item.confidence }}
+            </span>
+
+          </div>
+
+
         </div>
-        </div>
 
-
-
+      </div>
 
     </div>
-      <app-citation
-        [citation]="aiRecommendations()?.citation"
-      ></app-citation>
-    </div>
+
+
+    <!-- Citation -->
+    <app-citation
+      [citation]="aiRecommendations()?.citation"
+    ></app-citation>
+
+
+  </div>
+</div>
