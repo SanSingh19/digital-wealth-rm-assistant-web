@@ -1,128 +1,157 @@
+<!-- Citation Link -->
 <button
   type="button"
   class="citation-link"
-  (click)="openCitation()">
+  (click)="openCitation()"
+  *ngIf="citation"
+>
   View sources
 </button>
 
 
+<!-- Citation Popup -->
 <div
   class="citation-overlay"
   *ngIf="showPopup"
-  (click)="closeCitation()">
+  (click)="closeCitation()"
+>
 
   <div
     class="citation-popup"
-    (click)="$event.stopPropagation()">
+    (click)="$event.stopPropagation()"
+  >
 
-    <!-- HEADER -->
+    <!-- Header -->
     <div class="citation-header">
-      <h3>AI Inputs</h3>
+
+      <h3>
+        Sources
+      </h3>
 
       <button
         type="button"
         class="close-button"
-        (click)="closeCitation()">
+        (click)="closeCitation()"
+        aria-label="Close"
+      >
         ×
       </button>
+
     </div>
 
 
+    <!-- Content -->
     <div class="citation-content">
 
 
-      <!-- ===================================================== -->
-      <!-- MARKET OUTLOOK -->
-      <!-- ===================================================== -->
+      <!-- ========================================================= -->
+      <!-- MARKET OUTLOOK CITATION                                   -->
+      <!-- ========================================================= -->
 
-      <ng-container *ngIf="citation?.themes?.length">
+      <ng-container
+        *ngIf="
+          citation.themes !== undefined ||
+          citation.trends !== undefined ||
+          citation.market_events !== undefined ||
+          citation.news_articles !== undefined
+        "
+      >
 
-        <div class="citation-section">
+        <!-- Themes -->
+        <div
+          class="citation-section"
+          *ngIf="citation.themes?.length"
+        >
 
-          <h4 class="section-title">Themes</h4>
+          <h4 class="section-title">
+            Themes
+          </h4>
 
           <div class="simple-list">
 
             <div
               class="simple-list-item"
-              *ngFor="let theme of citation.themes">
-
+              *ngFor="let theme of citation.themes"
+            >
               {{ theme }}
-
             </div>
 
           </div>
 
         </div>
 
-      </ng-container>
 
+        <!-- Trends -->
+        <div
+          class="citation-section"
+          *ngIf="citation.trends?.length"
+        >
 
-      <ng-container *ngIf="citation?.trends?.length">
-
-        <div class="citation-section">
-
-          <h4 class="section-title">Trends</h4>
+          <h4 class="section-title">
+            Trends
+          </h4>
 
           <div class="simple-list">
 
             <div
               class="simple-list-item"
-              *ngFor="let trend of citation.trends">
-
+              *ngFor="let trend of citation.trends"
+            >
               {{ trend }}
-
             </div>
 
           </div>
 
         </div>
 
-      </ng-container>
 
+        <!-- Market Events -->
+        <div
+          class="citation-section"
+          *ngIf="citation.market_events?.length"
+        >
 
-      <ng-container *ngIf="citation?.market_events?.length">
-
-        <div class="citation-section">
-
-          <h4 class="section-title">Market Events</h4>
+          <h4 class="section-title">
+            Market Events
+          </h4>
 
           <div class="simple-list">
 
             <div
               class="simple-list-item"
-              *ngFor="let event of citation.market_events">
-
+              *ngFor="let event of citation.market_events"
+            >
               {{ event }}
-
             </div>
 
           </div>
 
         </div>
 
-      </ng-container>
 
+        <!-- News Articles -->
+        <div
+          class="citation-section"
+          *ngIf="citation.news_articles?.length"
+        >
 
-      <ng-container *ngIf="citation?.news_articles?.length">
-
-        <div class="citation-section">
-
-          <h4 class="section-title">News Articles</h4>
+          <h4 class="section-title">
+            News Articles
+          </h4>
 
           <div class="simple-list">
 
             <div
               class="simple-list-item"
-              *ngFor="let article of citation.news_articles">
+              *ngFor="let article of citation.news_articles"
+            >
 
               <a
                 [href]="article"
                 target="_blank"
-                rel="noopener noreferrer">
-
+                rel="noopener noreferrer"
+              >
                 {{ article }}
-
               </a>
 
             </div>
@@ -135,57 +164,108 @@
 
 
 
-      <!-- ===================================================== -->
-      <!-- AI RECOMMENDATIONS -->
-      <!-- ===================================================== -->
+      <!-- ========================================================= -->
+      <!-- AI RECOMMENDATIONS CITATION                               -->
+      <!-- ========================================================= -->
 
-      <ng-container *ngIf="citation?.client_profile">
+      <ng-container
+        *ngIf="
+          citation.client_profile !== undefined ||
+          citation.market_context !== undefined ||
+          citation.portfolio_context !== undefined
+        "
+      >
 
-        <!-- CLIENT PROFILE -->
+        <!-- Client Profile -->
+        <div
+          class="citation-section"
+          *ngIf="citation.client_profile"
+        >
 
-        <div class="citation-section">
-
-          <h4 class="section-title">Client Profile</h4>
+          <h4 class="section-title">
+            Client Profile
+          </h4>
 
           <div class="detail-card">
 
-            <div class="detail-row">
-              <span class="detail-label">Risk Profile</span>
+            <div
+              class="detail-row"
+              *ngIf="citation.client_profile.risk_profile !== undefined"
+            >
+              <span class="detail-label">
+                Risk Profile
+              </span>
+
               <span class="detail-value">
                 {{ citation.client_profile.risk_profile }}
               </span>
             </div>
 
-            <div class="detail-row">
-              <span class="detail-label">Investment Goals</span>
+
+            <div
+              class="detail-row"
+              *ngIf="citation.client_profile.investment_goals !== undefined"
+            >
+              <span class="detail-label">
+                Investment Goals
+              </span>
+
               <span class="detail-value">
                 {{ citation.client_profile.investment_goals }}
               </span>
             </div>
 
-            <div class="detail-row">
-              <span class="detail-label">Profession</span>
+
+            <div
+              class="detail-row"
+              *ngIf="citation.client_profile.profession !== undefined"
+            >
+              <span class="detail-label">
+                Profession
+              </span>
+
               <span class="detail-value">
                 {{ citation.client_profile.profession }}
               </span>
             </div>
 
-            <div class="detail-row">
-              <span class="detail-label">Service Model</span>
+
+            <div
+              class="detail-row"
+              *ngIf="citation.client_profile.service_model !== undefined"
+            >
+              <span class="detail-label">
+                Service Model
+              </span>
+
               <span class="detail-value">
                 {{ citation.client_profile.service_model }}
               </span>
             </div>
 
-            <div class="detail-row">
-              <span class="detail-label">Preference</span>
+
+            <div
+              class="detail-row"
+              *ngIf="citation.client_profile.preference !== undefined"
+            >
+              <span class="detail-label">
+                Preference
+              </span>
+
               <span class="detail-value">
                 {{ citation.client_profile.preference }}
               </span>
             </div>
 
-            <div class="detail-row">
-              <span class="detail-label">Constraints</span>
+
+            <div
+              class="detail-row"
+              *ngIf="citation.client_profile.constraints !== undefined"
+            >
+              <span class="detail-label">
+                Constraints
+              </span>
+
               <span class="detail-value">
                 {{ citation.client_profile.constraints }}
               </span>
@@ -196,14 +276,23 @@
         </div>
 
 
-        <!-- MARKET CONTEXT -->
 
-        <div class="citation-section">
+        <!-- Market Context -->
+        <div
+          class="citation-section"
+          *ngIf="citation.market_context"
+        >
 
-          <h4 class="section-title">Market Context</h4>
+          <h4 class="section-title">
+            Market Context
+          </h4>
 
 
-          <div class="subsection">
+          <!-- Market Outlook Drivers -->
+          <div
+            class="subsection"
+            *ngIf="citation.market_context['Market outlook drivers']?.length"
+          >
 
             <h5 class="subsection-title">
               Market Outlook Drivers
@@ -213,26 +302,50 @@
 
               <div
                 class="item-card"
-                *ngFor="let driver of citation.market_context['Market outlook drivers']">
+                *ngFor="
+                  let driver
+                  of citation.market_context['Market outlook drivers']
+                "
+              >
 
-                <div class="detail-row">
-                  <span class="detail-label">Title</span>
+                <div
+                  class="detail-row"
+                  *ngIf="driver.title !== undefined"
+                >
+                  <span class="detail-label">
+                    Title
+                  </span>
+
                   <span class="detail-value">
                     {{ driver.title }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Commentary</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="driver.status !== undefined"
+                >
+                  <span class="detail-label">
+                    Status
+                  </span>
+
                   <span class="detail-value">
-                    {{ driver.commentary }}
+                    {{ driver.status }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Status</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="driver.commentary !== undefined"
+                >
+                  <span class="detail-label">
+                    Commentary
+                  </span>
+
                   <span class="detail-value">
-                    {{ driver.status }}
+                    {{ driver.commentary }}
                   </span>
                 </div>
 
@@ -243,7 +356,12 @@
           </div>
 
 
-          <div class="subsection">
+
+          <!-- Client Match Themes -->
+          <div
+            class="subsection"
+            *ngIf="citation.market_context['Client match themes']?.length"
+          >
 
             <h5 class="subsection-title">
               Client Match Themes
@@ -253,24 +371,48 @@
 
               <div
                 class="item-card"
-                *ngFor="let theme of citation.market_context['Client match themes']">
+                *ngFor="
+                  let theme
+                  of citation.market_context['Client match themes']
+                "
+              >
 
-                <div class="detail-row">
-                  <span class="detail-label">Theme</span>
+                <div
+                  class="detail-row"
+                  *ngIf="theme.theme !== undefined"
+                >
+                  <span class="detail-label">
+                    Theme
+                  </span>
+
                   <span class="detail-value">
                     {{ theme.theme }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Sentiment</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="theme.sentiment !== undefined"
+                >
+                  <span class="detail-label">
+                    Sentiment
+                  </span>
+
                   <span class="detail-value">
                     {{ theme.sentiment }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Matched Sectors</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="theme.matched_sectors !== undefined"
+                >
+                  <span class="detail-label">
+                    Matched Sectors
+                  </span>
+
                   <span class="detail-value">
                     {{ theme.matched_sectors }}
                   </span>
@@ -286,14 +428,22 @@
 
 
 
-        <!-- PORTFOLIO CONTEXT -->
+        <!-- Portfolio Context -->
+        <div
+          class="citation-section"
+          *ngIf="citation.portfolio_context"
+        >
 
-        <div class="citation-section">
+          <h4 class="section-title">
+            Portfolio Context
+          </h4>
 
-          <h4 class="section-title">Portfolio Context</h4>
 
-
-          <div class="subsection">
+          <!-- Owned Sectors -->
+          <div
+            class="subsection"
+            *ngIf="citation.portfolio_context.owned_sector?.length"
+          >
 
             <h5 class="subsection-title">
               Owned Sectors
@@ -303,17 +453,34 @@
 
               <div
                 class="item-card"
-                *ngFor="let sector of citation.portfolio_context.owned_sector">
+                *ngFor="
+                  let sector
+                  of citation.portfolio_context.owned_sector
+                "
+              >
 
-                <div class="detail-row">
-                  <span class="detail-label">Sector</span>
+                <div
+                  class="detail-row"
+                  *ngIf="sector.sector_name !== undefined"
+                >
+                  <span class="detail-label">
+                    Sector
+                  </span>
+
                   <span class="detail-value">
                     {{ sector.sector_name }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Signal Score</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="sector.signal_score !== undefined"
+                >
+                  <span class="detail-label">
+                    Signal Score
+                  </span>
+
                   <span class="detail-value">
                     {{ sector.signal_score }}
                   </span>
@@ -326,7 +493,14 @@
           </div>
 
 
-          <div class="subsection">
+
+          <!-- Positive Opportunity Sectors -->
+          <div
+            class="subsection"
+            *ngIf="
+              citation.portfolio_context.positive_opportunity_sectors?.length
+            "
+          >
 
             <h5 class="subsection-title">
               Positive Opportunity Sectors
@@ -336,17 +510,34 @@
 
               <div
                 class="item-card"
-                *ngFor="let sector of citation.portfolio_context.positive_opportunity_sectors">
+                *ngFor="
+                  let sector
+                  of citation.portfolio_context.positive_opportunity_sectors
+                "
+              >
 
-                <div class="detail-row">
-                  <span class="detail-label">Sector</span>
+                <div
+                  class="detail-row"
+                  *ngIf="sector.sector_name !== undefined"
+                >
+                  <span class="detail-label">
+                    Sector
+                  </span>
+
                   <span class="detail-value">
                     {{ sector.sector_name }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Signal Score</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="sector.signal_score !== undefined"
+                >
+                  <span class="detail-label">
+                    Signal Score
+                  </span>
+
                   <span class="detail-value">
                     {{ sector.signal_score }}
                   </span>
@@ -364,514 +555,161 @@
 
 
 
-      <!-- ===================================================== -->
-      <!-- TALKING POINTS -->
-      <!-- ===================================================== -->
+      <!-- ========================================================= -->
+      <!-- TALKING POINTS CITATION                                   -->
+      <!-- ========================================================= -->
 
-      <ng-container *ngIf="citation?.length">
+      <ng-container
+        *ngIf="
+          citation[0]?.hobbies !== undefined ||
+          citation[0]?.previous_meeting_summary !== undefined ||
+          citation[0]?.client_question !== undefined ||
+          citation[0]?.recommended_funds !== undefined
+        "
+      >
 
         <div
           class="talking-point-citation"
-          *ngFor="let item of citation">
+          *ngFor="let item of citation"
+        >
 
 
-          <!-- ================================================= -->
-          <!-- CONVERSATION OPENERS -->
-          <!-- ================================================= -->
+          <!-- ===================================================== -->
+          <!-- CONVERSATION OPENER                                  -->
+          <!-- ===================================================== -->
 
-          <ng-container *ngIf="item.hobbies !== undefined">
+          <ng-container
+            *ngIf="item.hobbies !== undefined"
+          >
 
             <div class="citation-section">
 
               <h4 class="section-title">
-                Client Details
+                Conversation Opener Sources
               </h4>
 
               <div class="detail-card">
 
-                <div class="detail-row">
-                  <span class="detail-label">Date of Birth</span>
+                <div
+                  class="detail-row"
+                  *ngIf="item.client_id !== undefined"
+                >
+                  <span class="detail-label">
+                    Client ID
+                  </span>
+
+                  <span class="detail-value">
+                    {{ item.client_id }}
+                  </span>
+                </div>
+
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.date_of_Birth !== undefined"
+                >
+                  <span class="detail-label">
+                    Date of Birth
+                  </span>
+
                   <span class="detail-value">
                     {{ item.date_of_Birth }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Marital Status</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.marital_status !== undefined"
+                >
+                  <span class="detail-label">
+                    Marital Status
+                  </span>
+
                   <span class="detail-value">
                     {{ item.marital_status }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Kids</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.kids_details !== undefined"
+                >
+                  <span class="detail-label">
+                    Kids Details
+                  </span>
+
                   <span class="detail-value">
                     {{ item.kids_details }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Hobbies</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.hobbies !== undefined"
+                >
+                  <span class="detail-label">
+                    Hobbies
+                  </span>
+
                   <span class="detail-value">
                     {{ item.hobbies }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Other</span>
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.other !== undefined"
+                >
+                  <span class="detail-label">
+                    Other
+                  </span>
+
                   <span class="detail-value">
                     {{ item.other }}
                   </span>
                 </div>
 
-                <div class="detail-row">
-                  <span class="detail-label">Client Constraints</span>
-                  <span class="detail-value">
-                    {{ item.client_constraints }}
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Main Discussion Points
-              </h4>
-
-              <div class="simple-list">
 
                 <div
-                  class="simple-list-item"
-                  *ngFor="let point of item.main_discussion_points">
-
-                  {{ point }}
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </ng-container>
-
-
-
-          <!-- ================================================= -->
-          <!-- PORTFOLIO DISCUSSION -->
-          <!-- ================================================= -->
-
-          <ng-container *ngIf="item.portfolio_details !== undefined">
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Portfolio Discussion Context
-              </h4>
-
-              <div class="detail-card">
-
-                <div class="detail-row">
-                  <span class="detail-label">Risk Profile</span>
-                  <span class="detail-value">
-                    {{ item.risk_profile }}
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Previous Meeting Summary
-              </h4>
-
-              <div class="simple-list">
-
-                <div
-                  class="simple-list-item"
-                  *ngFor="let summary of item.previous_meeting_summary">
-
-                  {{ summary }}
-
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Portfolio Details
-              </h4>
-
-              <div class="detail-card">
-
-                <div class="detail-row">
+                  class="detail-row"
+                  *ngIf="item.client_constraints !== undefined"
+                >
                   <span class="detail-label">
-                    Portfolio Market Value
+                    Client Constraints
                   </span>
 
-                  <span class="detail-value">
-                    {{ item.portfolio_details?.portfolioMarketValue }}
-                  </span>
-                </div>
-
-              </div>
-
-
-              <div class="subsection">
-
-                <h5 class="subsection-title">
-                  Asset Allocation
-                </h5>
-
-                <div class="item-list">
-
-                  <div
-                    class="item-card"
-                    *ngFor="let allocation of item.portfolio_details?.assetAllocation">
-
-                    <div class="detail-row">
-                      <span class="detail-label">Asset Class</span>
-                      <span class="detail-value">
-                        {{ allocation.assetClass }}
-                      </span>
-                    </div>
-
-                    <div class="detail-row">
-                      <span class="detail-label">Current</span>
-                      <span class="detail-value">
-                        {{ allocation.current }}
-                      </span>
-                    </div>
-
-                    <div class="detail-row">
-                      <span class="detail-label">Bandwidth</span>
-                      <span class="detail-value">
-                        {{ allocation.bandwidth }}
-                      </span>
-                    </div>
-
-                    <div class="detail-row">
-                      <span class="detail-label">In Range</span>
-                      <span class="detail-value">
-                        {{ allocation.inRange }}
-                      </span>
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Performance Details
-              </h4>
-
-              <div class="detail-card">
-
-                <div class="detail-row">
-                  <span class="detail-label">Period</span>
-                  <span class="detail-value">
-                    {{ item.performance_details?.period }}
-                  </span>
-                </div>
-
-                <div class="detail-row">
-                  <span class="detail-label">YTD Return</span>
-                  <span class="detail-value">
-                    {{ item.performance_details?.ytdReturn }}
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Risk Overview
-              </h4>
-
-              <div class="detail-card">
-
-                <div class="detail-row">
-                  <span class="detail-label">Concentration</span>
-                  <span class="detail-value">
-                    {{ item.risk_overview?.concentration }}
-                  </span>
-                </div>
-
-                <div class="detail-row">
-                  <span class="detail-label">Largest Asset</span>
-                  <span class="detail-value">
-                    {{ item.risk_overview?.largest_asset }}
-                  </span>
-                </div>
-
-                <div class="detail-row">
-                  <span class="detail-label">Sharpe Ratio</span>
-                  <span class="detail-value">
-                    {{ item.risk_overview?.sharpe_ratio }}
-                  </span>
-                </div>
-
-                <div class="detail-row">
-                  <span class="detail-label">Value at Risk</span>
-                  <span class="detail-value">
-                    {{ item.risk_overview?.value_at_risk }}
-                  </span>
-                </div>
-
-                <div class="detail-row">
-                  <span class="detail-label">Max Drawdown</span>
-                  <span class="detail-value">
-                    {{ item.risk_overview?.max_drawdown }}
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Theme Matches
-              </h4>
-
-              <div class="item-list">
-
-                <div
-                  class="item-card"
-                  *ngFor="let theme of item.theme_matches">
-
-                  <div class="detail-row">
-                    <span class="detail-label">Theme</span>
-                    <span class="detail-value">
-                      {{ theme.theme }}
-                    </span>
-                  </div>
-
-                  <div class="detail-row">
-                    <span class="detail-label">Exposure</span>
-                    <span class="detail-value">
-                      {{ theme.exposure | number:'1.0-2' }}%
-                    </span>
-                  </div>
-
-                  <div class="detail-row">
-                    <span class="detail-label">Sentiment</span>
-                    <span class="detail-value">
-                      {{ theme.sentiment }}
-                    </span>
-                  </div>
-
-                  <div class="detail-row">
-                    <span class="detail-label">Confidence</span>
-                    <span class="detail-value">
-                      {{ theme.confidence | number:'1.0-2' }}
-                    </span>
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </ng-container>
-
-
-
-          <!-- ================================================= -->
-          <!-- PRODUCT INTRODUCTION -->
-          <!-- ================================================= -->
-
-          <ng-container *ngIf="item.client_question !== undefined">
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Product Introduction Context
-              </h4>
-
-              <div class="detail-card">
-
-                <div class="detail-row">
-                  <span class="detail-label">Client Question</span>
-                  <span class="detail-value">
-                    {{ item.client_question }}
-                  </span>
-                </div>
-
-                <div class="detail-row">
-                  <span class="detail-label">Market Outlook</span>
-                  <span class="detail-value">
-                    {{ item.market_outlook }}
-                  </span>
-                </div>
-
-                <div class="detail-row">
-                  <span class="detail-label">Funds</span>
-                  <span class="detail-value">
-                    {{ item.funds }}
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
-          </ng-container>
-
-
-
-          <!-- ================================================= -->
-          <!-- ANTICIPATED OBJECTIONS -->
-          <!-- ================================================= -->
-
-          <ng-container *ngIf="item.recommended_funds !== undefined">
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Anticipated Objection Context
-              </h4>
-
-              <div class="detail-card">
-
-                <div class="detail-row">
-                  <span class="detail-label">Risk Profile</span>
-                  <span class="detail-value">
-                    {{ item.risk_profile }}
-                  </span>
-                </div>
-
-                <div class="detail-row">
-                  <span class="detail-label">Client Constraints</span>
                   <span class="detail-value">
                     {{ item.client_constraints }}
                   </span>
                 </div>
 
-              </div>
 
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Previous Meeting Discussion
-              </h4>
-
-              <div class="simple-list">
-
+                <!-- Main Discussion Points -->
                 <div
-                  class="simple-list-item"
-                  *ngFor="let discussion of item.previous_meeting_discussion">
+                  class="subsection"
+                  *ngIf="item.main_discussion_points?.length"
+                >
 
-                  {{ discussion }}
+                  <h5 class="subsection-title">
+                    Main Discussion Points
+                  </h5>
 
-                </div>
+                  <div class="simple-list">
 
-              </div>
+                    <div
+                      class="simple-list-item"
+                      *ngFor="
+                        let point
+                        of item.main_discussion_points
+                      "
+                    >
+                      {{ point }}
+                    </div>
 
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Previous Client Questions
-              </h4>
-
-              <div class="simple-list">
-
-                <div
-                  class="simple-list-item"
-                  *ngFor="let question of item.previous_client_questions">
-
-                  {{ question }}
-
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="citation-section">
-
-              <h4 class="section-title">
-                Recommended Funds
-              </h4>
-
-              <div class="item-list">
-
-                <div
-                  class="item-card"
-                  *ngFor="let fund of item.recommended_funds">
-
-                  <div class="detail-row">
-                    <span class="detail-label">
-                      Investment Name
-                    </span>
-
-                    <span class="detail-value">
-                      {{ fund.investment_name }}
-                    </span>
-                  </div>
-
-                  <div class="detail-row">
-                    <span class="detail-label">Sector</span>
-
-                    <span class="detail-value">
-                      {{ fund.sector }}
-                    </span>
-                  </div>
-
-                  <div class="detail-row">
-                    <span class="detail-label">Action</span>
-
-                    <span class="detail-value">
-                      {{ fund.action }}
-                    </span>
-                  </div>
-
-                  <div class="detail-row">
-                    <span class="detail-label">Priority</span>
-
-                    <span class="detail-value">
-                      {{ fund.priority }}
-                    </span>
-                  </div>
-
-                  <div class="detail-row">
-                    <span class="detail-label">Rationale</span>
-
-                    <span class="detail-value">
-                      {{ fund.rationale }}
-                    </span>
                   </div>
 
                 </div>
@@ -882,6 +720,676 @@
 
           </ng-container>
 
+
+
+          <!-- ===================================================== -->
+          <!-- PORTFOLIO DISCUSSION                                 -->
+          <!-- ===================================================== -->
+
+          <ng-container
+            *ngIf="item.previous_meeting_summary !== undefined"
+          >
+
+            <div class="citation-section">
+
+              <h4 class="section-title">
+                Portfolio Discussion Sources
+              </h4>
+
+
+              <div class="detail-card">
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.client_id !== undefined"
+                >
+                  <span class="detail-label">
+                    Client ID
+                  </span>
+
+                  <span class="detail-value">
+                    {{ item.client_id }}
+                  </span>
+                </div>
+
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.risk_profile !== undefined"
+                >
+                  <span class="detail-label">
+                    Risk Profile
+                  </span>
+
+                  <span class="detail-value">
+                    {{ item.risk_profile }}
+                  </span>
+                </div>
+
+
+                <!-- Previous Meeting Summary -->
+                <div
+                  class="subsection"
+                  *ngIf="item.previous_meeting_summary?.length"
+                >
+
+                  <h5 class="subsection-title">
+                    Previous Meeting Summary
+                  </h5>
+
+                  <div class="simple-list">
+
+                    <div
+                      class="simple-list-item"
+                      *ngFor="
+                        let summary
+                        of item.previous_meeting_summary
+                      "
+                    >
+                      {{ summary }}
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Portfolio Details -->
+                <div
+                  class="subsection"
+                  *ngIf="item.portfolio_details"
+                >
+
+                  <h5 class="subsection-title">
+                    Portfolio Details
+                  </h5>
+
+                  <div class="detail-card">
+
+                    <div
+                      class="detail-row"
+                      *ngFor="
+                        let entry
+                        of (item.portfolio_details | keyvalue)
+                      "
+                    >
+
+                      <span class="detail-label">
+                        {{ entry.key }}
+                      </span>
+
+                      <span class="detail-value">
+                        {{ entry.value }}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Performance Details -->
+                <div
+                  class="subsection"
+                  *ngIf="item.performance_details"
+                >
+
+                  <h5 class="subsection-title">
+                    Performance Details
+                  </h5>
+
+                  <div class="detail-card">
+
+                    <div
+                      class="detail-row"
+                      *ngFor="
+                        let entry
+                        of (item.performance_details | keyvalue)
+                      "
+                    >
+
+                      <span class="detail-label">
+                        {{ entry.key }}
+                      </span>
+
+                      <span class="detail-value">
+                        {{ entry.value }}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Risk Overview -->
+                <div
+                  class="subsection"
+                  *ngIf="item.risk_overview"
+                >
+
+                  <h5 class="subsection-title">
+                    Risk Overview
+                  </h5>
+
+                  <div class="detail-card">
+
+                    <div
+                      class="detail-row"
+                      *ngFor="
+                        let entry
+                        of (item.risk_overview | keyvalue)
+                      "
+                    >
+
+                      <span class="detail-label">
+                        {{ entry.key }}
+                      </span>
+
+                      <span class="detail-value">
+                        {{ entry.value }}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Theme Matches -->
+                <div
+                  class="subsection"
+                  *ngIf="item.theme_matches?.length"
+                >
+
+                  <h5 class="subsection-title">
+                    Theme Matches
+                  </h5>
+
+                  <div class="item-list">
+
+                    <div
+                      class="item-card"
+                      *ngFor="let match of item.theme_matches"
+                    >
+
+                      <div
+                        class="detail-row"
+                        *ngIf="match.theme !== undefined"
+                      >
+                        <span class="detail-label">
+                          Theme
+                        </span>
+
+                        <span class="detail-value">
+                          {{ match.theme }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="match.exposure !== undefined"
+                      >
+                        <span class="detail-label">
+                          Exposure
+                        </span>
+
+                        <span class="detail-value">
+                          {{ match.exposure }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="match.sentiment !== undefined"
+                      >
+                        <span class="detail-label">
+                          Sentiment
+                        </span>
+
+                        <span class="detail-value">
+                          {{ match.sentiment }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="match.confidence !== undefined"
+                      >
+                        <span class="detail-label">
+                          Confidence
+                        </span>
+
+                        <span class="detail-value">
+                          {{ match.confidence }}
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </ng-container>
+
+
+
+          <!-- ===================================================== -->
+          <!-- PRODUCT INTRODUCTION                                 -->
+          <!-- ===================================================== -->
+
+          <ng-container
+            *ngIf="item.client_question !== undefined"
+          >
+
+            <div class="citation-section">
+
+              <h4 class="section-title">
+                Product Introduction Sources
+              </h4>
+
+
+              <div class="detail-card">
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.client_id !== undefined"
+                >
+                  <span class="detail-label">
+                    Client ID
+                  </span>
+
+                  <span class="detail-value">
+                    {{ item.client_id }}
+                  </span>
+                </div>
+
+
+                <!-- Client Questions -->
+                <div
+                  class="subsection"
+                  *ngIf="item.client_question !== undefined"
+                >
+
+                  <h5 class="subsection-title">
+                    Client Questions
+                  </h5>
+
+                  <div class="simple-list">
+
+                    <div class="simple-list-item">
+                      {{ item.client_question }}
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Market Outlook -->
+                <div
+                  class="subsection"
+                  *ngIf="item.market_outlook !== undefined"
+                >
+
+                  <h5 class="subsection-title">
+                    Market Outlook
+                  </h5>
+
+                  <div class="detail-card">
+                    {{ item.market_outlook }}
+                  </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- FUNDS                                            -->
+                <!-- ================================================= -->
+
+                <div
+                  class="subsection"
+                  *ngIf="item.funds?.length"
+                >
+
+                  <h5 class="subsection-title">
+                    Funds
+                  </h5>
+
+
+                  <div class="item-list">
+
+                    <!-- IMPORTANT:
+                         funds is already an ARRAY from the API.
+                         Do NOT use parseArray() here.
+                    -->
+
+                    <div
+                      class="item-card"
+                      *ngFor="let fund of item.funds"
+                    >
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.rank !== undefined"
+                      >
+                        <span class="detail-label">
+                          Rank
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.rank }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.sector !== undefined"
+                      >
+                        <span class="detail-label">
+                          Sector
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.sector }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.action !== undefined"
+                      >
+                        <span class="detail-label">
+                          Action
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.action }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.priority !== undefined"
+                      >
+                        <span class="detail-label">
+                          Priority
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.priority }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.rationale !== undefined"
+                      >
+                        <span class="detail-label">
+                          Rationale
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.rationale }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.investment_name !== undefined"
+                      >
+                        <span class="detail-label">
+                          Investment Name
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.investment_name }}
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </ng-container>
+
+
+
+          <!-- ===================================================== -->
+          <!-- ANTICIPATED OBJECTIONS                               -->
+          <!-- ===================================================== -->
+
+          <ng-container
+            *ngIf="item.recommended_funds !== undefined"
+          >
+
+            <div class="citation-section">
+
+              <h4 class="section-title">
+                Anticipated Objections Sources
+              </h4>
+
+
+              <div class="detail-card">
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.client_id !== undefined"
+                >
+                  <span class="detail-label">
+                    Client ID
+                  </span>
+
+                  <span class="detail-value">
+                    {{ item.client_id }}
+                  </span>
+                </div>
+
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.risk_profile !== undefined"
+                >
+                  <span class="detail-label">
+                    Risk Profile
+                  </span>
+
+                  <span class="detail-value">
+                    {{ item.risk_profile }}
+                  </span>
+                </div>
+
+
+                <div
+                  class="detail-row"
+                  *ngIf="item.client_constraints !== undefined"
+                >
+                  <span class="detail-label">
+                    Client Constraints
+                  </span>
+
+                  <span class="detail-value">
+                    {{ item.client_constraints }}
+                  </span>
+                </div>
+
+
+                <!-- Previous Meeting Discussion -->
+                <div
+                  class="subsection"
+                  *ngIf="item.previous_meeting_discussion?.length"
+                >
+
+                  <h5 class="subsection-title">
+                    Previous Meeting Discussion
+                  </h5>
+
+                  <div class="simple-list">
+
+                    <div
+                      class="simple-list-item"
+                      *ngFor="
+                        let discussion
+                        of item.previous_meeting_discussion
+                      "
+                    >
+                      {{ discussion }}
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Previous Client Questions -->
+                <div
+                  class="subsection"
+                  *ngIf="item.previous_client_questions?.length"
+                >
+
+                  <h5 class="subsection-title">
+                    Previous Client Questions
+                  </h5>
+
+                  <div class="simple-list">
+
+                    <div
+                      class="simple-list-item"
+                      *ngFor="
+                        let question
+                        of item.previous_client_questions
+                      "
+                    >
+                      {{ question }}
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Recommended Funds -->
+                <div
+                  class="subsection"
+                  *ngIf="item.recommended_funds?.length"
+                >
+
+                  <h5 class="subsection-title">
+                    Recommended Funds
+                  </h5>
+
+                  <div class="item-list">
+
+                    <div
+                      class="item-card"
+                      *ngFor="
+                        let fund
+                        of item.recommended_funds
+                      "
+                    >
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.investment_name !== undefined"
+                      >
+                        <span class="detail-label">
+                          Investment Name
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.investment_name }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.sector !== undefined"
+                      >
+                        <span class="detail-label">
+                          Sector
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.sector }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.action !== undefined"
+                      >
+                        <span class="detail-label">
+                          Action
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.action }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.priority !== undefined"
+                      >
+                        <span class="detail-label">
+                          Priority
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.priority }}
+                        </span>
+                      </div>
+
+
+                      <div
+                        class="detail-row"
+                        *ngIf="fund.rationale !== undefined"
+                      >
+                        <span class="detail-label">
+                          Rationale
+                        </span>
+
+                        <span class="detail-value">
+                          {{ fund.rationale }}
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </ng-container>
 
         </div>
 
