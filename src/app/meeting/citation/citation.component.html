@@ -49,110 +49,164 @@
       <!-- ========================================================= -->
 
       <ng-container
-        *ngIf="
-          citation.themes !== undefined ||
-          citation.trends !== undefined ||
-          citation.market_events !== undefined ||
-          citation.news_articles !== undefined
-        "
+        *ngIf="citation.themes !== undefined"
       >
 
-        <!-- Themes -->
         <div
           class="citation-section"
           *ngIf="citation.themes?.length"
         >
 
           <h4 class="section-title">
-            Themes
+            Market Outlook Sources
           </h4>
 
-          <div class="simple-list">
+          <p class="market-outlook-description">
+            Market themes, trends, events, and the supporting news sources.
+          </p>
 
-            <div
-              class="simple-list-item"
-              *ngFor="let theme of citation.themes"
-            >
-              {{ theme }}
+
+          <!-- ===================================================== -->
+          <!-- THEMES                                                -->
+          <!-- ===================================================== -->
+
+          <div
+            class="market-theme"
+            *ngFor="let theme of citation.themes"
+          >
+
+            <!-- Theme Heading -->
+            <h5 class="subsection-title">
+              Theme
+            </h5>
+
+            <!-- Theme Box -->
+            <div class="detail-card">
+
+              <div class="detail-value">
+                {{ theme.theme }}
+              </div>
+
             </div>
 
-          </div>
 
-        </div>
-
-
-        <!-- Trends -->
-        <div
-          class="citation-section"
-          *ngIf="citation.trends?.length"
-        >
-
-          <h4 class="section-title">
-            Trends
-          </h4>
-
-          <div class="simple-list">
+            <!-- =================================================== -->
+            <!-- TRENDS                                              -->
+            <!-- =================================================== -->
 
             <div
-              class="simple-list-item"
-              *ngFor="let trend of citation.trends"
-            >
-              {{ trend }}
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Market Events -->
-        <div
-          class="citation-section"
-          *ngIf="citation.market_events?.length"
-        >
-
-          <h4 class="section-title">
-            Market Events
-          </h4>
-
-          <div class="simple-list">
-
-            <div
-              class="simple-list-item"
-              *ngFor="let event of citation.market_events"
-            >
-              {{ event }}
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- News Articles -->
-        <div
-          class="citation-section"
-          *ngIf="citation.news_articles?.length"
-        >
-
-          <h4 class="section-title">
-            News Articles
-          </h4>
-
-          <div class="simple-list">
-
-            <div
-              class="simple-list-item"
-              *ngFor="let article of citation.news_articles"
+              class="subsection"
+              *ngIf="theme.trends?.length"
             >
 
-              <a
-                [href]="article"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {{ article }}
-              </a>
+              <h5 class="subsection-title">
+                Trends
+              </h5>
+
+
+              <div class="item-list">
+
+                <div
+                  class="item-card"
+                  *ngFor="let trend of theme.trends"
+                >
+
+                  <!-- Trend -->
+                  <div class="detail-row">
+
+                    <span class="detail-label">
+                      Trend
+                    </span>
+
+                    <span class="detail-value">
+                      {{ trend.trend }}
+                    </span>
+
+                  </div>
+
+
+                  <!-- ============================================= -->
+                  <!-- MARKET EVENTS                                 -->
+                  <!-- ============================================= -->
+
+                  <div
+                    class="subsection"
+                    *ngIf="trend.events?.length"
+                  >
+
+                    <h5 class="subsection-title">
+                      Market Events
+                    </h5>
+
+
+                    <div class="item-list">
+
+                      <div
+                        class="item-card"
+                        *ngFor="let event of trend.events"
+                      >
+
+                        <!-- Market Event -->
+                        <div
+                          class="detail-row"
+                          *ngIf="event.event !== undefined"
+                        >
+
+                          <span class="detail-label">
+                            Event
+                          </span>
+
+                          <span class="detail-value">
+                            {{ event.event }}
+                          </span>
+
+                        </div>
+
+
+                        <!-- ========================================= -->
+                        <!-- SUPPORTING SOURCES                         -->
+                        <!-- ========================================= -->
+
+                        <div
+                          class="subsection"
+                          *ngIf="event.news_articles?.length"
+                        >
+
+                          <h5 class="subsection-title">
+                            Supporting Sources
+                          </h5>
+
+
+                          <div class="simple-list">
+
+                            <a
+                              class="simple-list-item"
+                              *ngFor="
+                                let article
+                                of event.news_articles
+                              "
+                              [href]="article.url"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+
+                              ↗ {{ article.title }}
+
+                            </a>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
 
             </div>
 
