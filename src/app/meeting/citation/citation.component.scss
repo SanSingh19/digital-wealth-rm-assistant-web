@@ -356,3 +356,403 @@
   }
 
 }
+
+/* =========================================================
+   METHODOLOGY DIVIDER
+   ========================================================= */
+
+.methodology-divider {
+  margin: 28px 0 24px;
+
+  border-top: 1px solid #dbe3ec;
+}
+
+/* =========================================================
+   SIGNAL METHODOLOGY
+   AI RECOMMENDATIONS
+   ========================================================= */
+
+.signal-methodology-section {
+  margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   METHODOLOGY HEADER
+   ========================================================= */
+
+.methodology-header {
+  margin-bottom: 16px;
+
+  padding: 15px 17px;
+
+  background: #f1f6fb;
+
+  border: 1px solid #d7e3ef;
+  border-radius: 10px;
+}
+
+.methodology-title-row {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+}
+
+.methodology-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  background: #ffffff;
+
+  border: 1px solid #d7e3ef;
+  border-radius: 8px;
+
+  color: #1e5a8a;
+}
+
+.methodology-title {
+  margin: 0;
+
+  color: #1e3a5f;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.methodology-subtitle {
+  margin: 3px 0 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   SIGNAL INPUTS
+   ========================================================= */
+
+.signal-inputs {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  margin-bottom: 16px;
+}
+
+
+/* =========================================================
+   SIGNAL CARD
+   ========================================================= */
+
+.signal-card {
+  padding: 14px 15px;
+
+  background: #ffffff;
+
+  border: 1px solid #dfe7ef;
+
+  border-radius: 9px;
+}
+
+.signal-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.signal-card-title {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.signal-number {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  background: #eef4fa;
+
+  border: 1px solid #d5e2ee;
+  border-radius: 50%;
+
+  color: #1e5a8a;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.signal-weight {
+  padding: 4px 9px;
+
+  background: #f1f5f9;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+
+  color: #475569;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.signal-description {
+  margin: 9px 0 10px 33px;
+
+  color: #64748b;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   SIGNAL VALUES
+   ========================================================= */
+
+.signal-values {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-left: 33px;
+}
+
+.signal-values span {
+  padding: 4px 8px;
+
+  border-radius: 5px;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+
+/* Positive */
+.signal-positive {
+  background: #edf8f1;
+
+  border: 1px solid #ccebd7;
+
+  color: #26734d;
+}
+
+
+/* Neutral */
+.signal-neutral {
+  background: #f5f7fa;
+
+  border: 1px solid #e2e8f0;
+
+  color: #64748b;
+}
+
+
+/* Negative */
+.signal-negative {
+  background: #fdf0f0;
+
+  border: 1px solid #f0d2d2;
+
+  color: #a94442;
+}
+
+
+/* =========================================================
+   FINAL CALCULATION
+   ========================================================= */
+
+.signal-calculation {
+  padding: 15px 17px;
+
+  margin-bottom: 16px;
+
+  background: #f8fafc;
+
+  border: 1px solid #dfe7ef;
+
+  border-radius: 9px;
+}
+
+.calculation-label {
+  margin-bottom: 9px;
+
+  color: #475569;
+
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.calculation-formula {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 5px;
+
+  color: #334155;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.formula-weight {
+  color: #1e5a8a;
+
+  font-weight: 700;
+}
+
+.formula-plus {
+  margin: 0 3px;
+
+  color: #94a3b8;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   DECISION THRESHOLDS
+   ========================================================= */
+
+.decision-thresholds {
+  padding: 15px 17px;
+
+  background: #ffffff;
+
+  border: 1px solid #dfe7ef;
+
+  border-radius: 9px;
+}
+
+.threshold-header {
+  margin-bottom: 11px;
+
+  color: #475569;
+
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.threshold-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.threshold-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 8px 10px;
+
+  border-radius: 6px;
+
+  font-size: 12px;
+}
+
+.threshold-status {
+  font-weight: 700;
+}
+
+.threshold-condition {
+  font-weight: 600;
+}
+
+
+/* BUY */
+.threshold-buy {
+  background: #edf8f1;
+
+  border: 1px solid #ccebd7;
+}
+
+.threshold-buy .threshold-status,
+.threshold-buy .threshold-condition {
+  color: #26734d;
+}
+
+
+/* HOLD */
+.threshold-hold {
+  background: #f5f7fa;
+
+  border: 1px solid #e2e8f0;
+}
+
+.threshold-hold .threshold-status,
+.threshold-hold .threshold-condition {
+  color: #64748b;
+}
+
+
+/* SELL */
+.threshold-sell {
+  background: #fdf0f0;
+
+  border: 1px solid #f0d2d2;
+}
+
+.threshold-sell .threshold-status,
+.threshold-sell .threshold-condition {
+  color: #a94442;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  .methodology-header {
+    padding: 13px 14px;
+  }
+
+  .signal-card {
+    padding: 12px 13px;
+  }
+
+  .signal-description {
+    margin-left: 0;
+  }
+
+  .signal-values {
+    margin-left: 0;
+  }
+
+  .calculation-formula {
+    line-height: 1.8;
+  }
+
+}

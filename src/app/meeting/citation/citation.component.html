@@ -45,180 +45,6 @@
 
 
       <!-- ========================================================= -->
-      <!-- MARKET OUTLOOK CITATION                                   -->
-      <!-- ========================================================= -->
-
-      <ng-container
-        *ngIf="citation.themes !== undefined"
-      >
-
-        <div
-          class="citation-section"
-          *ngIf="citation.themes?.length"
-        >
-
-          <h4 class="section-title">
-            Market Outlook Sources
-          </h4>
-
-          <p class="market-outlook-description">
-            Market themes, trends, events, and the supporting news sources.
-          </p>
-
-
-          <!-- ===================================================== -->
-          <!-- THEMES                                                -->
-          <!-- ===================================================== -->
-
-          <div
-            class="market-theme"
-            *ngFor="let theme of citation.themes"
-          >
-
-            <!-- Theme Heading -->
-            <h5 class="subsection-title">
-              Theme
-            </h5>
-
-            <!-- Theme Box -->
-            <div class="detail-card">
-
-              <div class="detail-value">
-                {{ theme.theme }}
-              </div>
-
-            </div>
-
-
-            <!-- =================================================== -->
-            <!-- TRENDS                                              -->
-            <!-- =================================================== -->
-
-            <div
-              class="subsection"
-              *ngIf="theme.trends?.length"
-            >
-
-              <h5 class="subsection-title">
-                Trends
-              </h5>
-
-
-              <div class="item-list">
-
-                <div
-                  class="item-card"
-                  *ngFor="let trend of theme.trends"
-                >
-
-                  <!-- Trend -->
-                  <div class="detail-row">
-
-                    <span class="detail-label">
-                      Trend
-                    </span>
-
-                    <span class="detail-value">
-                      {{ trend.trend }}
-                    </span>
-
-                  </div>
-
-
-                  <!-- ============================================= -->
-                  <!-- MARKET EVENTS                                 -->
-                  <!-- ============================================= -->
-
-                  <div
-                    class="subsection"
-                    *ngIf="trend.events?.length"
-                  >
-
-                    <h5 class="subsection-title">
-                      Market Events
-                    </h5>
-
-
-                    <div class="item-list">
-
-                      <div
-                        class="item-card"
-                        *ngFor="let event of trend.events"
-                      >
-
-                        <!-- Market Event -->
-                        <div
-                          class="detail-row"
-                          *ngIf="event.event !== undefined"
-                        >
-
-                          <span class="detail-label">
-                            Event
-                          </span>
-
-                          <span class="detail-value">
-                            {{ event.event }}
-                          </span>
-
-                        </div>
-
-
-                        <!-- ========================================= -->
-                        <!-- SUPPORTING SOURCES                         -->
-                        <!-- ========================================= -->
-
-                        <div
-                          class="subsection"
-                          *ngIf="event.news_articles?.length"
-                        >
-
-                          <h5 class="subsection-title">
-                            Supporting Sources
-                          </h5>
-
-
-                          <div class="simple-list">
-
-                            <a
-                              class="simple-list-item"
-                              *ngFor="
-                                let article
-                                of event.news_articles
-                              "
-                              [href]="article.url"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-
-                              ↗ {{ article.title }}
-
-                            </a>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </ng-container>
-
-
-
-      <!-- ========================================================= -->
       <!-- AI RECOMMENDATIONS CITATION                               -->
       <!-- ========================================================= -->
 
@@ -330,7 +156,6 @@
         </div>
 
 
-
         <!-- Market Context -->
         <div
           class="citation-section"
@@ -410,7 +235,6 @@
           </div>
 
 
-
           <!-- Client Match Themes -->
           <div
             class="subsection"
@@ -481,7 +305,6 @@
         </div>
 
 
-
         <!-- Portfolio Context -->
         <div
           class="citation-section"
@@ -547,7 +370,6 @@
           </div>
 
 
-
           <!-- Positive Opportunity Sectors -->
           <div
             class="subsection"
@@ -608,6 +430,157 @@
       </ng-container>
 
 
+      <!-- ========================================================= -->
+      <!-- MARKET OUTLOOK CITATION                                   -->
+      <!-- ========================================================= -->
+
+      <ng-container
+        *ngIf="citation.themes !== undefined"
+      >
+
+        <div
+          class="citation-section"
+          *ngIf="citation.themes?.length"
+        >
+
+          <h4 class="section-title">
+            Market Outlook Sources
+          </h4>
+
+          <p class="market-outlook-description">
+            Market themes, trends, events, and the supporting news sources.
+          </p>
+
+
+          <!-- THEMES -->
+          <div
+            class="market-theme"
+            *ngFor="let theme of citation.themes"
+          >
+
+            <h5 class="subsection-title">
+              Theme
+            </h5>
+
+            <div class="detail-card">
+
+              <div class="detail-value">
+                {{ theme.theme }}
+              </div>
+
+            </div>
+
+
+            <!-- TRENDS -->
+            <div
+              class="subsection"
+              *ngIf="theme.trends?.length"
+            >
+
+              <h5 class="subsection-title">
+                Trends
+              </h5>
+
+              <div class="item-list">
+
+                <div
+                  class="item-card"
+                  *ngFor="let trend of theme.trends"
+                >
+
+                  <div class="detail-row">
+
+                    <span class="detail-label">
+                      Trend
+                    </span>
+
+                    <span class="detail-value">
+                      {{ trend.trend }}
+                    </span>
+
+                  </div>
+
+
+                  <!-- MARKET EVENTS -->
+                  <div
+                    class="subsection"
+                    *ngIf="trend.events?.length"
+                  >
+
+                    <h5 class="subsection-title">
+                      Market Events
+                    </h5>
+
+                    <div class="item-list">
+
+                      <div
+                        class="item-card"
+                        *ngFor="let event of trend.events"
+                      >
+
+                        <div
+                          class="detail-row"
+                          *ngIf="event.event !== undefined"
+                        >
+
+                          <span class="detail-label">
+                            Event
+                          </span>
+
+                          <span class="detail-value">
+                            {{ event.event }}
+                          </span>
+
+                        </div>
+
+
+                        <!-- SUPPORTING SOURCES -->
+                        <div
+                          class="subsection"
+                          *ngIf="event.news_articles?.length"
+                        >
+
+                          <h5 class="subsection-title">
+                            Supporting Sources
+                          </h5>
+
+                          <div class="simple-list">
+
+                            <a
+                              class="simple-list-item"
+                              *ngFor="
+                                let article
+                                of event.news_articles
+                              "
+                              [href]="article.url"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              ↗ {{ article.title }}
+                            </a>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </ng-container>
+
 
       <!-- ========================================================= -->
       <!-- TALKING POINTS CITATION                                   -->
@@ -627,11 +600,7 @@
           *ngFor="let item of citation"
         >
 
-
-          <!-- ===================================================== -->
-          <!-- CONVERSATION OPENER                                  -->
-          <!-- ===================================================== -->
-
+          <!-- CONVERSATION OPENER -->
           <ng-container
             *ngIf="item.hobbies !== undefined"
           >
@@ -657,7 +626,6 @@
                   </span>
                 </div>
 
-
                 <div
                   class="detail-row"
                   *ngIf="item.date_of_Birth !== undefined"
@@ -670,7 +638,6 @@
                     {{ item.date_of_Birth }}
                   </span>
                 </div>
-
 
                 <div
                   class="detail-row"
@@ -685,7 +652,6 @@
                   </span>
                 </div>
 
-
                 <div
                   class="detail-row"
                   *ngIf="item.kids_details !== undefined"
@@ -698,7 +664,6 @@
                     {{ item.kids_details }}
                   </span>
                 </div>
-
 
                 <div
                   class="detail-row"
@@ -713,7 +678,6 @@
                   </span>
                 </div>
 
-
                 <div
                   class="detail-row"
                   *ngIf="item.other !== undefined"
@@ -726,7 +690,6 @@
                     {{ item.other }}
                   </span>
                 </div>
-
 
                 <div
                   class="detail-row"
@@ -742,7 +705,6 @@
                 </div>
 
 
-                <!-- Main Discussion Points -->
                 <div
                   class="subsection"
                   *ngIf="item.main_discussion_points?.length"
@@ -775,11 +737,7 @@
           </ng-container>
 
 
-
-          <!-- ===================================================== -->
-          <!-- PORTFOLIO DISCUSSION                                 -->
-          <!-- ===================================================== -->
-
+          <!-- PORTFOLIO DISCUSSION -->
           <ng-container
             *ngIf="item.previous_meeting_summary !== undefined"
           >
@@ -789,7 +747,6 @@
               <h4 class="section-title">
                 Portfolio Discussion Sources
               </h4>
-
 
               <div class="detail-card">
 
@@ -806,7 +763,6 @@
                   </span>
                 </div>
 
-
                 <div
                   class="detail-row"
                   *ngIf="item.risk_profile !== undefined"
@@ -821,7 +777,6 @@
                 </div>
 
 
-                <!-- Previous Meeting Summary -->
                 <div
                   class="subsection"
                   *ngIf="item.previous_meeting_summary?.length"
@@ -860,7 +815,6 @@
 
                   <div class="detail-card">
 
-                    <!-- Asset Allocation -->
                     <div
                       class="subsection"
                       *ngIf="item.portfolio_details.assetAllocation?.length"
@@ -874,7 +828,10 @@
 
                         <div
                           class="item-card"
-                          *ngFor="let allocation of item.portfolio_details.assetAllocation"
+                          *ngFor="
+                            let allocation
+                            of item.portfolio_details.assetAllocation
+                          "
                         >
 
                           <div
@@ -899,13 +856,17 @@
                     </div>
 
 
-                    <!-- Other Portfolio Details -->
                     <div
                       class="detail-row"
-                      *ngFor="let entry of (item.portfolio_details | keyvalue)"
+                      *ngFor="
+                        let entry
+                        of (item.portfolio_details | keyvalue)
+                      "
                     >
 
-                      <ng-container *ngIf="entry.key !== 'assetAllocation'">
+                      <ng-container
+                        *ngIf="entry.key !== 'assetAllocation'"
+                      >
 
                         <span class="detail-label">
                           {{ entry.key }}
@@ -1024,7 +985,6 @@
                         </span>
                       </div>
 
-
                       <div
                         class="detail-row"
                         *ngIf="match.exposure !== undefined"
@@ -1038,7 +998,6 @@
                         </span>
                       </div>
 
-
                       <div
                         class="detail-row"
                         *ngIf="match.sentiment !== undefined"
@@ -1051,7 +1010,6 @@
                           {{ match.sentiment }}
                         </span>
                       </div>
-
 
                       <div
                         class="detail-row"
@@ -1079,11 +1037,7 @@
           </ng-container>
 
 
-
-          <!-- ===================================================== -->
-          <!-- PRODUCT INTRODUCTION                                 -->
-          <!-- ===================================================== -->
-
+          <!-- PRODUCT INTRODUCTION -->
           <ng-container
             *ngIf="item.client_question !== undefined"
           >
@@ -1093,7 +1047,6 @@
               <h4 class="section-title">
                 Product Introduction Sources
               </h4>
-
 
               <div class="detail-card">
 
@@ -1111,7 +1064,6 @@
                 </div>
 
 
-                <!-- Client Questions -->
                 <div
                   class="subsection"
                   *ngIf="item.client_question !== undefined"
@@ -1132,7 +1084,6 @@
                 </div>
 
 
-                <!-- Market Outlook -->
                 <div
                   class="subsection"
                   *ngIf="item.market_outlook !== undefined"
@@ -1149,10 +1100,6 @@
                 </div>
 
 
-                <!-- ================================================= -->
-                <!-- FUNDS                                            -->
-                <!-- ================================================= -->
-
                 <div
                   class="subsection"
                   *ngIf="item.funds?.length"
@@ -1162,13 +1109,7 @@
                     Funds
                   </h5>
 
-
                   <div class="item-list">
-
-                    <!-- IMPORTANT:
-                         funds is already an ARRAY from the API.
-                         Do NOT use parseArray() here.
-                    -->
 
                     <div
                       class="item-card"
@@ -1188,7 +1129,6 @@
                         </span>
                       </div>
 
-
                       <div
                         class="detail-row"
                         *ngIf="fund.sector !== undefined"
@@ -1201,7 +1141,6 @@
                           {{ fund.sector }}
                         </span>
                       </div>
-
 
                       <div
                         class="detail-row"
@@ -1216,7 +1155,6 @@
                         </span>
                       </div>
 
-
                       <div
                         class="detail-row"
                         *ngIf="fund.priority !== undefined"
@@ -1230,7 +1168,6 @@
                         </span>
                       </div>
 
-
                       <div
                         class="detail-row"
                         *ngIf="fund.rationale !== undefined"
@@ -1243,7 +1180,6 @@
                           {{ fund.rationale }}
                         </span>
                       </div>
-
 
                       <div
                         class="detail-row"
@@ -1271,11 +1207,7 @@
           </ng-container>
 
 
-
-          <!-- ===================================================== -->
-          <!-- ANTICIPATED OBJECTIONS                               -->
-          <!-- ===================================================== -->
-
+          <!-- ANTICIPATED OBJECTIONS -->
           <ng-container
             *ngIf="item.recommended_funds !== undefined"
           >
@@ -1285,7 +1217,6 @@
               <h4 class="section-title">
                 Anticipated Objections Sources
               </h4>
-
 
               <div class="detail-card">
 
@@ -1302,7 +1233,6 @@
                   </span>
                 </div>
 
-
                 <div
                   class="detail-row"
                   *ngIf="item.risk_profile !== undefined"
@@ -1315,7 +1245,6 @@
                     {{ item.risk_profile }}
                   </span>
                 </div>
-
 
                 <div
                   class="detail-row"
@@ -1331,7 +1260,6 @@
                 </div>
 
 
-                <!-- Previous Meeting Discussion -->
                 <div
                   class="subsection"
                   *ngIf="item.previous_meeting_discussion?.length"
@@ -1358,7 +1286,6 @@
                 </div>
 
 
-                <!-- Previous Client Questions -->
                 <div
                   class="subsection"
                   *ngIf="item.previous_client_questions?.length"
@@ -1385,7 +1312,6 @@
                 </div>
 
 
-                <!-- Recommended Funds -->
                 <div
                   class="subsection"
                   *ngIf="item.recommended_funds?.length"
@@ -1399,10 +1325,7 @@
 
                     <div
                       class="item-card"
-                      *ngFor="
-                        let fund
-                        of item.recommended_funds
-                      "
+                      *ngFor="let fund of item.recommended_funds"
                     >
 
                       <div
@@ -1418,7 +1341,6 @@
                         </span>
                       </div>
 
-
                       <div
                         class="detail-row"
                         *ngIf="fund.sector !== undefined"
@@ -1431,7 +1353,6 @@
                           {{ fund.sector }}
                         </span>
                       </div>
-
 
                       <div
                         class="detail-row"
@@ -1446,7 +1367,6 @@
                         </span>
                       </div>
 
-
                       <div
                         class="detail-row"
                         *ngIf="fund.priority !== undefined"
@@ -1459,7 +1379,6 @@
                           {{ fund.priority }}
                         </span>
                       </div>
-
 
                       <div
                         class="detail-row"
@@ -1485,6 +1404,323 @@
             </div>
 
           </ng-container>
+
+        </div>
+
+      </ng-container>
+
+
+      <!-- ========================================================= -->
+      <!-- SEPARATOR BEFORE SIGNAL METHODOLOGY                       -->
+      <!-- ========================================================= -->
+
+      <div
+        class="methodology-divider"
+        *ngIf="
+          citation.client_profile !== undefined ||
+          citation.market_context !== undefined ||
+          citation.portfolio_context !== undefined
+        "
+      ></div>
+
+
+      <!-- ========================================================= -->
+      <!-- SIGNAL METHODOLOGY                                        -->
+      <!-- ========================================================= -->
+
+      <ng-container
+        *ngIf="
+          citation.client_profile !== undefined ||
+          citation.market_context !== undefined ||
+          citation.portfolio_context !== undefined
+        "
+      >
+
+        <div class="signal-methodology-section">
+
+          <!-- Methodology Header -->
+          <div class="methodology-header">
+
+            <div class="methodology-title-row">
+
+              <div class="methodology-icon">
+
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 3v18h18"></path>
+                  <path d="M7 16l4-5 3 3 5-7"></path>
+                </svg>
+
+              </div>
+
+              <div>
+
+                <h4 class="methodology-title">
+                  Signal Methodology
+                </h4>
+
+                <p class="methodology-subtitle">
+                  How the recommendation signal is calculated
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Signal Inputs -->
+          <div class="signal-inputs">
+
+            <!-- Market Outlook -->
+            <div class="signal-card">
+
+              <div class="signal-card-top">
+
+                <div class="signal-card-title">
+
+                  <span class="signal-number">
+                    1
+                  </span>
+
+                  <span>
+                    Market Outlook
+                  </span>
+
+                </div>
+
+                <span class="signal-weight">
+                  20%
+                </span>
+
+              </div>
+
+              <p class="signal-description">
+                Measures the current outlook for the client's sector.
+              </p>
+
+              <div class="signal-values">
+
+                <span class="signal-positive">
+                  Increase
+                </span>
+
+                <span class="signal-neutral">
+                  Neutral
+                </span>
+
+                <span class="signal-negative">
+                  Decrease
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- Theme Sentiment -->
+            <div class="signal-card">
+
+              <div class="signal-card-top">
+
+                <div class="signal-card-title">
+
+                  <span class="signal-number">
+                    2
+                  </span>
+
+                  <span>
+                    Theme Sentiment
+                  </span>
+
+                </div>
+
+                <span class="signal-weight">
+                  30%
+                </span>
+
+              </div>
+
+              <p class="signal-description">
+                Measures sentiment from relevant themes matched to the client.
+              </p>
+
+              <div class="signal-values">
+
+                <span class="signal-positive">
+                  Positive
+                </span>
+
+                <span class="signal-neutral">
+                  Mixed / Neutral
+                </span>
+
+                <span class="signal-negative">
+                  Negative
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- News Sentiment -->
+            <div class="signal-card">
+
+              <div class="signal-card-top">
+
+                <div class="signal-card-title">
+
+                  <span class="signal-number">
+                    3
+                  </span>
+
+                  <span>
+                    News Sentiment
+                  </span>
+
+                </div>
+
+                <span class="signal-weight">
+                  50%
+                </span>
+
+              </div>
+
+              <p class="signal-description">
+                Measures sentiment from processed news relevant to the sector.
+              </p>
+
+              <div class="signal-values">
+
+                <span class="signal-positive">
+                  Positive
+                </span>
+
+                <span class="signal-neutral">
+                  Mixed / Neutral
+                </span>
+
+                <span class="signal-negative">
+                  Negative
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Final Calculation -->
+          <div class="signal-calculation">
+
+            <div class="calculation-label">
+              Final Signal Score
+            </div>
+
+            <div class="calculation-formula">
+
+              <span>
+                Outlook
+              </span>
+
+              <span class="formula-weight">
+                × 20%
+              </span>
+
+              <span class="formula-plus">
+                +
+              </span>
+
+              <span>
+                Theme
+              </span>
+
+              <span class="formula-weight">
+                × 30%
+              </span>
+
+              <span class="formula-plus">
+                +
+              </span>
+
+              <span>
+                News
+              </span>
+
+              <span class="formula-weight">
+                × 50%
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- Decision Thresholds -->
+          <div class="decision-thresholds">
+
+            <div class="threshold-header">
+              Decision Thresholds
+            </div>
+
+
+            <div class="threshold-list">
+
+              <!-- BUY -->
+              <div class="threshold-item threshold-buy">
+
+                <div class="threshold-status">
+                  BUY
+                </div>
+
+                <div class="threshold-condition">
+                  Score &gt; 0.30
+                </div>
+
+              </div>
+
+
+              <!-- HOLD -->
+              <div class="threshold-item threshold-hold">
+
+                <div class="threshold-status">
+                  HOLD
+                </div>
+
+                <div class="threshold-condition">
+                  -0.30 to 0.30
+                </div>
+
+              </div>
+
+
+              <!-- SELL -->
+              <div class="threshold-item threshold-sell">
+
+                <div class="threshold-status">
+                  SELL
+                </div>
+
+                <div class="threshold-condition">
+                  Score &lt; -0.30
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
