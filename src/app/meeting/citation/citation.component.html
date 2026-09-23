@@ -434,12 +434,10 @@
       <!-- MARKET OUTLOOK CITATION                                   -->
       <!-- ========================================================= -->
 
-      <ng-container
-        *ngIf="citation.themes !== undefined"
-      >
+      <ng-container *ngIf="citation.themes !== undefined">
 
         <div
-          class="citation-section"
+          class="citation-section market-outlook-section"
           *ngIf="citation.themes?.length"
         >
 
@@ -451,116 +449,102 @@
             Market themes, trends, events, and the supporting news sources.
           </p>
 
-
           <!-- THEMES -->
-          <div
-            class="market-theme"
-            *ngFor="let theme of citation.themes"
-          >
+          <div class="market-themes">
 
-            <h5 class="subsection-title">
-              Theme
-            </h5>
-
-            <div class="detail-card">
-
-              <div class="detail-value">
-                {{ theme.theme }}
-              </div>
-
-            </div>
-
-
-            <!-- TRENDS -->
-            <div
-              class="subsection"
-              *ngIf="theme.trends?.length"
+            <details
+              class="theme-card"
+              *ngFor="let theme of citation.themes"
             >
 
-              <h5 class="subsection-title">
-                Trends
-              </h5>
+              <!-- THEME -->
+              <summary class="theme-header">
+                <div class="theme-header-left">
+                  <span class="accordion-chevron"></span>
 
-              <div class="item-list">
+                  <span class="level-icon theme-icon">◈</span>
 
-                <div
-                  class="item-card"
+                  <div class="level-content">
+                    <span class="level-label">Theme</span>
+                    <span class="theme-name">{{ theme.theme }}</span>
+                  </div>
+                </div>
+              </summary>
+
+              <!-- TRENDS -->
+              <div
+                class="theme-body"
+                *ngIf="theme.trends?.length"
+              >
+
+                <div class="level-connector"></div>
+
+                <details
+                  class="trend-card"
                   *ngFor="let trend of theme.trends"
                 >
 
-                  <div class="detail-row">
+                  <!-- TREND -->
+                  <summary class="trend-header">
+                    <div class="trend-header-left">
+                      <span class="accordion-chevron"></span>
 
-                    <span class="detail-label">
-                      Trend
-                    </span>
+                      <span class="level-icon trend-icon">↗</span>
 
-                    <span class="detail-value">
-                      {{ trend.trend }}
-                    </span>
-
-                  </div>
-
+                      <div class="level-content">
+                        <span class="level-label">Trend</span>
+                        <span class="trend-name">{{ trend.trend }}</span>
+                      </div>
+                    </div>
+                  </summary>
 
                   <!-- MARKET EVENTS -->
                   <div
-                    class="subsection"
+                    class="trend-body"
                     *ngIf="trend.events?.length"
                   >
 
-                    <h5 class="subsection-title">
-                      Market Events
-                    </h5>
+                    <div
+                      class="event-card"
+                      *ngFor="let event of trend.events"
+                    >
 
-                    <div class="item-list">
+                      <div class="event-header">
+                        <span class="level-icon event-icon">●</span>
 
+                        <div class="event-title-container">
+                          <span class="level-label">Market Event</span>
+                          <span class="event-name">{{ event.event }}</span>
+                        </div>
+                      </div>
+
+                      <!-- SUPPORTING NEWS -->
                       <div
-                        class="item-card"
-                        *ngFor="let event of trend.events"
+                        class="news-section"
+                        *ngIf="event.news_articles?.length"
                       >
 
-                        <div
-                          class="detail-row"
-                          *ngIf="event.event !== undefined"
-                        >
-
-                          <span class="detail-label">
-                            Event
+                        <div class="news-header">
+                          <span class="news-icon">↗</span>
+                          <span class="news-title">Supporting News</span>
+                          <span class="news-count">
+                            {{ event.news_articles.length }}
                           </span>
-
-                          <span class="detail-value">
-                            {{ event.event }}
-                          </span>
-
                         </div>
 
-
-                        <!-- SUPPORTING SOURCES -->
-                        <div
-                          class="subsection"
-                          *ngIf="event.news_articles?.length"
-                        >
-
-                          <h5 class="subsection-title">
-                            Supporting Sources
-                          </h5>
-
-                          <div class="simple-list">
-
-                            <a
-                              class="simple-list-item"
-                              *ngFor="
-                                let article
-                                of event.news_articles
-                              "
-                              [href]="article.url"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              ↗ {{ article.title }}
-                            </a>
-
-                          </div>
-
+                        <div class="news-list">
+                          <a
+                            class="news-article"
+                            *ngFor="let article of event.news_articles"
+                            [href]="article.url"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span class="article-icon">↗</span>
+                            <span class="article-title">
+                              {{ article.title }}
+                            </span>
+                          </a>
                         </div>
 
                       </div>
@@ -569,11 +553,11 @@
 
                   </div>
 
-                </div>
+                </details>
 
               </div>
 
-            </div>
+            </details>
 
           </div>
 
@@ -584,6 +568,7 @@
 
       <!-- ========================================================= -->
       <!-- TALKING POINTS CITATION                                   -->
+      -->
       <!-- ========================================================= -->
 
       <ng-container
@@ -1655,7 +1640,7 @@
               </span>
 
               <span>
-                News
+                SectorTag
               </span>
 
               <span class="formula-weight">
