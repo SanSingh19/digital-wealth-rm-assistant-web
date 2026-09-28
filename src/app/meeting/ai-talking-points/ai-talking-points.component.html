@@ -9,85 +9,411 @@
   <!-- Grid -->
   <div class="points-grid">
 
-    <ng-container>
+    <!-- ===================================================== -->
+    <!-- CONVERSATION OPENERS                                  -->
+    <!-- ===================================================== -->
 
-      <div>
+    <div class="talking-point-section">
 
-        <!-- Section Title -->
+      <div class="section-header">
+
         <p class="section-title">
           conversation Openers
         </p>
 
-        <!-- Points -->
-        <div class="points-list">
+        <div class="section-actions">
+
+          <button
+            type="button"
+            class="section-action edit-action"
+            (click)="toggleEdit('conversationOpeners')"
+          >
+            {{ isEditing('conversationOpeners') ? 'Save' : 'Edit' }}
+          </button>
+
+          <button
+            type="button"
+            class="section-action regenerate-action"
+            (click)="openRegenerateDialog('conversationOpeners')"
+          >
+            Regenerate
+          </button>
+
+          <button
+            type="button"
+            class="section-action accept-action"
+            [ngClass]="{
+              'accepted-action': isAccepted('conversationOpeners')
+            }"
+            (click)="acceptSection('conversationOpeners')"
+          >
+            {{ isAccepted('conversationOpeners') ? 'Accepted' : 'Accept' }}
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="points-list">
+
+        <ng-container
+          *ngFor="
+            let point of editedPoints.conversationOpeners;
+            let i = index
+          "
+        >
+
           <div
-            *ngFor="let point of talkingPointsDB()?.conversationOpeners"
+            *ngIf="!isEditing('conversationOpeners')"
             class="point-item opener"
           >
             {{ point }}
           </div>
-        </div>
-        <app-citation [citation]="talkingPointsDB()?.conversationOpenersCitation"></app-citation>
+
+          <textarea
+            *ngIf="isEditing('conversationOpeners')"
+            class="point-edit-input"
+            [(ngModel)]="editedPoints.conversationOpeners[i]"
+            rows="3"
+          ></textarea>
+
+        </ng-container>
+
       </div>
 
-      <div>
+      <app-citation
+        [citation]="talkingPointsDB()?.conversationOpenersCitation"
+      ></app-citation>
 
-        <!-- Section Title -->
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- PORTFOLIO DISCUSSION                                  -->
+    <!-- ===================================================== -->
+
+    <div class="talking-point-section">
+
+      <div class="section-header">
+
         <p class="section-title">
           portfolio Discussion
         </p>
 
-        <!-- Points -->
-        <div class="points-list">
+        <div class="section-actions">
+
+          <button
+            type="button"
+            class="section-action edit-action"
+            (click)="toggleEdit('portfolioDiscussion')"
+          >
+            {{ isEditing('portfolioDiscussion') ? 'Save' : 'Edit' }}
+          </button>
+
+          <button
+            type="button"
+            class="section-action regenerate-action"
+            (click)="openRegenerateDialog('portfolioDiscussion')"
+          >
+            Regenerate
+          </button>
+
+          <button
+            type="button"
+            class="section-action accept-action"
+            [ngClass]="{
+              'accepted-action': isAccepted('portfolioDiscussion')
+            }"
+            (click)="acceptSection('portfolioDiscussion')"
+          >
+            {{ isAccepted('portfolioDiscussion') ? 'Accepted' : 'Accept' }}
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="points-list">
+
+        <ng-container
+          *ngFor="
+            let point of editedPoints.portfolioDiscussion;
+            let i = index
+          "
+        >
+
           <div
-            *ngFor="let point of talkingPointsDB()?.portfolioDiscussion"
+            *ngIf="!isEditing('portfolioDiscussion')"
             class="point-item portfolio"
           >
             {{ point }}
           </div>
-        </div>
-        <app-citation [citation]="talkingPointsDB()?.portfolioDiscussionCitation"></app-citation>
+
+          <textarea
+            *ngIf="isEditing('portfolioDiscussion')"
+            class="point-edit-input"
+            [(ngModel)]="editedPoints.portfolioDiscussion[i]"
+            rows="3"
+          ></textarea>
+
+        </ng-container>
+
       </div>
 
-      <div>
+      <app-citation
+        [citation]="talkingPointsDB()?.portfolioDiscussionCitation"
+      ></app-citation>
 
-        <!-- Section Title -->
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- PRODUCT INTRODUCTION                                  -->
+    <!-- ===================================================== -->
+
+    <div class="talking-point-section">
+
+      <div class="section-header">
+
         <p class="section-title">
           product Introduction
         </p>
 
-        <!-- Points -->
-        <div class="points-list">
+        <div class="section-actions">
+
+          <button
+            type="button"
+            class="section-action edit-action"
+            (click)="toggleEdit('productIntroduction')"
+          >
+            {{ isEditing('productIntroduction') ? 'Save' : 'Edit' }}
+          </button>
+
+          <button
+            type="button"
+            class="section-action regenerate-action"
+            (click)="openRegenerateDialog('productIntroduction')"
+          >
+            Regenerate
+          </button>
+
+          <button
+            type="button"
+            class="section-action accept-action"
+            [ngClass]="{
+              'accepted-action': isAccepted('productIntroduction')
+            }"
+            (click)="acceptSection('productIntroduction')"
+          >
+            {{ isAccepted('productIntroduction') ? 'Accepted' : 'Accept' }}
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="points-list">
+
+        <ng-container
+          *ngFor="
+            let point of editedPoints.productIntroduction;
+            let i = index
+          "
+        >
+
           <div
-            *ngFor="let point of talkingPointsDB()?.productIntroduction"
+            *ngIf="!isEditing('productIntroduction')"
             class="point-item product"
           >
             {{ point }}
           </div>
-        </div>
-        <app-citation [citation]="talkingPointsDB()?.productIntroductionCitation"></app-citation>
+
+          <textarea
+            *ngIf="isEditing('productIntroduction')"
+            class="point-edit-input"
+            [(ngModel)]="editedPoints.productIntroduction[i]"
+            rows="3"
+          ></textarea>
+
+        </ng-container>
+
       </div>
 
-      <div>
+      <app-citation
+        [citation]="talkingPointsDB()?.productIntroductionCitation"
+      ></app-citation>
 
-        <!-- Section Title -->
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- ANTICIPATED OBJECTIONS                                -->
+    <!-- ===================================================== -->
+
+    <div class="talking-point-section">
+
+      <div class="section-header">
+
         <p class="section-title">
           anticipated Objections
         </p>
 
-        <!-- Points -->
-        <div class="points-list">
+        <div class="section-actions">
+
+          <button
+            type="button"
+            class="section-action edit-action"
+            (click)="toggleEdit('anticipatedObjections')"
+          >
+            {{ isEditing('anticipatedObjections') ? 'Save' : 'Edit' }}
+          </button>
+
+          <button
+            type="button"
+            class="section-action regenerate-action"
+            (click)="openRegenerateDialog('anticipatedObjections')"
+          >
+            Regenerate
+          </button>
+
+          <button
+            type="button"
+            class="section-action accept-action"
+            [ngClass]="{
+              'accepted-action': isAccepted('anticipatedObjections')
+            }"
+            (click)="acceptSection('anticipatedObjections')"
+          >
+            {{ isAccepted('anticipatedObjections') ? 'Accepted' : 'Accept' }}
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="points-list">
+
+        <ng-container
+          *ngFor="
+            let point of editedPoints.anticipatedObjections;
+            let i = index
+          "
+        >
+
           <div
-            *ngFor="let point of talkingPointsDB()?.anticipatedObjections"
+            *ngIf="!isEditing('anticipatedObjections')"
             class="point-item objection"
           >
             {{ point }}
           </div>
-        </div>
-        <app-citation [citation]="talkingPointsDB()?.anticipatedObjectionsCitation"></app-citation>
+
+          <textarea
+            *ngIf="isEditing('anticipatedObjections')"
+            class="point-edit-input"
+            [(ngModel)]="editedPoints.anticipatedObjections[i]"
+            rows="3"
+          ></textarea>
+
+        </ng-container>
+
       </div>
 
-    </ng-container>
+      <app-citation
+        [citation]="talkingPointsDB()?.anticipatedObjectionsCitation"
+      ></app-citation>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- REGENERATE DIALOG                                         -->
+<!-- ========================================================= -->
+
+<div
+  class="regenerate-overlay"
+  *ngIf="showRegenerateDialog"
+  (click)="closeRegenerateDialog()"
+>
+
+  <div
+    class="regenerate-dialog"
+    (click)="$event.stopPropagation()"
+  >
+
+    <div class="regenerate-dialog-header">
+
+      <div>
+
+        <h3>
+          Regenerate {{ getSectionTitle(selectedSection) }}
+        </h3>
+
+        <p>
+          Tell AI what you want to change or improve.
+        </p>
+
+      </div>
+
+      <button
+        type="button"
+        class="dialog-close-button"
+        (click)="closeRegenerateDialog()"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="regenerate-dialog-body">
+
+      <label
+        for="regenerateComment"
+        class="regenerate-label"
+      >
+        Changes or instructions
+      </label>
+
+      <textarea
+        id="regenerateComment"
+        class="regenerate-textarea"
+        [(ngModel)]="regenerateComment"
+        placeholder="For example: Make these talking points more concise and client focused."
+        rows="6"
+      ></textarea>
+
+      <span class="regenerate-helper">
+        You can mention changes to the tone, focus, wording,
+        or any specific information you want AI to reconsider.
+      </span>
+
+    </div>
+
+
+    <div class="regenerate-dialog-footer">
+
+      <button
+        type="button"
+        class="dialog-cancel-button"
+        (click)="closeRegenerateDialog()"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="button"
+        class="dialog-generate-button"
+        (click)="regenerateSection()"
+      >
+        Generate
+      </button>
+
+    </div>
 
   </div>
 
