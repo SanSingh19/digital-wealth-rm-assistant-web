@@ -1,114 +1,479 @@
 .card-title-desc {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-    --tw-text-opacity: 1;
-    color: rgb(26 74 122);
-  }
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(26 74 122);
+}
+
+
+/* ========================================================= */
+/* HEADER                                                     */
+/* ========================================================= */
+
+.ai-recommendations-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ai-recommendations-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-recommendations-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+
+/* ========================================================= */
+/* RM REVIEW STATUS                                           */
+/* ========================================================= */
+
+.review-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  border-radius: 5px;
+  padding: 5px 10px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  user-select: none;
+  cursor: default;
+}
+
+
+/* Pending RM Review */
+
+.review-pending {
+  color: #92400e;
+  background-color: #fffbeb;
+  border: 1px solid #f3d28a;
+}
+
+
+/* Completed RM Review */
+
+.review-completed {
+  color: #166534;
+  background-color: #f0fdf4;
+  border: 1px solid #a7d9b5;
+}
+
+
+/* Status Dot */
+
+.review-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pending-dot {
+  background-color: #f59e0b;
+}
+
+.completed-dot {
+  background-color: #16a34a;
+}
+
+
+/* ========================================================= */
+/* ACTION BUTTONS                                             */
+/* ========================================================= */
+
+.review-action {
+  border-radius: 5px;
+  padding: 5px 10px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition: all 0.15s ease;
+}
+
+
+/* Regenerate */
+
+.regenerate-button {
+  color: #1a4a7a;
+  border: 1px solid #b9c9da;
+  background: #ffffff;
+}
+
+.regenerate-button:hover {
+  background-color: #f1f5f9;
+}
+
+
+/* Accept */
+
+.accept-button {
+  color: #047857;
+  border: 1px solid #a7d9c8;
+  background: #ffffff;
+}
+
+.accept-button:hover {
+  background-color: #ecfdf5;
+}
+
+
+/* ========================================================= */
+/* EXISTING SUBHEADER                                         */
+/* ========================================================= */
+
 .ai-recommendations-subheader {
-    display: flex;
-    font-size: 11px;
-    gap: 0.5rem;
-    align-items: center;
-    margin-bottom: 5px;
+  display: flex;
+  font-size: 11px;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 5px;
 }
+
 .ai-recommendations-subheader-icon {
-    --tw-text-opacity: 1;
-    color: rgb(4 120 87);
-    font-weight: 500;
-    padding-top: 0.125rem;
-    padding-bottom: 0.125rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    --tw-bg-opacity: 1;
-    background-color: rgb(236 253 245);
-    border-radius: 9999px;
-    gap: 0.25rem;
-    align-items: center;
-    display: flex;
+  --tw-text-opacity: 1;
+  color: rgb(4 120 87);
+  font-weight: 500;
+
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 253 245);
+
+  border-radius: 9999px;
+  gap: 0.25rem;
+  align-items: center;
+  display: flex;
 }
+
 .ai-recommendations-subheader-desc {
-    --tw-text-opacity: 1;
-    color: rgb(156 163 175);
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175);
 }
+
+
+/* ========================================================= */
+/* EXISTING RECOMMENDATION CARD                               */
+/* ========================================================= */
+
 .ai-recommendations-content {
-    padding: 0.75rem;
-    border-width: 1px;
-    border-radius: 0.5rem;
+  padding: 0.75rem;
+  border-width: 1px;
+  border-radius: 0.5rem;
 }
+
 .ai-recommendations-content-item {
-    gap: 0.5rem;
-    align-items: center;
-    display: flex;
-    margin-bottom:0.25rem;
+  gap: 0.5rem;
+  align-items: center;
+  display: flex;
+  margin-bottom: 0.25rem;
 }
+
 .ai-recommendations-content-item-label {
-    --tw-text-opacity: 1;
-    color: rgb(4 120 87);
-    font-weight:700;
-    font-size:10px;
-    padding-top: .125rem;
-    padding-bottom: .125rem;
-    padding-left: .5rem;
-    padding-right: .5rem;
-    --tw-bg-opacity: 1;
-    background-color: rgb(209 250 229);
-    border-radius: 0.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(4 120 87);
+  font-weight: 700;
+  font-size: 10px;
+
+  padding-top: .125rem;
+  padding-bottom: .125rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 250 229);
+
+  border-radius: 0.25rem;
 }
 
 .ai-recommendations-content-item-label-red {
-    color: rgb(220 38 38);
-    font-weight: 700;
-    font-size: 10px;
-    padding-top: .125rem;
-    padding-bottom: .125rem;
-    padding-left: .5rem;
-    padding-right: .5rem;
-    background-color: rgb(254 226 226);
-    border-radius: 0.25rem;
+  color: rgb(220 38 38);
+  font-weight: 700;
+  font-size: 10px;
+
+  padding-top: .125rem;
+  padding-bottom: .125rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+
+  background-color: rgb(254 226 226);
+  border-radius: 0.25rem;
 }
+
 .ai-recommendations-content-item-label1 {
-    --tw-text-opacity: 1;
-    color: rgb(31 41 55);
-    font-weight: 600;
-    font-size: 13px;
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55);
+  font-weight: 600;
+  font-size: 13px;
 }
+
 .ai-recommendations-content-item-label2 {
-   -tw-text-opacity: 1;
-    color: rgb(4 120 87);
-    font-weight: 500;
-    font-size: 10px;
-    padding-top: .125rem;
-    padding-bottom: .125rem;
-    padding-left: .375rem;
-    padding-right: .375rem;
-    --tw-bg-opacity: 1;
-    background-color: rgb(236 253 245);
-    border-radius: 9999px;
-    margin-left: auto;
+  color: rgb(4 120 87);
+  font-weight: 500;
+  font-size: 10px;
+
+  padding-top: .125rem;
+  padding-bottom: .125rem;
+  padding-left: .375rem;
+  padding-right: .375rem;
+
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 253 245);
+
+  border-radius: 9999px;
+  margin-left: auto;
 }
 
 .ai-recommendations-content-item-value {
-    --tw-text-opacity: 1;
-    color: rgb(75 85 99);
-    font-size: 11px;
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99);
+  font-size: 11px;
 }
-.ai-recommendations-content-item-label-blue {
-    --tw-text-opacity: 1;
-    color: rgb(29 78 216);
-    font-weight:700;
-    font-size:10px;
-    padding-top: .125rem;
-    padding-bottom: .125rem;
-    padding-left: .5rem;
-    padding-right: .5rem;
-    --tw-bg-opacity: 1;
-    background-color: rgb(219 234 254);
-    border-radius: 0.25rem;
-}
+
 .ai-recommendations-content-box {
-    border: 1px solid #e5e7eb;
-    background: #fff;
-    margin-bottom: 10px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+
+/* ========================================================= */
+/* TALKING POINTS                                            */
+/* ========================================================= */
+
+.talking-points-selection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 10px;
+  padding-top: 8px;
+
+  border-top: 1px solid #f1f5f9;
+}
+
+.talking-points-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6b7280;
+
+  margin-right: 2px;
+}
+
+.talking-points-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  font-size: 10px;
+  color: #4b5563;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.talking-points-option input[type="radio"] {
+  margin: 0;
+  width: 13px;
+  height: 13px;
+
+  accent-color: #1a4a7a;
+  cursor: pointer;
+}
+
+
+/* ========================================================= */
+/* REGENERATE OVERLAY                                        */
+/* ========================================================= */
+
+.regenerate-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.35);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+  padding: 20px;
+}
+
+.regenerate-dialog {
+  width: 100%;
+  max-width: 520px;
+
+  background: #ffffff;
+  border-radius: 8px;
+
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+
+  overflow: hidden;
+}
+
+.regenerate-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 16px 18px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.regenerate-dialog-header h3 {
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #1a4a7a;
+}
+
+.regenerate-dialog-header p {
+  margin: 5px 0 0;
+
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.dialog-close-button {
+  border: none;
+  background: transparent;
+
+  color: #6b7280;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+  padding: 0;
+}
+
+.dialog-close-button:hover {
+  color: #111827;
+}
+
+.regenerate-dialog-body {
+  padding: 18px;
+}
+
+.regenerate-label {
+  display: block;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  color: #374151;
+
+  margin-bottom: 6px;
+}
+
+.regenerate-textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  resize: vertical;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+
+  padding: 9px 10px;
+
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+
+  color: #374151;
+
+  outline: none;
+}
+
+.regenerate-textarea:focus {
+  border-color: #1a4a7a;
+
+  box-shadow:
+    0 0 0 1px rgba(26, 74, 122, 0.12);
+}
+
+.regenerate-helper {
+  display: block;
+
+  margin-top: 7px;
+
+  font-size: 10px;
+  line-height: 1.4;
+
+  color: #6b7280;
+}
+
+.regenerate-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 7px;
+
+  padding: 12px 18px;
+
+  border-top: 1px solid #e5e7eb;
+
+  background: #f9fafb;
+}
+
+.dialog-cancel-button,
+.dialog-generate-button {
+  border-radius: 5px;
+
+  padding: 6px 13px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.dialog-cancel-button {
+  border: 1px solid #d1d5db;
+
+  background: #ffffff;
+
+  color: #374151;
+}
+
+.dialog-cancel-button:hover {
+  background: #f3f4f6;
+}
+
+.dialog-generate-button {
+  border: 1px solid #1a4a7a;
+
+  background: #1a4a7a;
+
+  color: #ffffff;
+}
+
+.dialog-generate-button:hover {
+  background: #163f68;
 }

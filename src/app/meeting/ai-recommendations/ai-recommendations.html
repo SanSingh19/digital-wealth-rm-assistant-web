@@ -5,28 +5,79 @@
   <div class="card anim-up">
 
     <!-- Header -->
-    <div class="card-header">
+    <div class="card-header ai-recommendations-header">
 
-      <span class="text-[#1a4a7a]">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+      <div class="ai-recommendations-title">
+
+        <span class="text-[#1a4a7a]">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"
+            ></path>
+          </svg>
+        </span>
+
+        <h3 class="card-title-desc">
+          AI Recommendations
+        </h3>
+
+      </div>
+
+
+      <!-- RM Review / Regenerate / Accept -->
+      <div class="ai-recommendations-actions">
+
+        <!-- RM Review - Status only -->
+        <span
+          class="review-status"
+          [ngClass]="{
+            'review-pending': !rmReviewAccepted,
+            'review-completed': rmReviewAccepted
+          }"
         >
-          <path
-            d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"
-          ></path>
-        </svg>
-      </span>
 
-      <h3 class="card-title-desc">
-        AI Recommendations
-      </h3>
+          <span
+            class="review-status-dot"
+            [ngClass]="{
+              'pending-dot': !rmReviewAccepted,
+              'completed-dot': rmReviewAccepted
+            }"
+          ></span>
+
+          {{ rmReviewAccepted ? 'RM Reviewed' : 'RM Review' }}
+
+        </span>
+
+
+        <!-- Regenerate -->
+        <button
+          type="button"
+          class="review-action regenerate-button"
+          (click)="openRegenerateDialog()"
+        >
+          Regenerate
+        </button>
+
+
+        <!-- Accept -->
+        <button
+          type="button"
+          class="review-action accept-button"
+          (click)="acceptReview()"
+        >
+          Accept
+        </button>
+
+      </div>
 
     </div>
 
@@ -67,7 +118,7 @@
 
       <div
         class="ai-recommendations-content-box"
-        *ngFor="let item of aiRecommendations()?.recommendations"
+        *ngFor="let item of aiRecommendations()?.recommendations; let i = index"
       >
 
         <div class="ai-recommendations-content">
@@ -110,6 +161,46 @@
           </p>
 
 
+          <!-- Talking Points Selection -->
+          <div class="talking-points-selection">
+
+            <span class="talking-points-label">
+              Talking Points
+            </span>
+
+            <label
+              class="talking-points-option"
+            >
+              <input
+                type="radio"
+                [name]="'talkingPoint_' + i"
+                [value]="true"
+                [(ngModel)]="includeInTalkingPoints[i]"
+              />
+
+              <span>
+                Include
+              </span>
+            </label>
+
+
+            <label
+              class="talking-points-option"
+            >
+              <input
+                type="radio"
+                [name]="'talkingPoint_' + i"
+                [value]="false"
+                [(ngModel)]="includeInTalkingPoints[i]"
+              />
+
+              <span>
+                Exclude
+              </span>
+            </label>
+
+          </div>
+
         </div>
 
       </div>
@@ -124,4 +215,100 @@
 
 
   </div>
+</div>
+
+
+<!-- ========================================================= -->
+<!-- REGENERATE DIALOG                                         -->
+<!-- ========================================================= -->
+
+<div
+  class="regenerate-overlay"
+  *ngIf="showRegenerateDialog"
+  (click)="closeRegenerateDialog()"
+>
+
+  <div
+    class="regenerate-dialog"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- Dialog Header -->
+    <div class="regenerate-dialog-header">
+
+      <div>
+
+        <h3>
+          Regenerate AI Recommendations
+        </h3>
+
+        <p>
+          Tell AI what you want to change or improve.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="dialog-close-button"
+        (click)="closeRegenerateDialog()"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- Dialog Body -->
+    <div class="regenerate-dialog-body">
+
+      <label
+        for="regenerateComment"
+        class="regenerate-label"
+      >
+        Changes or instructions
+      </label>
+
+      <textarea
+        id="regenerateComment"
+        class="regenerate-textarea"
+        [(ngModel)]="regenerateComment"
+        placeholder="For example: Focus more on the client's risk profile and recommend suitable funds."
+        rows="6"
+      ></textarea>
+
+      <span class="regenerate-helper">
+        You can mention changes to recommendations, funds,
+        priorities, rationale, or any specific information
+        you want AI to reconsider.
+      </span>
+
+    </div>
+
+
+    <!-- Dialog Footer -->
+    <div class="regenerate-dialog-footer">
+
+      <button
+        type="button"
+        class="dialog-cancel-button"
+        (click)="closeRegenerateDialog()"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="button"
+        class="dialog-generate-button"
+        (click)="regenerateAIRecommendations()"
+      >
+        Generate
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
