@@ -1,34 +1,272 @@
 <div class="outer-box" style="background-color:ghostwhite;margin-top:-2px">
   <div class="card anim-up">
-    <div class="card-header">
-      <h3 class="card-title-desc">Market Outlook — Contextual to Client</h3>
-    </div>
-    <p class="market-outlook-desc">
-      {{ marketOutlook()?.marketOutlookSummary }}
-    </p>
-    <div class="space-y-2" *ngFor="let item of marketOutlook()?.marketOutlook?.insights">
 
-      <div [ngClass]="{'market-outlook-item': item.status === 'Decrease', 'market-outlook-item-blue': item.status === 'Increase'}">
-            <span class="market-outlook-item-label" *ngIf="item.status === 'Decrease'">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M23 18l-9.5-9.5-5 5L1 6"></path>
-                </svg>
-            </span>
-        <span class="market-outlook-item-label-blue" *ngIf="item.status === 'Increase'">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M23 6l-9.5 9.5-5-5L1 18"></path>
-            </svg>
+    <!-- Header -->
+    <div class="card-header market-outlook-header">
+
+      <h3 class="card-title-desc">
+        Market Outlook — Contextual to Client
+      </h3>
+
+      <div class="market-outlook-actions">
+
+        <!-- RM Review Status - NOT CLICKABLE -->
+        <span
+          class="review-action review-status"
+          [ngClass]="{
+            'review-pending': !rmReviewAccepted,
+            'review-completed': rmReviewAccepted
+          }"
+        >
+          <span
+            class="review-status-dot"
+            [ngClass]="{
+              'pending-dot': !rmReviewAccepted,
+              'completed-dot': rmReviewAccepted
+            }"
+          ></span>
+
+          {{ rmReviewAccepted ? 'RM Reviewed' : 'RM Review' }}
         </span>
-        <div>
-            <span class="market-outlook-item-value">
-                {{ item.title }}
-            </span>
-          <p class="market-outlook-item-value1">
-            {{ item.description }}
-          </p>
-        </div>
+
+
+        <!-- Edit / Save -->
+        <button
+          type="button"
+          class="review-action edit-button"
+          (click)="toggleEdit()"
+        >
+          {{ isEditing ? 'Save' : 'Edit' }}
+        </button>
+
+
+        <!-- Regenerate -->
+        <button
+          type="button"
+          class="review-action regenerate-button"
+          (click)="openRegenerateDialog()"
+        >
+          Regenerate
+        </button>
+
+
+        <!-- Accept -->
+        <button
+          type="button"
+          class="review-action accept-button"
+          (click)="acceptReview()"
+        >
+          Accept
+        </button>
+
       </div>
+
     </div>
-    <app-citation
-      [citation]="marketOutlook()?.citation"
-    ></app-citation>
+
+
+    <!-- Market Outlook Content -->
+    <div class="market-outlook-content">
+
+      <!-- ===================================================== -->
+      <!-- MARKET OUTLOOK SUMMARY                                -->
+      <!-- ===================================================== -->
+
+      <!-- Normal Summary -->
+      <p
+        *ngIf="!isEditing"
+        class="market-outlook-desc"
+      >
+        {{ marketOutlook()?.marketOutlookSummary }}
+      </p>
+
+
+      <!-- Editable Summary -->
+      <textarea
+        *ngIf="isEditing"
+        class="market-outlook-edit-input market-outlook-summary-input"
+        [(ngModel)]="editedSummary"
+        rows="4"
+      ></textarea>
+
+
+      <!-- ===================================================== -->
+      <!-- INSIGHTS - NOT EDITABLE                               -->
+      <!-- ===================================================== -->
+
+      <div class="space-y-2">
+
+        <div
+          *ngFor="let item of marketOutlook()?.marketOutlook?.insights"
+          [ngClass]="{
+            'market-outlook-item': item.status === 'Decrease',
+            'market-outlook-item-blue': item.status === 'Increase'
+          }"
+        >
+
+          <!-- Decrease Icon -->
+          <span
+            class="market-outlook-item-label"
+            *ngIf="item.status === 'Decrease'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M23 18l-9.5-9.5-5 5L1 6"></path>
+            </svg>
+          </span>
+
+
+          <!-- Increase Icon -->
+          <span
+            class="market-outlook-item-label-blue"
+            *ngIf="item.status === 'Increase'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M23 6l-9.5 9.5-5-5L1 18"></path>
+            </svg>
+          </span>
+
+
+          <!-- Insight Content -->
+          <div class="market-outlook-item-content">
+
+            <!-- Title -->
+            <span class="market-outlook-item-value">
+              {{ item.title }}
+            </span>
+
+            <!-- Description -->
+            <p class="market-outlook-item-value1">
+              {{ item.description }}
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Citation -->
+      <app-citation
+        [citation]="marketOutlook()?.citation"
+      ></app-citation>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ========================================================= -->
+<!-- REGENERATE DIALOG                                         -->
+<!-- ========================================================= -->
+
+<div
+  class="regenerate-overlay"
+  *ngIf="showRegenerateDialog"
+  (click)="closeRegenerateDialog()"
+>
+
+  <div
+    class="regenerate-dialog"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- Dialog Header -->
+    <div class="regenerate-dialog-header">
+
+      <div>
+
+        <h3>
+          Regenerate Market Outlook
+        </h3>
+
+        <p>
+          Tell AI what you want to change or improve.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="dialog-close-button"
+        (click)="closeRegenerateDialog()"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- Dialog Body -->
+    <div class="regenerate-dialog-body">
+
+      <label
+        for="regenerateComment"
+        class="regenerate-label"
+      >
+        Changes or instructions
+      </label>
+
+
+      <textarea
+        id="regenerateComment"
+        class="regenerate-textarea"
+        [(ngModel)]="regenerateComment"
+        placeholder="For example: Make the summary more concise and focus more on the client's semiconductor exposure."
+        rows="6"
+      ></textarea>
+
+
+      <span class="regenerate-helper">
+        You can mention changes to the summary, insights, tone,
+        focus, or any specific information you want AI to reconsider.
+      </span>
+
+    </div>
+
+
+    <!-- Dialog Footer -->
+    <div class="regenerate-dialog-footer">
+
+      <button
+        type="button"
+        class="dialog-cancel-button"
+        (click)="closeRegenerateDialog()"
+      >
+        Cancel
+      </button>
+
+
+      <button
+        type="button"
+        class="dialog-generate-button"
+        (click)="regenerateMarketOutlook()"
+      >
+        Generate
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

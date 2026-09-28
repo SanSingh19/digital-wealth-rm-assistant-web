@@ -1,55 +1,416 @@
 .card-title-desc {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-    --tw-text-opacity: 1;
-    color: rgb(26 74 122 / var(--tw-text-opacity));
-  }
-  .market-outlook-desc {
-    --tw-text-opacity: 1;
-    color: rgb(55 65 81);
-    line-height:1.625rem;
-    font-size:12px;
-    margin-bottom:5px;
-  }
-  .market-outlook-item {
-    display: flex;
-    align-items: flex-start;
-    font-size: 11px;
-    gap: 0.5rem;
-    padding: 5px;
-    border-radius: 0.375rem;
-    background-color: #fef2f280;
-    margin-bottom: 10px;
-  }
-  .market-outlook-item-label {
-    --tw-text-opacity:1;
-    color: rgb(239 68 68);
-    margin-top: 5px;
-  }
-  .market-outlook-item-value {
-    --tw-text-opacity:1;
-    color: rgb(31 41 55);
-    font-weight: 600;
-  }
-  .market-outlook-item-value1 {
-    --tw-text-opacity:1;
-    color: rgb(75 85 99);
-    margin-top: 5px;
-  } 
- .market-outlook-item-blue {
-    display: flex;
-    align-items: flex-start;
-    font-size: 11px;
-    gap: 0.5rem;
-    padding: 5px;
-    border-radius: 0.375rem;
-    background-color: #ecfdf599;
-    margin-bottom: 10px;
-  }
-  .market-outlook-item-label-blue {
-    --tw-text-opacity: 1;
-    color: rgb(5 150 105);
-    margin-top: 5px;
-  }
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(26 74 122 / var(--tw-text-opacity));
+}
+
+.market-outlook-desc {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81);
+  line-height: 1.625rem;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+
+/* ========================================================= */
+/* MARKET OUTLOOK INSIGHTS                                   */
+/* ========================================================= */
+
+.market-outlook-item {
+  display: flex;
+  align-items: flex-start;
+  font-size: 11px;
+  gap: 0.5rem;
+  padding: 5px;
+  border-radius: 0.375rem;
+  background-color: #fef2f280;
+  margin-bottom: 10px;
+}
+
+.market-outlook-item-label {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68);
+  margin-top: 5px;
+}
+
+.market-outlook-item-value {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55);
+  font-weight: 600;
+}
+
+.market-outlook-item-value1 {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99);
+  margin-top: 5px;
+}
+
+.market-outlook-item-blue {
+  display: flex;
+  align-items: flex-start;
+  font-size: 11px;
+  gap: 0.5rem;
+  padding: 5px;
+  border-radius: 0.375rem;
+  background-color: #ecfdf599;
+  margin-bottom: 10px;
+}
+
+.market-outlook-item-label-blue {
+  --tw-text-opacity: 1;
+  color: rgb(5 150 105);
+  margin-top: 5px;
+}
+
+
+/* ========================================================= */
+/* HEADER                                                    */
+/* ========================================================= */
+
+.market-outlook-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.market-outlook-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+
+/* ========================================================= */
+/* COMMON ACTION STYLE                                       */
+/* ========================================================= */
+
+.review-action {
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+/* ========================================================= */
+/* RM REVIEW STATUS                                          */
+/* ========================================================= */
+
+/*
+ * RM Review is a STATUS, not a button.
+ * It cannot be clicked.
+ */
+
+.review-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  user-select: none;
+}
+
+
+/* Default state - light yellow/orange */
+
+.review-pending {
+  color: #92400e;
+  background-color: #fffbeb;
+  border: 1px solid #f3d28a;
+}
+
+
+/* After Accept - green */
+
+.review-completed {
+  color: #166534;
+  background-color: #f0fdf4;
+  border: 1px solid #a7d9b5;
+}
+
+
+/* Status dot */
+
+.review-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+
+/* Orange dot */
+
+.pending-dot {
+  background-color: #f59e0b;
+}
+
+
+/* Green dot */
+
+.completed-dot {
+  background-color: #16a34a;
+}
+
+
+/* ========================================================= */
+/* EDIT BUTTON                                               */
+/* ========================================================= */
+
+.edit-button {
+  color: #374151;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.edit-button:hover {
+  background-color: #f3f4f6;
+}
+
+
+/* ========================================================= */
+/* REGENERATE BUTTON                                         */
+/* ========================================================= */
+
+.regenerate-button {
+  color: #1a4a7a;
+  border: 1px solid #b9c9da;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.regenerate-button:hover {
+  background-color: #f1f5f9;
+}
+
+
+/* ========================================================= */
+/* ACCEPT BUTTON                                             */
+/* ========================================================= */
+
+.accept-button {
+  color: #047857;
+  border: 1px solid #a7d9c8;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.accept-button:hover {
+  background-color: #ecfdf5;
+}
+
+
+/* ========================================================= */
+/* MARKET OUTLOOK CONTENT                                    */
+/* ========================================================= */
+
+.market-outlook-content {
+  width: 100%;
+}
+
+
+/* ========================================================= */
+/* EDIT MODE - SUMMARY ONLY                                  */
+/* ========================================================= */
+
+.market-outlook-edit-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 12px;
+  padding: 7px 9px;
+  outline: none;
+  font-family: inherit;
+}
+
+.market-outlook-edit-input:focus {
+  border-color: #1a4a7a;
+  box-shadow: 0 0 0 1px rgba(26, 74, 122, 0.12);
+}
+
+.market-outlook-summary-input {
+  line-height: 1.5;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+
+/* ========================================================= */
+/* INSIGHT CONTENT                                           */
+/* ========================================================= */
+
+.market-outlook-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* ========================================================= */
+/* REGENERATE OVERLAY                                        */
+/* ========================================================= */
+
+.regenerate-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.regenerate-dialog {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+  overflow: hidden;
+}
+
+
+/* ========================================================= */
+/* REGENERATE DIALOG HEADER                                  */
+/* ========================================================= */
+
+.regenerate-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.regenerate-dialog-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a4a7a;
+}
+
+.regenerate-dialog-header p {
+  margin: 5px 0 0;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+
+/* ========================================================= */
+/* CLOSE BUTTON                                              */
+/* ========================================================= */
+
+.dialog-close-button {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dialog-close-button:hover {
+  color: #111827;
+}
+
+
+/* ========================================================= */
+/* REGENERATE DIALOG BODY                                    */
+/* ========================================================= */
+
+.regenerate-dialog-body {
+  padding: 18px;
+}
+
+.regenerate-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.regenerate-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  padding: 9px 10px;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #374151;
+  outline: none;
+}
+
+.regenerate-textarea:focus {
+  border-color: #1a4a7a;
+  box-shadow: 0 0 0 1px rgba(26, 74, 122, 0.12);
+}
+
+.regenerate-helper {
+  display: block;
+  margin-top: 7px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+
+/* ========================================================= */
+/* REGENERATE DIALOG FOOTER                                 */
+/* ========================================================= */
+
+.regenerate-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  padding: 12px 18px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.dialog-cancel-button,
+.dialog-generate-button {
+  border-radius: 5px;
+  padding: 6px 13px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dialog-cancel-button {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+}
+
+.dialog-cancel-button:hover {
+  background: #f3f4f6;
+}
+
+.dialog-generate-button {
+  border: 1px solid #1a4a7a;
+  background: #1a4a7a;
+  color: #ffffff;
+}
+
+.dialog-generate-button:hover {
+  background: #163f68;
+}
