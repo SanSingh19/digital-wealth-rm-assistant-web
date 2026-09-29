@@ -157,10 +157,12 @@ export class LoginComponent {
   // MICROSOFT LOGIN
   // =========================================================
 
-  microsoftLogin(): void {
+  ssoLogin(): void {
 
-    this.loginError =
-      'Microsoft sign-in will be available when authentication is connected.';
+    // Frontend-only SSO simulation for now
+    sessionStorage.setItem('rmLoggedIn', 'true');
+
+    this.router.navigate(['/meetings']);
 
   }
 
