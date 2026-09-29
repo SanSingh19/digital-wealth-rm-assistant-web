@@ -37,7 +37,7 @@
           {{ getStatusText(meeting.meetingStatus) }}
         </span>
 
-        <button [class]="'action-btn ' + (meeting.meetingStatus === 1 ? 'status-ready-btn' : '')" 
+        <button [class]="'action-btn ' + (meeting.meetingStatus === 1 ? 'status-ready-btn' : '')"
                 (click)="navigateToMeeting(meeting.id,meeting.clientId)">
           @if (meeting.meetingStatus === 1) {
             View Brief
@@ -63,11 +63,6 @@
       <div class="summary-card">
         <p class="card-title">Total AUM</p>
         <h3 class="card-value value-3">&euro;{{ totalAum() }}</h3>
-      </div>
-
-      <div class="summary-card">
-        <p class="card-title">Average AI Prep Time</p>
-        <h3 class="card-value value-4">{{ avgAIPrepTime() }}</h3>
       </div>
 
     </div>

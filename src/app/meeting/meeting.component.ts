@@ -16,7 +16,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AiTalkingPointsComponent } from './ai-talking-points/ai-talking-points.component';
 import { AiCopilotComponent } from "./ai-copilot/ai-copilot.component";
- 
+
 @Component({
   selector: 'app-meeting',
   standalone: true,
@@ -55,7 +55,7 @@ export class MeetingComponent implements OnInit {
     });
   }
   goBackToMeetings() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/meetings']);
   }
   exportPDF() {
     // @ts-ignore

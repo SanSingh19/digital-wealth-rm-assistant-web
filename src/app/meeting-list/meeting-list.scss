@@ -256,7 +256,7 @@ background-image: linear-gradient(to right bottom, #1a4a7a, #1f5285, #245b91, #2
 
 .summary-cards-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   width: 100%;
 }

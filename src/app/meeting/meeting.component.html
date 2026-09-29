@@ -17,21 +17,19 @@
       All suitability checks passed
     </span>
     <span class="divider">|</span>
-    <span class="generation-time">Generated in 38 seconds</span>
-    <span class="divider">|</span>
     <button class="export-pdf-btn" (click)="exportPDF()">Export PDF</button>
   </div>
 </div>
 
 <div class="meeting-header-content">
-  
+
     <div>
       <h1 class="text-sm tracking-wide">
         Private Banking Client Meeting Preparation
       </h1>
       <span class="text-blue-200">Powered by Agentic AI — Personalised brief generated from portfolio, market, and CRM data</span>
     </div>
- 
+
 </div>
 <div class="meeting-content">
 <app-meeting-details [clientId]="clientUniqueId()" [rmId]="relationshipManagerId()"> </app-meeting-details>

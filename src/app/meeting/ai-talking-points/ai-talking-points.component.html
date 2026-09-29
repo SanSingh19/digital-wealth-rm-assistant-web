@@ -1,16 +1,34 @@
-<div class="talking-points-card" style="background-color:ghostwhite;margin-top: 22px;">
+<div
+  class="talking-points-card"
+  style="background-color: ghostwhite; margin-top: 22px;"
+>
 
-  <!-- Header -->
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
   <div class="header">
-    <div class="icon">💡</div>
-    <h3>AI-Generated Talking Points</h3>
+
+    <div class="icon">
+      💡
+    </div>
+
+    <h3>
+      AI-Generated Talking Points
+    </h3>
+
   </div>
 
-  <!-- Grid -->
+
+  <!-- ===================================================== -->
+  <!-- GRID -->
+  <!-- ===================================================== -->
+
   <div class="points-grid">
 
+
     <!-- ===================================================== -->
-    <!-- CONVERSATION OPENERS                                  -->
+    <!-- CONVERSATION OPENERS -->
     <!-- ===================================================== -->
 
     <div class="talking-point-section">
@@ -18,41 +36,82 @@
       <div class="section-header">
 
         <p class="section-title">
-          conversation Openers
+          Conversation Openers
         </p>
 
         <div class="section-actions">
 
-          <button
-            type="button"
-            class="section-action edit-action"
-            (click)="toggleEdit('conversationOpeners')"
+          <!-- RM REVIEW / RM APPROVED -->
+
+          <span
+            *ngIf="
+              !isAccepted('conversationOpeners');
+              else conversationApproved
+            "
+            class="review-status review-pending"
           >
-            {{ isEditing('conversationOpeners') ? 'Save' : 'Edit' }}
-          </button>
+            <span class="review-status-dot pending-dot"></span>
+            RM Review
+          </span>
+
+          <ng-template #conversationApproved>
+            <span class="review-status review-completed">
+              <span class="review-status-dot completed-dot"></span>
+              RM Approved
+            </span>
+          </ng-template>
+
+
+          <!-- EDIT / SAVE -->
 
           <button
             type="button"
-            class="section-action regenerate-action"
+            class="review-action edit-button"
+            (click)="toggleEdit('conversationOpeners')"
+          >
+            {{
+            isEditing('conversationOpeners')
+            ? 'Save'
+            : 'Edit'
+            }}
+          </button>
+
+
+          <!-- REGENERATE -->
+
+          <button
+            type="button"
+            class="review-action regenerate-button"
             (click)="openRegenerateDialog('conversationOpeners')"
           >
             Regenerate
           </button>
 
+
+          <!-- APPROVE -->
+
           <button
             type="button"
-            class="section-action accept-action"
+            class="review-action accept-button"
             [ngClass]="{
-              'accepted-action': isAccepted('conversationOpeners')
+              'accepted-action':
+                isAccepted('conversationOpeners')
             }"
             (click)="acceptSection('conversationOpeners')"
           >
-            {{ isAccepted('conversationOpeners') ? 'Accepted' : 'Accept' }}
+            {{
+            isAccepted('conversationOpeners')
+            ? 'Approved'
+            : 'Approve'
+            }}
           </button>
 
         </div>
 
       </div>
+
+
+      <!-- CONTENT -->
 
       <div class="points-list">
 
@@ -63,12 +122,17 @@
           "
         >
 
+          <!-- VIEW MODE -->
+
           <div
             *ngIf="!isEditing('conversationOpeners')"
             class="point-item opener"
           >
             {{ point }}
           </div>
+
+
+          <!-- EDIT MODE -->
 
           <textarea
             *ngIf="isEditing('conversationOpeners')"
@@ -81,15 +145,21 @@
 
       </div>
 
+
+      <!-- CITATION -->
+
       <app-citation
-        [citation]="talkingPointsDB()?.conversationOpenersCitation"
+        [citation]="
+          talkingPointsDB()?.conversationOpenersCitation
+        "
       ></app-citation>
 
     </div>
 
 
+
     <!-- ===================================================== -->
-    <!-- PORTFOLIO DISCUSSION                                  -->
+    <!-- PORTFOLIO DISCUSSION -->
     <!-- ===================================================== -->
 
     <div class="talking-point-section">
@@ -97,41 +167,82 @@
       <div class="section-header">
 
         <p class="section-title">
-          portfolio Discussion
+          Portfolio Discussion
         </p>
 
         <div class="section-actions">
 
-          <button
-            type="button"
-            class="section-action edit-action"
-            (click)="toggleEdit('portfolioDiscussion')"
+          <!-- RM REVIEW / RM APPROVED -->
+
+          <span
+            *ngIf="
+              !isAccepted('portfolioDiscussion');
+              else portfolioApproved
+            "
+            class="review-status review-pending"
           >
-            {{ isEditing('portfolioDiscussion') ? 'Save' : 'Edit' }}
-          </button>
+            <span class="review-status-dot pending-dot"></span>
+            RM Review
+          </span>
+
+          <ng-template #portfolioApproved>
+            <span class="review-status review-completed">
+              <span class="review-status-dot completed-dot"></span>
+              RM Approved
+            </span>
+          </ng-template>
+
+
+          <!-- EDIT / SAVE -->
 
           <button
             type="button"
-            class="section-action regenerate-action"
+            class="review-action edit-button"
+            (click)="toggleEdit('portfolioDiscussion')"
+          >
+            {{
+            isEditing('portfolioDiscussion')
+            ? 'Save'
+            : 'Edit'
+            }}
+          </button>
+
+
+          <!-- REGENERATE -->
+
+          <button
+            type="button"
+            class="review-action regenerate-button"
             (click)="openRegenerateDialog('portfolioDiscussion')"
           >
             Regenerate
           </button>
 
+
+          <!-- APPROVE -->
+
           <button
             type="button"
-            class="section-action accept-action"
+            class="review-action accept-button"
             [ngClass]="{
-              'accepted-action': isAccepted('portfolioDiscussion')
+              'accepted-action':
+                isAccepted('portfolioDiscussion')
             }"
             (click)="acceptSection('portfolioDiscussion')"
           >
-            {{ isAccepted('portfolioDiscussion') ? 'Accepted' : 'Accept' }}
+            {{
+            isAccepted('portfolioDiscussion')
+            ? 'Approved'
+            : 'Approve'
+            }}
           </button>
 
         </div>
 
       </div>
+
+
+      <!-- CONTENT -->
 
       <div class="points-list">
 
@@ -142,12 +253,17 @@
           "
         >
 
+          <!-- VIEW MODE -->
+
           <div
             *ngIf="!isEditing('portfolioDiscussion')"
             class="point-item portfolio"
           >
             {{ point }}
           </div>
+
+
+          <!-- EDIT MODE -->
 
           <textarea
             *ngIf="isEditing('portfolioDiscussion')"
@@ -160,15 +276,21 @@
 
       </div>
 
+
+      <!-- CITATION -->
+
       <app-citation
-        [citation]="talkingPointsDB()?.portfolioDiscussionCitation"
+        [citation]="
+          talkingPointsDB()?.portfolioDiscussionCitation
+        "
       ></app-citation>
 
     </div>
 
 
+
     <!-- ===================================================== -->
-    <!-- PRODUCT INTRODUCTION                                  -->
+    <!-- PRODUCT INTRODUCTION -->
     <!-- ===================================================== -->
 
     <div class="talking-point-section">
@@ -176,41 +298,82 @@
       <div class="section-header">
 
         <p class="section-title">
-          product Introduction
+          Product Introduction
         </p>
 
         <div class="section-actions">
 
-          <button
-            type="button"
-            class="section-action edit-action"
-            (click)="toggleEdit('productIntroduction')"
+          <!-- RM REVIEW / RM APPROVED -->
+
+          <span
+            *ngIf="
+              !isAccepted('productIntroduction');
+              else productApproved
+            "
+            class="review-status review-pending"
           >
-            {{ isEditing('productIntroduction') ? 'Save' : 'Edit' }}
-          </button>
+            <span class="review-status-dot pending-dot"></span>
+            RM Review
+          </span>
+
+          <ng-template #productApproved>
+            <span class="review-status review-completed">
+              <span class="review-status-dot completed-dot"></span>
+              RM Approved
+            </span>
+          </ng-template>
+
+
+          <!-- EDIT / SAVE -->
 
           <button
             type="button"
-            class="section-action regenerate-action"
+            class="review-action edit-button"
+            (click)="toggleEdit('productIntroduction')"
+          >
+            {{
+            isEditing('productIntroduction')
+            ? 'Save'
+            : 'Edit'
+            }}
+          </button>
+
+
+          <!-- REGENERATE -->
+
+          <button
+            type="button"
+            class="review-action regenerate-button"
             (click)="openRegenerateDialog('productIntroduction')"
           >
             Regenerate
           </button>
 
+
+          <!-- APPROVE -->
+
           <button
             type="button"
-            class="section-action accept-action"
+            class="review-action accept-button"
             [ngClass]="{
-              'accepted-action': isAccepted('productIntroduction')
+              'accepted-action':
+                isAccepted('productIntroduction')
             }"
             (click)="acceptSection('productIntroduction')"
           >
-            {{ isAccepted('productIntroduction') ? 'Accepted' : 'Accept' }}
+            {{
+            isAccepted('productIntroduction')
+            ? 'Approved'
+            : 'Approve'
+            }}
           </button>
 
         </div>
 
       </div>
+
+
+      <!-- CONTENT -->
 
       <div class="points-list">
 
@@ -221,12 +384,17 @@
           "
         >
 
+          <!-- VIEW MODE -->
+
           <div
             *ngIf="!isEditing('productIntroduction')"
             class="point-item product"
           >
             {{ point }}
           </div>
+
+
+          <!-- EDIT MODE -->
 
           <textarea
             *ngIf="isEditing('productIntroduction')"
@@ -239,15 +407,21 @@
 
       </div>
 
+
+      <!-- CITATION -->
+
       <app-citation
-        [citation]="talkingPointsDB()?.productIntroductionCitation"
+        [citation]="
+          talkingPointsDB()?.productIntroductionCitation
+        "
       ></app-citation>
 
     </div>
 
 
+
     <!-- ===================================================== -->
-    <!-- ANTICIPATED OBJECTIONS                                -->
+    <!-- ANTICIPATED OBJECTIONS -->
     <!-- ===================================================== -->
 
     <div class="talking-point-section">
@@ -255,41 +429,82 @@
       <div class="section-header">
 
         <p class="section-title">
-          anticipated Objections
+          Anticipated Objections
         </p>
 
         <div class="section-actions">
 
-          <button
-            type="button"
-            class="section-action edit-action"
-            (click)="toggleEdit('anticipatedObjections')"
+          <!-- RM REVIEW / RM APPROVED -->
+
+          <span
+            *ngIf="
+              !isAccepted('anticipatedObjections');
+              else objectionsApproved
+            "
+            class="review-status review-pending"
           >
-            {{ isEditing('anticipatedObjections') ? 'Save' : 'Edit' }}
-          </button>
+            <span class="review-status-dot pending-dot"></span>
+            RM Review
+          </span>
+
+          <ng-template #objectionsApproved>
+            <span class="review-status review-completed">
+              <span class="review-status-dot completed-dot"></span>
+              RM Approved
+            </span>
+          </ng-template>
+
+
+          <!-- EDIT / SAVE -->
 
           <button
             type="button"
-            class="section-action regenerate-action"
+            class="review-action edit-button"
+            (click)="toggleEdit('anticipatedObjections')"
+          >
+            {{
+            isEditing('anticipatedObjections')
+            ? 'Save'
+            : 'Edit'
+            }}
+          </button>
+
+
+          <!-- REGENERATE -->
+
+          <button
+            type="button"
+            class="review-action regenerate-button"
             (click)="openRegenerateDialog('anticipatedObjections')"
           >
             Regenerate
           </button>
 
+
+          <!-- APPROVE -->
+
           <button
             type="button"
-            class="section-action accept-action"
+            class="review-action accept-button"
             [ngClass]="{
-              'accepted-action': isAccepted('anticipatedObjections')
+              'accepted-action':
+                isAccepted('anticipatedObjections')
             }"
             (click)="acceptSection('anticipatedObjections')"
           >
-            {{ isAccepted('anticipatedObjections') ? 'Accepted' : 'Accept' }}
+            {{
+            isAccepted('anticipatedObjections')
+            ? 'Approved'
+            : 'Approve'
+            }}
           </button>
 
         </div>
 
       </div>
+
+
+      <!-- CONTENT -->
 
       <div class="points-list">
 
@@ -300,12 +515,17 @@
           "
         >
 
+          <!-- VIEW MODE -->
+
           <div
             *ngIf="!isEditing('anticipatedObjections')"
             class="point-item objection"
           >
             {{ point }}
           </div>
+
+
+          <!-- EDIT MODE -->
 
           <textarea
             *ngIf="isEditing('anticipatedObjections')"
@@ -318,8 +538,13 @@
 
       </div>
 
+
+      <!-- CITATION -->
+
       <app-citation
-        [citation]="talkingPointsDB()?.anticipatedObjectionsCitation"
+        [citation]="
+          talkingPointsDB()?.anticipatedObjectionsCitation
+        "
       ></app-citation>
 
     </div>
@@ -327,6 +552,7 @@
   </div>
 
 </div>
+
 
 
 <!-- ========================================================= -->
@@ -343,6 +569,8 @@
     class="regenerate-dialog"
     (click)="$event.stopPropagation()"
   >
+
+    <!-- HEADER -->
 
     <div class="regenerate-dialog-header">
 
@@ -370,6 +598,8 @@
     </div>
 
 
+    <!-- BODY -->
+
     <div class="regenerate-dialog-body">
 
       <label
@@ -394,6 +624,8 @@
 
     </div>
 
+
+    <!-- FOOTER -->
 
     <div class="regenerate-dialog-footer">
 

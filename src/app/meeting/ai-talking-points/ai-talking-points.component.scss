@@ -1,3 +1,7 @@
+/* ========================================================= */
+/* TALKING POINTS CARD                                       */
+/* ========================================================= */
+
 .talking-points-card {
   background: #fff;
   border: 1px solid #e5e7eb;
@@ -15,6 +19,7 @@
     }
 
     h3 {
+      margin: 0;
       font-size: 14px;
       font-weight: 700;
       color: #1a4a7a;
@@ -22,15 +27,30 @@
   }
 }
 
+
+/* ========================================================= */
+/* POINTS GRID                                               */
+/* ========================================================= */
+
 .points-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 
+
+/* ========================================================= */
+/* TALKING POINT SECTION                                     */
+/* ========================================================= */
+
 .talking-point-section {
   min-width: 0;
 }
+
+
+/* ========================================================= */
+/* SECTION HEADER                                            */
+/* ========================================================= */
 
 .section-header {
   display: flex;
@@ -40,6 +60,11 @@
   margin-bottom: 6px;
 }
 
+
+/* ========================================================= */
+/* SECTION TITLE                                             */
+/* ========================================================= */
+
 .section-title {
   font-size: 10px;
   font-weight: 700;
@@ -48,57 +73,210 @@
   margin: 0;
 }
 
+
+/* ========================================================= */
+/* SECTION ACTIONS                                           */
+/* ========================================================= */
+
 .section-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  margin-left: auto;
 }
 
-.section-action {
-  border-radius: 4px;
-  padding: 4px 7px;
-  font-size: 9px;
+
+/* ========================================================= */
+/* COMMON ACTION STYLE                                      */
+/* EXACT MARKET OUTLOOK STYLE                               */
+/* ========================================================= */
+
+.review-action {
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 11px;
   font-weight: 600;
   white-space: nowrap;
+  box-sizing: border-box;
+
+  font-family: inherit;
+  line-height: normal;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  margin: 0;
+}
+
+
+/* ========================================================= */
+/* RM REVIEW STATUS                                         */
+/* ========================================================= */
+
+.review-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  border-radius: 5px;
+  padding: 5px 10px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  box-sizing: border-box;
+
+  cursor: default;
+  user-select: none;
+}
+
+
+/* ========================================================= */
+/* RM REVIEW - PENDING                                      */
+/* ========================================================= */
+
+.review-pending {
+  color: #92400e;
+  background-color: #fffbeb;
+  border: 1px solid #f3d28a;
+}
+
+
+/* ========================================================= */
+/* RM APPROVED STATUS                                       */
+/* ========================================================= */
+
+.review-completed {
+  color: #166534;
+  background-color: #f0fdf4;
+  border: 1px solid #a7d9b5;
+}
+
+
+/* ========================================================= */
+/* STATUS DOT                                                */
+/* ========================================================= */
+
+.review-status-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  flex-shrink: 0;
+}
+
+
+/* ========================================================= */
+/* PENDING DOT                                               */
+/* ========================================================= */
+
+.pending-dot {
+  background-color: #f59e0b;
+}
+
+
+/* ========================================================= */
+/* APPROVED DOT                                              */
+/* ========================================================= */
+
+.completed-dot {
+  background-color: #16a34a;
+}
+
+
+/* ========================================================= */
+/* EDIT / SAVE BUTTON                                       */
+/* SAME AS MARKET OUTLOOK                                   */
+/* ========================================================= */
+
+.edit-button {
+  color: #374151;
+
+  border: 1px solid #d1d5db;
+
+  background: #ffffff;
+
   cursor: pointer;
+
   transition: all 0.15s ease;
 }
 
-.edit-action {
-  color: #374151;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
+.edit-button:hover {
+  background-color: #f3f4f6;
 }
 
-.edit-action:hover {
-  background: #f3f4f6;
-}
 
-.regenerate-action {
+/* ========================================================= */
+/* REGENERATE BUTTON                                        */
+/* SAME AS MARKET OUTLOOK                                   */
+/* ========================================================= */
+
+.regenerate-button {
   color: #1a4a7a;
-  background: #ffffff;
+
   border: 1px solid #b9c9da;
-}
 
-.regenerate-action:hover {
-  background: #f1f5f9;
-}
-
-.accept-action {
-  color: #047857;
   background: #ffffff;
-  border: 1px solid #a7d9c8;
+
+  cursor: pointer;
+
+  transition: all 0.15s ease;
 }
 
-.accept-action:hover {
-  background: #ecfdf5;
+.regenerate-button:hover {
+  background-color: #f1f5f9;
 }
+
+
+/* ========================================================= */
+/* APPROVE BUTTON                                           */
+/* SAME AS MARKET OUTLOOK                                   */
+/* ========================================================= */
+
+.accept-button {
+  color: #047857;
+
+  border: 1px solid #a7d9c8;
+
+  background: #ffffff;
+
+  cursor: pointer;
+
+  transition: all 0.15s ease;
+}
+
+.accept-button:hover {
+  background-color: #ecfdf5;
+}
+
+
+/* ========================================================= */
+/* APPROVED BUTTON                                          */
+/* ========================================================= */
 
 .accepted-action {
   color: #166534;
-  background: #f0fdf4;
-  border-color: #a7d9b5;
+
+  border: 1px solid #a7d9b5;
+
+  background-color: #f0fdf4;
+
+  cursor: default;
+
+  transition: all 0.15s ease;
 }
+
+.accepted-action:hover {
+  background-color: #f0fdf4;
+}
+
+
+/* ========================================================= */
+/* POINTS LIST                                               */
+/* ========================================================= */
 
 .points-list {
   display: flex;
@@ -106,16 +284,28 @@
   gap: 6px;
 }
 
+
+/* ========================================================= */
+/* POINT ITEM                                                */
+/* ========================================================= */
+
 .point-item {
   font-size: 12px;
   color: #374151;
+
   padding: 10px;
+
   border-radius: 8px;
+
   border-left: 3px solid;
+
   line-height: 1.4;
 }
 
-/* Type styles */
+
+/* ========================================================= */
+/* TYPE STYLES                                               */
+/* ========================================================= */
 
 .opener {
   border-color: #3b82f6;
@@ -139,25 +329,31 @@
 
 
 /* ========================================================= */
-/* EDIT MODE                                                  */
+/* EDIT MODE                                                 */
 /* ========================================================= */
 
 .point-edit-input {
   width: 100%;
   box-sizing: border-box;
+
   min-height: 70px;
+
   resize: vertical;
 
   border: 1px solid #cbd5e1;
+
   border-radius: 8px;
 
   padding: 10px;
 
   background: #ffffff;
+
   color: #374151;
 
   font-family: inherit;
+
   font-size: 12px;
+
   line-height: 1.4;
 
   outline: none;
@@ -165,21 +361,24 @@
 
 .point-edit-input:focus {
   border-color: #1a4a7a;
+
   box-shadow: 0 0 0 1px rgba(26, 74, 122, 0.12);
 }
 
 
 /* ========================================================= */
-/* REGENERATE OVERLAY                                         */
+/* REGENERATE OVERLAY                                        */
 /* ========================================================= */
 
 .regenerate-overlay {
   position: fixed;
+
   inset: 0;
 
   background: rgba(15, 23, 42, 0.35);
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -188,8 +387,14 @@
   padding: 20px;
 }
 
+
+/* ========================================================= */
+/* REGENERATE DIALOG                                         */
+/* ========================================================= */
+
 .regenerate-dialog {
   width: 100%;
+
   max-width: 520px;
 
   background: #ffffff;
@@ -201,9 +406,16 @@
   overflow: hidden;
 }
 
+
+/* ========================================================= */
+/* REGENERATE DIALOG HEADER                                  */
+/* ========================================================= */
+
 .regenerate-dialog-header {
   display: flex;
+
   align-items: flex-start;
+
   justify-content: space-between;
 
   gap: 20px;
@@ -217,6 +429,7 @@
   margin: 0;
 
   font-size: 14px;
+
   font-weight: 700;
 
   color: #1a4a7a;
@@ -230,13 +443,20 @@
   color: #6b7280;
 }
 
+
+/* ========================================================= */
+/* CLOSE BUTTON                                              */
+/* ========================================================= */
+
 .dialog-close-button {
   border: none;
+
   background: transparent;
 
   color: #6b7280;
 
   font-size: 22px;
+
   line-height: 1;
 
   cursor: pointer;
@@ -248,14 +468,25 @@
   color: #111827;
 }
 
+
+/* ========================================================= */
+/* REGENERATE DIALOG BODY                                    */
+/* ========================================================= */
+
 .regenerate-dialog-body {
   padding: 18px;
 }
+
+
+/* ========================================================= */
+/* REGENERATE LABEL                                          */
+/* ========================================================= */
 
 .regenerate-label {
   display: block;
 
   font-size: 11px;
+
   font-weight: 600;
 
   color: #374151;
@@ -263,8 +494,14 @@
   margin-bottom: 6px;
 }
 
+
+/* ========================================================= */
+/* REGENERATE TEXTAREA                                       */
+/* ========================================================= */
+
 .regenerate-textarea {
   width: 100%;
+
   box-sizing: border-box;
 
   resize: vertical;
@@ -278,6 +515,7 @@
   font-family: inherit;
 
   font-size: 12px;
+
   line-height: 1.5;
 
   color: #374151;
@@ -291,19 +529,31 @@
   box-shadow: 0 0 0 1px rgba(26, 74, 122, 0.12);
 }
 
+
+/* ========================================================= */
+/* REGENERATE HELPER                                         */
+/* ========================================================= */
+
 .regenerate-helper {
   display: block;
 
   margin-top: 7px;
 
   font-size: 10px;
+
   line-height: 1.4;
 
   color: #6b7280;
 }
 
+
+/* ========================================================= */
+/* REGENERATE DIALOG FOOTER                                  */
+/* ========================================================= */
+
 .regenerate-dialog-footer {
   display: flex;
+
   justify-content: flex-end;
 
   gap: 7px;
@@ -315,6 +565,11 @@
   background: #f9fafb;
 }
 
+
+/* ========================================================= */
+/* DIALOG BUTTONS                                            */
+/* ========================================================= */
+
 .dialog-cancel-button,
 .dialog-generate-button {
   border-radius: 5px;
@@ -322,10 +577,23 @@
   padding: 6px 13px;
 
   font-size: 11px;
+
   font-weight: 600;
 
   cursor: pointer;
+
+  font-family: inherit;
+
+  line-height: normal;
+
+  appearance: none;
+  -webkit-appearance: none;
 }
+
+
+/* ========================================================= */
+/* CANCEL BUTTON                                             */
+/* ========================================================= */
 
 .dialog-cancel-button {
   border: 1px solid #d1d5db;
@@ -338,6 +606,11 @@
 .dialog-cancel-button:hover {
   background: #f3f4f6;
 }
+
+
+/* ========================================================= */
+/* GENERATE BUTTON                                           */
+/* ========================================================= */
 
 .dialog-generate-button {
   border: 1px solid #1a4a7a;
