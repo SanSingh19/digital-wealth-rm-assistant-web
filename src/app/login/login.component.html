@@ -1,0 +1,470 @@
+<div class="login-page">
+
+  <!-- Top branding -->
+  <div class="login-brand">
+
+    <div class="brand-icon">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"></path>
+      </svg>
+    </div>
+
+    <div>
+      <div class="brand-title">
+        Wealth RM Meeting Preparation
+      </div>
+
+      <div class="brand-subtitle">
+        Agentic AI Assistant
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Login Content -->
+  <div class="login-content">
+
+    <!-- Left Information Panel -->
+    <div class="login-info">
+
+      <div class="info-content">
+
+        <h1>
+          Smarter client
+          <br>
+          meetings, greater
+          <br>
+          opportunities.
+        </h1>
+
+        <p class="info-description">
+          AI-powered meeting preparation to help you
+          build stronger client relationships.
+        </p>
+
+
+        <!-- Feature 1 -->
+        <div class="feature-item">
+
+          <div class="feature-icon">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+
+          <div>
+            <div class="feature-title">
+              Prepare in minutes
+            </div>
+
+            <div class="feature-description">
+              Get AI-generated meeting briefs
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- Feature 2 -->
+        <div class="feature-item">
+
+          <div class="feature-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+
+          </div>
+
+          <div>
+            <div class="feature-title">
+              Know your clients
+            </div>
+
+            <div class="feature-description">
+              Key insights at your fingertips
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- Feature 3 -->
+        <div class="feature-item">
+
+          <div class="feature-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+
+          </div>
+
+          <div>
+            <div class="feature-title">
+              Have more meaningful conversations
+            </div>
+
+            <div class="feature-description">
+              Turn insights into opportunities
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="info-footer">
+        Trusted by wealth professionals
+      </div>
+
+    </div>
+
+
+    <!-- Login Panel -->
+    <div class="login-panel">
+
+      <div class="login-card">
+
+        <div class="login-heading">
+          Welcome back
+        </div>
+
+        <div class="login-subheading">
+          Sign in to continue to your workspace
+        </div>
+
+
+        <form
+          #loginForm="ngForm"
+          (ngSubmit)="login()"
+          novalidate
+        >
+
+          <!-- Email -->
+          <div class="form-group">
+
+            <label for="email">
+              Email address
+            </label>
+
+            <div
+              class="input-wrapper"
+              [class.input-error]="emailInvalid"
+            >
+
+              <svg
+                class="input-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect
+                  x="3"
+                  y="5"
+                  width="18"
+                  height="14"
+                  rx="2"
+                ></rect>
+
+                <polyline
+                  points="3,7 12,13 21,7"
+                ></polyline>
+              </svg>
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                [(ngModel)]="email"
+                placeholder="Email address"
+                autocomplete="username"
+                (input)="clearEmailError()"
+              />
+
+            </div>
+
+            <div
+              class="validation-message"
+              *ngIf="emailInvalid"
+            >
+              Please enter a valid Gmail address.
+            </div>
+
+          </div>
+
+
+          <!-- Password -->
+          <div class="form-group">
+
+            <label for="password">
+              Password
+            </label>
+
+            <div
+              class="input-wrapper"
+              [class.input-error]="passwordInvalid"
+            >
+
+              <svg
+                class="input-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect
+                  x="3"
+                  y="11"
+                  width="18"
+                  height="10"
+                  rx="2"
+                ></rect>
+
+                <path
+                  d="M7 11V7a5 5 0 0 1 10 0v4"
+                ></path>
+              </svg>
+
+
+              <input
+                id="password"
+                name="password"
+                [type]="showPassword ? 'text' : 'password'"
+                [(ngModel)]="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                (input)="clearPasswordError()"
+              />
+
+
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="togglePassword()"
+                aria-label="Show password"
+              >
+
+                <svg
+                  *ngIf="!showPassword"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"
+                  ></path>
+
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="3"
+                  ></circle>
+                </svg>
+
+
+                <svg
+                  *ngIf="showPassword"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M3 3l18 18"
+                  ></path>
+
+                  <path
+                    d="M10.6 10.6a2 2 0 0 0 2.8 2.8"
+                  ></path>
+
+                  <path
+                    d="M9.9 4.2A10.8 10.8 0 0 1 12 4c6.5 0 10 8 10 8a17.7 17.7 0 0 1-3.1 4.3"
+                  ></path>
+
+                  <path
+                    d="M6.6 6.6C3.7 8.5 2 12 2 12s3.5 8 10 8c1.8 0 3.4-.5 4.8-1.2"
+                  ></path>
+                </svg>
+
+              </button>
+
+            </div>
+
+            <div
+              class="validation-message"
+              *ngIf="passwordInvalid"
+            >
+              Password must contain at least 6 characters.
+            </div>
+
+          </div>
+
+
+          <!-- Remember / Forgot -->
+          <div class="login-options">
+
+            <label class="remember-me">
+
+              <input
+                type="checkbox"
+                [(ngModel)]="rememberMe"
+                name="rememberMe"
+              />
+
+              <span>
+                Remember me
+              </span>
+
+            </label>
+
+
+            <button
+              type="button"
+              class="forgot-button"
+              (click)="forgotPassword()"
+            >
+              Forgot password?
+            </button>
+
+          </div>
+
+
+          <!-- Login Error -->
+          <div
+            class="login-error"
+            *ngIf="loginError"
+          >
+            {{ loginError }}
+          </div>
+
+
+          <!-- Sign In -->
+          <button
+            type="submit"
+            class="sign-in-button"
+          >
+            Login
+          </button>
+
+
+          <!-- Divider -->
+          <div class="divider">
+
+            <span></span>
+
+            <div>or continue with</div>
+
+            <span></span>
+
+          </div>
+
+
+          <!-- Microsoft -->
+          <button
+            type="button"
+            class="microsoft-button"
+            (click)="microsoftLogin()"
+          >
+
+            <span class="microsoft-logo">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+
+            <span>
+              Sign in with Microsoft
+            </span>
+
+          </button>
+
+
+          <!-- Footer -->
+          <div class="login-footer">
+
+            Don't have an account?
+
+            <span>
+              Contact your administrator
+            </span>
+
+          </div>
+
+        </form>
+
+      </div>
+
+
+      <div class="workspace-footer">
+        Wealth RM Meeting Preparation — Internal Use Only
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
