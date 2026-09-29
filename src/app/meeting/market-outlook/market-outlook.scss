@@ -5,6 +5,11 @@
   letter-spacing: 0.025em;
   --tw-text-opacity: 1;
   color: rgb(26 74 122 / var(--tw-text-opacity));
+
+  margin: 0;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
 }
 
 .market-outlook-desc {
