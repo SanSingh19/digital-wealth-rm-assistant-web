@@ -485,3 +485,16 @@
   margin-left: 0;
   background-color: ghostwhite;
 }
+
+/* ========================================================= */
+/* DISABLED ACTION BUTTONS                                  */
+/* ========================================================= */
+
+.regenerate-button:disabled,
+.accept-button:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+  opacity: 1;
+}

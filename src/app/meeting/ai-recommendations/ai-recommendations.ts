@@ -126,19 +126,45 @@ export class AiRecommendations implements OnInit {
 
   }
 
-
-  // =========================================================
-  // REGENERATE
-  // UI ONLY FOR NOW
-  // =========================================================
-
   regenerateAIRecommendations(): void {
 
-    /*
-     * Backend regeneration will be added later.
-     */
+    if (!this.clientId || !this.rmId) {
+      return;
+    }
 
-    this.closeRegenerateDialog();
+    const feedback = this.regenerateComment.trim();
+
+    this.meetingsService
+      .regenerateAIRecommendations(
+        this.rmId,
+        this.clientId,
+        feedback
+      )
+      .subscribe({
+        next: (data) => {
+
+          // Update UI with regenerated recommendations
+          this.aiRecommendations.set(data);
+
+          // Reset talking-point selections
+          const recommendations =
+            data?.recommendations || [];
+
+          this.includeInTalkingPoints =
+            recommendations.map(() => true);
+
+          this.closeRegenerateDialog();
+        },
+
+        error: (error) => {
+
+          console.error(
+            'Failed to regenerate AI Recommendations',
+            error
+          );
+
+        }
+      });
 
   }
 

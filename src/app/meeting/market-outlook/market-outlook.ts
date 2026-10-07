@@ -93,12 +93,11 @@ export class MarketOutlook implements OnInit {
     }
   }
 
-
-  // =========================================================
-  // EDIT / SAVE
-  // =========================================================
-
   toggleEdit(): void {
+
+    if (this.rmReviewAccepted) {
+      return;
+    }
 
     if (!this.isEditing) {
 
@@ -110,21 +109,37 @@ export class MarketOutlook implements OnInit {
 
     } else {
 
-      // Save edited summary locally
-      this.marketOutlook.update(current => {
+      // Save to backend
+      if (!this.clientId) {
+        return;
+      }
 
-        if (!current) {
-          return current;
-        }
+      this.meetingsService
+        .updateMarketOutlook(
+          this.clientId,
+          this.editedSummary
+        )
+        .subscribe({
+          next: (data) => {
 
-        return {
-          ...current,
-          marketOutlookSummary: this.editedSummary
-        };
+            // Update UI with backend response
+            this.marketOutlook.set(data);
 
-      });
+            this.editedSummary =
+              data?.marketOutlookSummary || '';
 
-      this.isEditing = false;
+            this.isEditing = false;
+          },
+
+          error: (error) => {
+
+            console.error(
+              'Failed to update Market Outlook',
+              error
+            );
+
+          }
+        });
     }
   }
 
@@ -152,18 +167,41 @@ export class MarketOutlook implements OnInit {
 
   }
 
-
-  // =========================================================
-  // REGENERATE
-  // UI ONLY FOR NOW
-  // =========================================================
-
   regenerateMarketOutlook(): void {
 
-    // Backend regeneration will be added later.
+    if (!this.clientId) {
+      return;
+    }
 
-    this.closeRegenerateDialog();
+    const feedback = this.regenerateComment.trim();
 
+    this.meetingsService
+      .regenerateMarketOutlook(
+        this.clientId,
+        feedback
+      )
+      .subscribe({
+        next: (data) => {
+
+          this.marketOutlook.set(data);
+
+          this.editedSummary =
+            data?.marketOutlookSummary || '';
+
+          this.isEditing = false;
+
+          this.closeRegenerateDialog();
+        },
+
+        error: (error) => {
+
+          console.error(
+            'Failed to regenerate Market Outlook',
+            error
+          );
+
+        }
+      });
   }
 
 

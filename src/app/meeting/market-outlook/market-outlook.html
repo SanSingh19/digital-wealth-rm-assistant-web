@@ -35,6 +35,7 @@
           type="button"
           class="review-action edit-button"
           (click)="toggleEdit()"
+          [disabled]="rmReviewAccepted"
         >
           {{ isEditing ? 'Save' : 'Edit' }}
         </button>
@@ -45,6 +46,7 @@
           type="button"
           class="review-action regenerate-button"
           (click)="openRegenerateDialog()"
+          [disabled]="rmReviewAccepted"
         >
           Regenerate
         </button>
@@ -55,6 +57,7 @@
           type="button"
           class="review-action accept-button"
           (click)="acceptReview()"
+          [disabled]="rmReviewAccepted"
         >
           Approve
         </button>

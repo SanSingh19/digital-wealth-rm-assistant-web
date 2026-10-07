@@ -419,3 +419,17 @@
 .dialog-generate-button:hover {
   background: #163f68;
 }
+
+/* ========================================================= */
+/* DISABLED ACTION BUTTONS                                  */
+/* ========================================================= */
+
+.edit-button:disabled,
+.regenerate-button:disabled,
+.accept-button:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+  opacity: 1;
+}
