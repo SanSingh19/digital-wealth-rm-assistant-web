@@ -623,3 +623,28 @@
 .dialog-generate-button:hover {
   background: #163f68;
 }
+
+/* =========================================================
+   DISABLED ACTIONS AFTER RM APPROVAL
+   ========================================================= */
+
+.section-actions .review-action:disabled {
+  background-color: #f3f4f6 !important;
+  color: #9ca3af !important;
+  border: 1px solid #d1d5db !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+}
+
+.section-actions .review-action:disabled:hover {
+  background-color: #f3f4f6 !important;
+  color: #9ca3af !important;
+  border-color: #d1d5db !important;
+}
+
+.review-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

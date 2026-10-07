@@ -29,21 +29,9 @@ export class AiTalkingPointsComponent implements OnInit {
   @Input() clientId: string | null = null;
   @Input() rmId: string | null = null;
 
-  // =========================================================
-  // EDIT STATE
-  // =========================================================
-
   editingSection: TalkingPointSection | null = null;
 
-  // =========================================================
-  // ACCEPTED STATE
-  // =========================================================
-
   acceptedSections: Set<TalkingPointSection> = new Set();
-
-  // =========================================================
-  // EDITED VALUES
-  // =========================================================
 
   editedPoints: {
     conversationOpeners: string[];
@@ -57,191 +45,152 @@ export class AiTalkingPointsComponent implements OnInit {
     anticipatedObjections: []
   };
 
-  // =========================================================
-  // REGENERATE UI
-  // =========================================================
-
   showRegenerateDialog = false;
-
   selectedSection: TalkingPointSection | null = null;
-
   regenerateComment = '';
 
   constructor(
     private meetingsService: MeetingsService
   ) {}
 
-  // =========================================================
-  // INIT
-  // =========================================================
-
   ngOnInit(): void {
     this.loadTalkingPoints();
   }
 
-  // =========================================================
-  // LOAD TALKING POINTS
-  // =========================================================
-
   loadTalkingPoints(): void {
-
     if (this.rmId && this.clientId) {
-
       this.meetingsService.getTalkingPoints(
         this.rmId,
         this.clientId
       ).subscribe(data => {
-
         this.talkingPointsDB.set(data);
 
         this.editedPoints = {
-          conversationOpeners:
-            [...(data?.conversationOpeners || [])],
-
-          portfolioDiscussion:
-            [...(data?.portfolioDiscussion || [])],
-
-          productIntroduction:
-            [...(data?.productIntroduction || [])],
-
-          anticipatedObjections:
-            [...(data?.anticipatedObjections || [])]
+          conversationOpeners: [...(data?.conversationOpeners || [])],
+          portfolioDiscussion: [...(data?.portfolioDiscussion || [])],
+          productIntroduction: [...(data?.productIntroduction || [])],
+          anticipatedObjections: [...(data?.anticipatedObjections || [])]
         };
-
       });
-
     }
-
   }
 
-  // =========================================================
-  // EDIT / SAVE
-  // =========================================================
-
   toggleEdit(section: TalkingPointSection): void {
+    if (this.isAccepted(section)) {
+      return;
+    }
 
     if (this.editingSection === section) {
-
       this.saveSection(section);
-
-      this.editingSection = null;
-
       return;
     }
 
     this.editingSection = section;
-
   }
 
-  // =========================================================
-  // SAVE SECTION
-  // =========================================================
-
   saveSection(section: TalkingPointSection): void {
-
-    const current = this.talkingPointsDB();
-
-    if (!current) {
+    if (!this.clientId) {
       return;
     }
 
-    this.talkingPointsDB.set({
-      ...current,
+    const content = [...this.editedPoints[section]];
 
-      [section]: [
-        ...this.editedPoints[section]
-      ]
-    } as AiTakingPoints);
+    this.meetingsService
+      .updateTalkingPoints(
+        this.clientId,
+        section,
+        content
+      )
+      .subscribe({
+        next: (data) => {
+          this.talkingPointsDB.set(data);
 
+          this.editedPoints = {
+            conversationOpeners: [...(data?.conversationOpeners || [])],
+            portfolioDiscussion: [...(data?.portfolioDiscussion || [])],
+            productIntroduction: [...(data?.productIntroduction || [])],
+            anticipatedObjections: [...(data?.anticipatedObjections || [])]
+          };
+
+          this.editingSection = null;
+        },
+        error: () => {
+        }
+      });
   }
-
-  // =========================================================
-  // CHECK EDITING
-  // =========================================================
 
   isEditing(section: TalkingPointSection): boolean {
-
     return this.editingSection === section;
-
   }
-
-  // =========================================================
-  // ACCEPT SECTION
-  // =========================================================
 
   acceptSection(section: TalkingPointSection): void {
+    this.acceptedSections = new Set([
+      ...this.acceptedSections,
+      section
+    ]);
 
-    this.acceptedSections.add(section);
-
-    this.acceptedSections = new Set(
-      this.acceptedSections
-    );
-
+    if (this.editingSection === section) {
+      this.editingSection = null;
+    }
   }
-
-  // =========================================================
-  // CHECK ACCEPTED
-  // =========================================================
 
   isAccepted(section: TalkingPointSection): boolean {
-
     return this.acceptedSections.has(section);
-
   }
 
-  // =========================================================
-  // OPEN REGENERATE DIALOG
-  // =========================================================
-
-  openRegenerateDialog(
-    section: TalkingPointSection
-  ): void {
+  openRegenerateDialog(section: TalkingPointSection): void {
+    if (this.isAccepted(section)) {
+      return;
+    }
 
     this.selectedSection = section;
-
     this.regenerateComment = '';
-
     this.showRegenerateDialog = true;
-
   }
-
-  // =========================================================
-  // CLOSE REGENERATE DIALOG
-  // =========================================================
 
   closeRegenerateDialog(): void {
-
     this.showRegenerateDialog = false;
-
     this.selectedSection = null;
-
     this.regenerateComment = '';
-
   }
-
-  // =========================================================
-  // REGENERATE
-  // UI ONLY FOR NOW
-  // =========================================================
 
   regenerateSection(): void {
+    const clientId = this.clientId;
+    const section = this.selectedSection;
+    const feedback = this.regenerateComment.trim();
 
-    // Backend regeneration will be connected later.
+    if (!clientId || !section) {
+      return;
+    }
 
-    this.closeRegenerateDialog();
+    this.meetingsService
+      .regenerateTalkingPoints(
+        clientId,
+        section,
+        feedback
+      )
+      .subscribe({
+        next: (data) => {
+          this.talkingPointsDB.set(data);
 
+          this.editedPoints = {
+            conversationOpeners: [...(data?.conversationOpeners || [])],
+            portfolioDiscussion: [...(data?.portfolioDiscussion || [])],
+            productIntroduction: [...(data?.productIntroduction || [])],
+            anticipatedObjections: [...(data?.anticipatedObjections || [])]
+          };
+
+          this.closeRegenerateDialog();
+        },
+        error: () => {
+        }
+      });
   }
-
-  // =========================================================
-  // SECTION TITLE
-  // =========================================================
 
   getSectionTitle(
     section: TalkingPointSection | null
   ): string {
-
     switch (section) {
-
       case 'conversationOpeners':
         return 'Conversation Openers';
 
@@ -256,9 +205,6 @@ export class AiTalkingPointsComponent implements OnInit {
 
       default:
         return 'Talking Points';
-
     }
-
   }
-
 }

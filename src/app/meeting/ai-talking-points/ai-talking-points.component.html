@@ -68,6 +68,7 @@
             type="button"
             class="review-action edit-button"
             (click)="toggleEdit('conversationOpeners')"
+            [disabled]="isAccepted('conversationOpeners')"
           >
             {{
             isEditing('conversationOpeners')
@@ -82,6 +83,7 @@
           <button
             type="button"
             class="review-action regenerate-button"
+            [disabled]="isAccepted('conversationOpeners')"
             (click)="openRegenerateDialog('conversationOpeners')"
           >
             Regenerate
@@ -93,10 +95,7 @@
           <button
             type="button"
             class="review-action accept-button"
-            [ngClass]="{
-              'accepted-action':
-                isAccepted('conversationOpeners')
-            }"
+            [disabled]="isAccepted('conversationOpeners')"
             (click)="acceptSection('conversationOpeners')"
           >
             {{
@@ -198,6 +197,7 @@
           <button
             type="button"
             class="review-action edit-button"
+            [disabled]="isAccepted('portfolioDiscussion')"
             (click)="toggleEdit('portfolioDiscussion')"
           >
             {{
@@ -213,6 +213,7 @@
           <button
             type="button"
             class="review-action regenerate-button"
+            [disabled]="isAccepted('portfolioDiscussion')"
             (click)="openRegenerateDialog('portfolioDiscussion')"
           >
             Regenerate
@@ -224,10 +225,7 @@
           <button
             type="button"
             class="review-action accept-button"
-            [ngClass]="{
-              'accepted-action':
-                isAccepted('portfolioDiscussion')
-            }"
+            [disabled]="isAccepted('portfolioDiscussion')"
             (click)="acceptSection('portfolioDiscussion')"
           >
             {{
@@ -329,6 +327,7 @@
           <button
             type="button"
             class="review-action edit-button"
+            [disabled]="isAccepted('productIntroduction')"
             (click)="toggleEdit('productIntroduction')"
           >
             {{
@@ -344,6 +343,7 @@
           <button
             type="button"
             class="review-action regenerate-button"
+            [disabled]="isAccepted('productIntroduction')"
             (click)="openRegenerateDialog('productIntroduction')"
           >
             Regenerate
@@ -355,10 +355,7 @@
           <button
             type="button"
             class="review-action accept-button"
-            [ngClass]="{
-              'accepted-action':
-                isAccepted('productIntroduction')
-            }"
+            [disabled]="isAccepted('productIntroduction')"
             (click)="acceptSection('productIntroduction')"
           >
             {{
@@ -460,6 +457,7 @@
           <button
             type="button"
             class="review-action edit-button"
+            [disabled]="isAccepted('anticipatedObjections')"
             (click)="toggleEdit('anticipatedObjections')"
           >
             {{
@@ -475,6 +473,7 @@
           <button
             type="button"
             class="review-action regenerate-button"
+            [disabled]="isAccepted('anticipatedObjections')"
             (click)="openRegenerateDialog('anticipatedObjections')"
           >
             Regenerate
@@ -486,10 +485,7 @@
           <button
             type="button"
             class="review-action accept-button"
-            [ngClass]="{
-              'accepted-action':
-                isAccepted('anticipatedObjections')
-            }"
+            [disabled]="isAccepted('anticipatedObjections')"
             (click)="acceptSection('anticipatedObjections')"
           >
             {{

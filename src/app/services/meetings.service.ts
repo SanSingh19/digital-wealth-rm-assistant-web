@@ -137,4 +137,32 @@ export class MeetingsService {
     );
 
   }
+
+  regenerateTalkingPoints(
+    clientId: string,
+    section: string,
+    userFeedback: string
+  ): Observable<AiTakingPoints> {
+    return this.http.post<AiTakingPoints>(
+      `${this.apiUrl}/ai-talking-points/regenerate?clientId=${clientId}`,
+      {
+        section: section,
+        userFeedback: userFeedback
+      }
+    );
+  }
+
+  updateTalkingPoints(
+    clientId: string,
+    section: string,
+    content: string[]
+  ): Observable<AiTakingPoints> {
+    return this.http.put<AiTakingPoints>(
+      `${this.apiUrl}/ai-talking-points?clientId=${clientId}`,
+      {
+        section,
+        content
+      }
+    );
+  }
 }
