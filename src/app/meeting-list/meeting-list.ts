@@ -14,7 +14,7 @@ import { Meeting, Meetings, MeetingStatus } from '../interfaces/meeting.interfac
 export class MeetingList implements OnInit {
   // Create a meetings signal array
   meetingsSignal = signal<Meeting[]>([]);
-  
+
   // Create signal variables for meeting statistics
   meetingsOfThisWeek = signal<number>(0);
   briefsReady = signal<number>(0);
@@ -23,10 +23,10 @@ export class MeetingList implements OnInit {
 
   // Expose MeetingStatus enum to template
   MeetingStatus = MeetingStatus;
-  
+
   // Property to hold the current date
   today = new Date();
-  
+
   constructor(
     private meetingsListService: MeetingsListService,
     private router: Router
@@ -42,7 +42,7 @@ export class MeetingList implements OnInit {
       next: (meetings: Meetings) => {
         // Assign meetings.meetings to the signal array
         this.meetingsSignal.set(meetings.meetings);
-        
+
         // Assign meeting statistics to signal variables
         this.getMeetingReadyStats(meetings);
         this.getTotalAum(meetings);
@@ -103,6 +103,6 @@ export class MeetingList implements OnInit {
 
   // Navigation method to meeting component
   navigateToMeeting(rmId:string, clientId: string): void {
-    this.router.navigate(['/meeting'], { queryParams: { rmId: rmId, clientId: clientId } });
+    this.router.navigate(['/meeting'], { state: { rmId: rmId, clientId: clientId } });
   }
 }

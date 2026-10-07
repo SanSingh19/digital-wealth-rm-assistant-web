@@ -11,7 +11,7 @@ import { LastFiveTransactions } from "./last-five-transactions/last-five-transac
 import { MarketOutlook } from "./market-outlook/market-outlook";
 import { AiRecommendations } from "./ai-recommendations/ai-recommendations";
 import { RiskIndicators } from "./risk-indicators/risk-indicators";
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AiTalkingPointsComponent } from './ai-talking-points/ai-talking-points.component';
@@ -35,7 +35,7 @@ import { AiCopilotComponent } from "./ai-copilot/ai-copilot.component";
     RiskIndicators,
     AiTalkingPointsComponent,
     AiCopilotComponent
-],
+  ],
   templateUrl: './meeting.component.html',
   styleUrls: ['./meeting.component.scss']
 })
@@ -43,16 +43,16 @@ export class MeetingComponent implements OnInit {
 
   clientUniqueId = signal<string | null>(null);
   relationshipManagerId = signal<string | null>(null);
-  constructor(private route: ActivatedRoute,
-              private router: Router
-) { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
+    const state = history.state;
 
-    this.route.queryParamMap.subscribe(params => {
-      this.relationshipManagerId.set(params.get('rmId'));
-      this.clientUniqueId.set(params.get('clientId'));
-    });
+    this.relationshipManagerId.set(state.rmId ?? null);
+    this.clientUniqueId.set(state.clientId ?? null);
+
+    console.log('RM ID:', this.relationshipManagerId());
+    console.log('Client ID:', this.clientUniqueId());
   }
   goBackToMeetings() {
     this.router.navigate(['/meetings']);
