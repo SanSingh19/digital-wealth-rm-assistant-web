@@ -263,9 +263,15 @@
       <button
         type="button"
         class="dialog-generate-button"
+        [disabled]="isRegenerating"
         (click)="regenerateMarketOutlook()"
       >
-        Generate
+        <span
+          *ngIf="isRegenerating"
+          class="loading-spinner"
+        ></span>
+
+        {{ isRegenerating ? 'Generating...' : 'Generate' }}
       </button>
 
     </div>

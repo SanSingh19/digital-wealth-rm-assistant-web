@@ -301,9 +301,15 @@
       <button
         type="button"
         class="dialog-generate-button"
+        [disabled]="isRegenerating"
         (click)="regenerateAIRecommendations()"
       >
-        Generate
+        <span
+          *ngIf="isRegenerating"
+          class="loading-spinner"
+        ></span>
+
+        {{ isRegenerating ? 'Generating...' : 'Generate' }}
       </button>
 
     </div>

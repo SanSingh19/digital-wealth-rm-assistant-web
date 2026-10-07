@@ -49,6 +49,8 @@ export class AiTalkingPointsComponent implements OnInit {
   selectedSection: TalkingPointSection | null = null;
   regenerateComment = '';
 
+  isRegenerating = false;
+
   constructor(
     private meetingsService: MeetingsService
   ) {}
@@ -163,6 +165,8 @@ export class AiTalkingPointsComponent implements OnInit {
       return;
     }
 
+    this.isRegenerating = true;
+
     this.meetingsService
       .regenerateTalkingPoints(
         clientId,
@@ -180,9 +184,12 @@ export class AiTalkingPointsComponent implements OnInit {
             anticipatedObjections: [...(data?.anticipatedObjections || [])]
           };
 
+          this.isRegenerating = false;
+
           this.closeRegenerateDialog();
         },
         error: () => {
+          this.isRegenerating = false;
         }
       });
   }

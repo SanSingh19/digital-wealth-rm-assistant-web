@@ -38,6 +38,8 @@ export class AiRecommendations implements OnInit {
   // Regenerate dialog
   showRegenerateDialog = false;
 
+  isRegenerating = false;
+
   // Regenerate input
   regenerateComment = '';
 
@@ -134,6 +136,8 @@ export class AiRecommendations implements OnInit {
 
     const feedback = this.regenerateComment.trim();
 
+    this.isRegenerating = true;
+
     this.meetingsService
       .regenerateAIRecommendations(
         this.rmId,
@@ -153,16 +157,13 @@ export class AiRecommendations implements OnInit {
           this.includeInTalkingPoints =
             recommendations.map(() => true);
 
+          this.isRegenerating = false;
+
           this.closeRegenerateDialog();
         },
 
-        error: (error) => {
-
-          console.error(
-            'Failed to regenerate AI Recommendations',
-            error
-          );
-
+        error: () => {
+          this.isRegenerating = false;
         }
       });
 

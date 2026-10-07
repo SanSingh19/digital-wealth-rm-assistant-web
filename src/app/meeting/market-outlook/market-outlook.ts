@@ -40,6 +40,8 @@ export class MarketOutlook implements OnInit {
   // Regenerate dialog
   showRegenerateDialog = false;
 
+  isRegenerating = false;
+
 
   // =========================================================
   // EDITING VALUE
@@ -175,6 +177,9 @@ export class MarketOutlook implements OnInit {
 
     const feedback = this.regenerateComment.trim();
 
+    // Start loading
+    this.isRegenerating = true;
+
     this.meetingsService
       .regenerateMarketOutlook(
         this.clientId,
@@ -190,15 +195,13 @@ export class MarketOutlook implements OnInit {
 
           this.isEditing = false;
 
+          this.isRegenerating = false;
+
           this.closeRegenerateDialog();
         },
 
-        error: (error) => {
-
-          console.error(
-            'Failed to regenerate Market Outlook',
-            error
-          );
+        error: () => {
+          this.isRegenerating = false;
 
         }
       });
