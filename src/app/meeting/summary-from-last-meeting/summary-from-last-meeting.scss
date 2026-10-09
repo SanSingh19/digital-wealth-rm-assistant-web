@@ -25,3 +25,95 @@
     color: rgb(31 41 55);
     font-weight:600;
   }
+
+/* Footer buttons */
+
+.upload-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 13px 22px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.upload-cancel-button,
+.transcribe-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 7px 13px;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.upload-cancel-button {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #374151;
+}
+
+.upload-cancel-button:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+
+.transcribe-button {
+  border: 1px solid #1a4a7a;
+  background: #1a4a7a;
+  color: #fff;
+}
+
+.transcribe-button:hover:not(:disabled) {
+  background: #163f68;
+}
+
+.transcribe-button:disabled {
+  border-color: #cbd5e1;
+  background: #cbd5e1;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.upload-cancel-button:disabled,
+.browse-files-button:disabled,
+.change-file-button:disabled,
+.remove-file-button:disabled,
+.upload-close-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Smaller screens */
+
+@media (max-width: 600px) {
+  .summary-header {
+    align-items: flex-start;
+  }
+
+  .summary-header .card-title-desc {
+    font-size: 11px;
+  }
+
+  .upload-meeting-button {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+
+  .upload-modal-overlay {
+    padding: 10px;
+  }
+
+  .upload-modal-header,
+  .upload-modal-body {
+    padding: 16px;
+  }
+
+  .upload-modal-footer {
+    padding: 12px 16px;
+  }
+}

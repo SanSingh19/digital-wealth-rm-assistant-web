@@ -1,21 +1,21 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, signal, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MeetingDetailsComponent } from './meeting-details/meeting-details.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ClientProfileComponent } from './client-profile/client-profile.component';
 import { PersonalAspectsComponent } from './personal-aspects/personal-aspects.component';
 import { ClientConstraintsComponent } from './client-constraints/client-constraints.component';
 import { SummaryFromLastMeeting } from './summary-from-last-meeting/summary-from-last-meeting';
-import { Performance } from "./performance/performance";
-import { LastFiveTransactions } from "./last-five-transactions/last-five-transactions";
-import { MarketOutlook } from "./market-outlook/market-outlook";
-import { AiRecommendations } from "./ai-recommendations/ai-recommendations";
-import { RiskIndicators } from "./risk-indicators/risk-indicators";
+import { Performance } from './performance/performance';
+import { LastFiveTransactions } from './last-five-transactions/last-five-transactions';
+import { MarketOutlook } from './market-outlook/market-outlook';
+import { AiRecommendations } from './ai-recommendations/ai-recommendations';
+import { RiskIndicators } from './risk-indicators/risk-indicators';
 import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AiTalkingPointsComponent } from './ai-talking-points/ai-talking-points.component';
-import { AiCopilotComponent } from "./ai-copilot/ai-copilot.component";
+import { AiCopilotComponent } from './ai-copilot/ai-copilot.component';
 
 @Component({
   selector: 'app-meeting',
@@ -43,32 +43,66 @@ export class MeetingComponent implements OnInit {
 
   clientUniqueId = signal<string | null>(null);
   relationshipManagerId = signal<string | null>(null);
-  constructor( private router: Router) { }
+
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {}
 
   ngOnInit(): void {
-    const state = history.state;
+    if (isPlatformBrowser(this.platformId)) {
+      const state = window.history.state;
 
-    this.relationshipManagerId.set(state.rmId ?? null);
-    this.clientUniqueId.set(state.clientId ?? null);
+      this.relationshipManagerId.set(state?.rmId ?? null);
+      this.clientUniqueId.set(state?.clientId ?? null);
 
-    console.log('RM ID:', this.relationshipManagerId());
-    console.log('Client ID:', this.clientUniqueId());
+      console.log('RM ID:', this.relationshipManagerId());
+      console.log('Client ID:', this.clientUniqueId());
+    }
   }
-  goBackToMeetings() {
+
+  goBackToMeetings(): void {
     this.router.navigate(['/meetings']);
   }
-  exportPDF() {
-    // @ts-ignore
-    const element = document.querySelector('.max-width-container-overview');
-    // @ts-ignore
-    html2canvas(element, { scale: 2, useCORS: true }).then(canvas => {
-      // @ts-ignore
+
+  exportPDF(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const element = document.querySelector(
+      '.max-width-container-overview'
+    ) as HTMLElement | null;
+
+    if (!element) {
+      console.error('Could not find the meeting overview element to export.');
+      return;
+    }
+
+    html2canvas(element, {
+      scale: 2,
+      useCORS: true
+    }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
-      // @ts-ignore
-      const pdf = new window.jspdf.jsPDF({ orientation: 'portrait', unit: 'px', format: [canvas.width, canvas.height] });
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: [canvas.width, canvas.height]
+      });
+
+      pdf.addImage(
+        imgData,
+        'PNG',
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
       pdf.save('meeting.pdf');
+    }).catch(error => {
+      console.error('Failed to export meeting PDF:', error);
     });
   }
-
 }

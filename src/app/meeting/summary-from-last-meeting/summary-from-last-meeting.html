@@ -1,59 +1,70 @@
-<div class="outer-box" style="background-color:ghostwhite;margin-top:-299px">
-    <div class="card anim-up">
-      <div class="card-header">
-        <span class="icon">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6"></path>
-          </svg>
-        </span>
-        <h3 class="card-title-desc">Summary from Last Meeting</h3>
-      </div>
-      <div *ngIf="summaryData()">
+<div class="outer-box" style="background-color: ghostwhite; margin-top: -299px;">
+  <div class="card anim-up">
 
-        <p class="card-content-desc">
-          Previous Meeting Date:
-        </p>
-
-        <select
-          class="meeting-dropdown"
-          [value]="summaryData()?.lastMeetingDate"
-          (change)="selectMeeting($any($event.target).value)"
+    <!-- Header -->
+    <div class="card-header">
+      <span class="icon">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
-          <option
-            *ngFor="let meeting of meetingSummaries()"
-            [value]="meeting.lastMeetingDate"
-          >
-            {{ meeting.lastMeetingDate }}
-          </option>
-        </select>
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6"></path>
+        </svg>
+      </span>
 
-        <p class="card-heading-desc">
-    <span class="card-heading-content-desc">
-      Main Discussion Points:
-    </span>
-          {{ summaryData()?.mainDiscussionPoints }}
-        </p>
+      <h3 class="card-title-desc">Summary from Last Meeting</h3>
 
-        <p class="card-heading-desc">
-    <span class="card-heading-content-desc">
-      Client Questions:
-    </span>
-          {{ summaryData()?.clientQuestions }}
-        </p>
-
-      </div>
-      <div *ngIf="!summaryData()">
-        <p>Loading summary...</p>
-      </div>
+      <button
+        type="button"
+        class="upload-meeting-button"
+        (click)="openUploadDialog()"
+      >
+        <span class="upload-plus">+</span>
+        Upload Meeting
+      </button>
     </div>
+
+    <!-- Existing meeting summary -->
+    <div class="meeting-summary-content" *ngIf="summaryData()">
+      <p class="card-content-desc">Previous Meeting Date:</p>
+
+      <select
+        class="meeting-dropdown"
+        [value]="summaryData()?.lastMeetingDate"
+        (change)="selectMeeting($any($event.target).value)"
+      >
+        <option
+          *ngFor="let meeting of meetingSummaries()"
+          [value]="meeting.lastMeetingDate"
+        >
+          {{ meeting.lastMeetingDate }}
+        </option>
+      </select>
+
+      <p class="card-heading-desc">
+        <span class="card-heading-content-desc">
+          Main Discussion Points:
+        </span>
+        {{ summaryData()?.mainDiscussionPoints }}
+      </p>
+
+      <p class="card-heading-desc">
+        <span class="card-heading-content-desc">
+          Client Questions:
+        </span>
+        {{ summaryData()?.clientQuestions }}
+      </p>
+    </div>
+
+    <div *ngIf="!summaryData()">
+      <p>Loading summary...</p>
+    </div>
+
+  </div>
 </div>
