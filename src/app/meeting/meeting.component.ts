@@ -41,6 +41,8 @@ import { AiCopilotComponent } from './ai-copilot/ai-copilot.component';
 })
 export class MeetingComponent implements OnInit {
 
+  protected readonly Number = Number;
+
   clientUniqueId = signal<string | null>(null);
   relationshipManagerId = signal<string | null>(null);
 
