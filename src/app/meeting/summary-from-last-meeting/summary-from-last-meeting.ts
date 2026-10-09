@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, Input, OnInit, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MeetingsService } from '../../services/meetings.service';
@@ -22,7 +22,7 @@ export class SummaryFromLastMeeting implements OnInit {
   meetingSummaries = signal<ClientMeetingSummary[]>([]);
   summaryData = signal<ClientMeetingSummary | null>(null);
 
-  @Input() clientId: string | null = null;
+  @Input() clientId: number | null = null;
 
   // Upload dialog state
   showUploadDialog = false;
@@ -31,6 +31,7 @@ export class SummaryFromLastMeeting implements OnInit {
 
   // Transcription state
   isTranscribing = false;
+  uploadSuccessful = false;
 
   // File-picker state
   isDragOver = false;
@@ -40,7 +41,8 @@ export class SummaryFromLastMeeting implements OnInit {
   today = this.getLocalDateString();
 
   constructor(
-    private meetingsService: MeetingsService
+    private meetingsService: MeetingsService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -75,6 +77,7 @@ export class SummaryFromLastMeeting implements OnInit {
     this.selectedFile = null;
     this.uploadError = '';
     this.isTranscribing = false;
+    this.uploadSuccessful = false;
   }
 
 
@@ -84,6 +87,7 @@ export class SummaryFromLastMeeting implements OnInit {
     this.showUploadDialog = false;
     this.uploadError = '';
     this.isDragOver = false;
+    this.uploadSuccessful = false;
   }
 
   // File picker selection
@@ -162,10 +166,10 @@ export class SummaryFromLastMeeting implements OnInit {
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
   }
 
-  // Frontend-only transcription status for now.
-  // Connect this method to the backend API later.
+
   startTranscription(): void {
     if (
+      this.clientId === null ||
       !this.selectedMeetingDate ||
       !this.selectedFile ||
       this.isTranscribing
@@ -174,7 +178,36 @@ export class SummaryFromLastMeeting implements OnInit {
     }
 
     this.uploadError = '';
+    this.uploadSuccessful = false;
     this.isTranscribing = true;
+
+    this.meetingsService.uploadMeetingAudio(
+      this.clientId,
+      this.selectedMeetingDate,
+      this.selectedFile
+    ).subscribe({
+      next: (response) => {
+        console.log('Meeting upload successful:', response);
+
+        this.isTranscribing = false;
+        this.uploadSuccessful = true;
+
+        this.cdr.detectChanges();
+      },
+
+      error: (error) => {
+        console.error('Meeting upload failed:', error);
+
+        this.isTranscribing = false;
+        this.uploadSuccessful = false;
+        this.uploadError =
+          error?.error?.message ||
+          'Failed to upload the meeting recording. Please try again.';
+
+
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   private getLocalDateString(): string {

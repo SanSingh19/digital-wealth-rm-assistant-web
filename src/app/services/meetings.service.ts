@@ -39,10 +39,31 @@ export class MeetingsService {
   }
 
   getSummaryFromLastMeeting(
-    clientId: string
+    clientId: number
   ): Observable<ClientMeetingSummaryResponse> {
     return this.http.get<ClientMeetingSummaryResponse>(
       `${this.apiUrl}/last-meeting-summary?clientId=${clientId}`
+    );
+  }
+
+  uploadMeetingAudio(
+    clientId: number,
+    meetingDate: string,
+    file: File
+  ): Observable<unknown> {
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post<unknown>(
+      `${this.apiUrl}/meetings/upload`,
+      formData,
+      {
+        params: {
+          clientId: clientId.toString(),
+          meetingDate: meetingDate
+        }
+      }
     );
   }
 
