@@ -1,69 +1,290 @@
-<div class="outer-box" style="background-color: ghostwhite; margin-top: -299px;">
+
+<div class="outer-box meeting-summary-box"
+     style="background-color: ghostwhite; margin-top: -299px">
+
   <div class="card anim-up">
 
     <!-- Header -->
-    <div class="card-header">
-      <span class="icon">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6"></path>
+    <div class="card-header summary-card-header">
+      <div class="summary-header-title">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6"/>
+          </svg>
+        </span>
+        <h3 class="card-title-desc">Summary from Last Meeting</h3>
+      </div>
+
+      <button type="button" class="upload-meeting-btn"
+              (click)="openUploadDialog()">
+        <svg width="17" height="17" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 16V4M7 9l5-5 5 5"/>
+          <path d="M20 16.5v2A2.5 2.5 0 0117.5 21h-11A2.5 2.5 0 014 18.5v-2"/>
         </svg>
-      </span>
-
-      <h3 class="card-title-desc">Summary from Last Meeting</h3>
-
-      <button
-        type="button"
-        class="upload-meeting-button"
-        (click)="openUploadDialog()"
-      >
-        <span class="upload-plus">+</span>
         Upload Meeting
       </button>
     </div>
 
-    <!-- Existing meeting summary -->
-    <div class="meeting-summary-content" *ngIf="summaryData()">
+    <!-- Existing summary -->
+    <div *ngIf="summaryData() as summary">
       <p class="card-content-desc">Previous Meeting Date:</p>
 
-      <select
-        class="meeting-dropdown"
-        [value]="summaryData()?.lastMeetingDate"
-        (change)="selectMeeting($any($event.target).value)"
-      >
-        <option
-          *ngFor="let meeting of meetingSummaries()"
-          [value]="meeting.lastMeetingDate"
-        >
+      <select class="meeting-dropdown"
+              [value]="summary.lastMeetingDate"
+              (change)="selectMeeting($any($event.target).value)">
+        <option *ngFor="let meeting of meetingSummaries()"
+                [value]="meeting.lastMeetingDate">
           {{ meeting.lastMeetingDate }}
         </option>
       </select>
 
       <p class="card-heading-desc">
-        <span class="card-heading-content-desc">
-          Main Discussion Points:
-        </span>
-        {{ summaryData()?.mainDiscussionPoints }}
+        <span class="card-heading-content-desc">Main Discussion Points:</span>
+        {{ summary.mainDiscussionPoints }}
       </p>
 
       <p class="card-heading-desc">
-        <span class="card-heading-content-desc">
-          Client Questions:
-        </span>
-        {{ summaryData()?.clientQuestions }}
+        <span class="card-heading-content-desc">Client Questions:</span>
+        {{ summary.clientQuestions }}
       </p>
     </div>
 
     <div *ngIf="!summaryData()">
       <p>Loading summary...</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Upload Meeting Popup -->
+<div class="upload-modal-overlay"
+     *ngIf="showUploadDialog"
+     (click)="closeUploadDialog()">
+
+  <div class="upload-modal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="upload-modal-title"
+       (click)="$event.stopPropagation()">
+
+    <!-- Popup header -->
+    <div class="upload-modal-header">
+      <div class="upload-modal-heading">
+        <div class="upload-modal-icon">
+          <svg width="23" height="23" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="3"/>
+            <path d="M10 9l5 3-5 3z"/>
+          </svg>
+        </div>
+        <div>
+          <h2 id="upload-modal-title">Upload Meeting</h2>
+          <p>Add a meeting recording to get started</p>
+        </div>
+      </div>
+
+      <button type="button" class="modal-close-btn"
+              aria-label="Close dialog"
+              (click)="closeUploadDialog()">
+        &times;
+      </button>
+    </div>
+
+    <!-- Steps -->
+    <div class="upload-steps" *ngIf="!isTranscribing">
+      <div class="upload-step active">
+        <span class="step-number">1</span>
+        <span>Meeting details</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="upload-step" [class.active]="selectedFile !== null">
+        <span class="step-number">2</span>
+        <span>Recording</span>
+      </div>
+    </div>
+
+    <!-- Upload form -->
+    <div class="upload-modal-body" *ngIf="!isTranscribing">
+
+      <div class="upload-field">
+        <label for="meetingDate">
+          Meeting date <span class="required-star">*</span>
+        </label>
+        <p class="field-hint">
+          Select the date on which the meeting took place.
+        </p>
+
+        <div class="date-input-wrapper">
+          <svg width="19" height="19" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="16" rx="2"/>
+            <path d="M16 3v4M8 3v4M3 10h18"/>
+          </svg>
+          <input id="meetingDate" type="date"
+                 [value]="selectedMeetingDate"
+                 [max]="today"
+                 (change)="selectedMeetingDate = $any($event.target).value"/>
+        </div>
+      </div>
+
+      <div class="upload-field recording-field">
+        <label>
+          Meeting recording <span class="required-star">*</span>
+        </label>
+        <p class="field-hint">
+          Upload your meeting recording in MP4 format.
+        </p>
+
+        <input #meetingFileInput type="file"
+               accept=".mp4,video/mp4"
+               class="hidden-file-input"
+               (change)="onMeetingFileSelected($event)"/>
+
+        <!-- File drop zone -->
+        <div *ngIf="!selectedFile"
+             class="file-drop-zone"
+             [class.drag-over]="isDragOver"
+             (click)="meetingFileInput.click()"
+             (keydown.enter)="meetingFileInput.click()"
+             (keydown.space)="meetingFileInput.click()"
+             (dragover)="onFileDragOver($event)"
+             (dragleave)="onFileDragLeave($event)"
+             (drop)="onMeetingFileDrop($event)"
+             role="button" tabindex="0"
+             aria-label="Choose an MP4 meeting recording">
+
+          <div class="cloud-upload-icon">
+            <svg width="31" height="31" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 16V4M7 9l5-5 5 5"/>
+              <path d="M20 16.5v2A2.5 2.5 0 0117.5 21h-11A2.5 2.5 0 014 18.5v-2"/>
+            </svg>
+          </div>
+
+          <h3>Choose a recording to upload</h3>
+          <p>Drag and drop your file here, or
+            <span class="browse-link">browse files</span>
+          </p>
+          <span class="file-format-label">MP4 video files only</span>
+        </div>
+
+        <!-- Selected file details -->
+        <div class="selected-file-card" *ngIf="selectedFile">
+          <div class="mp4-file-icon">
+            <svg width="25" height="25" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.7"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="2"/>
+              <path d="M10 9l5 3-5 3z"/>
+            </svg>
+          </div>
+
+          <div class="selected-file-info">
+            <strong>{{ selectedFile.name }}</strong>
+            <span>MP4 video · {{ formatFileSize(selectedFile.size) }}</span>
+            <div class="file-ready-label">
+              <span class="ready-dot"></span> File ready
+            </div>
+          </div>
+
+          <button type="button" class="remove-file-btn"
+                  aria-label="Remove selected file"
+                  (click)="removeSelectedFile()">
+            &times;
+          </button>
+        </div>
+
+        <p class="upload-error" *ngIf="uploadError">
+          <span class="error-symbol">!</span>
+          {{ uploadError }}
+        </p>
+      </div>
+
+      <div class="upload-info-note">
+        <span class="info-symbol">i</span>
+        <span>Check the date and recording before starting transcription.</span>
+      </div>
+    </div>
+
+    <!-- Transcription in progress -->
+    <div class="transcription-progress" *ngIf="isTranscribing">
+      <div class="processing-animation">
+        <div class="processing-ring"></div>
+        <div class="processing-center">
+          <svg width="31" height="31" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="1.7"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18M8 7v10M4 10v4M16 7v10M20 10v4"/>
+          </svg>
+        </div>
+      </div>
+
+      <h2>Transcription in Progress</h2>
+      <p class="processing-description">
+        Your meeting recording is ready for the transcription workflow.
+      </p>
+
+      <div class="processing-file-summary" *ngIf="selectedFile">
+        <div class="processing-file-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="1.7"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"/>
+            <path d="M10 9l5 3-5 3z"/>
+          </svg>
+        </div>
+        <div class="processing-file-text">
+          <strong>{{ selectedFile.name }}</strong>
+          <span>{{ selectedMeetingDate }} · {{ formatFileSize(selectedFile.size) }}</span>
+        </div>
+        <span class="processing-status-dot"></span>
+      </div>
+
+      <div class="progress-label-row">
+        <span>Preparing transcription</span>
+        <span class="processing-pulse">In progress</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-indeterminate"></div>
+      </div>
+
+      <p class="processing-footnote">
+        This is a frontend preview. Transcription will begin once the backend is connected.
+      </p>
+    </div>
+
+    <!-- Popup footer -->
+    <div class="upload-modal-footer" *ngIf="!isTranscribing">
+      <button type="button" class="cancel-upload-btn"
+              (click)="closeUploadDialog()">
+        Cancel
+      </button>
+
+      <button type="button" class="transcribe-btn"
+              [disabled]="!selectedMeetingDate || !selectedFile"
+              (click)="startTranscription()">
+        <svg width="17" height="17" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3v18M8 7v10M4 10v4M16 7v10M20 10v4"/>
+        </svg>
+        Transcribe Meeting
+      </button>
+    </div>
+
+    <div class="upload-modal-footer processing-footer" *ngIf="isTranscribing">
+      <button type="button" class="cancel-upload-btn"
+              (click)="closeUploadDialog()">
+        Close
+      </button>
     </div>
 
   </div>
