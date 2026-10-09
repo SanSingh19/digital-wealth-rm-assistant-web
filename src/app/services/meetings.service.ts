@@ -96,7 +96,7 @@ export class MeetingsService {
     return this.http.post<MarketOutlookInfo>(
       `${this.apiUrl}/market/outlook/regenerate?clientId=${clientId}`,
       {
-        userFeedback: userFeedback
+        user_feedback: userFeedback
       }
     );
   }
@@ -132,7 +132,7 @@ export class MeetingsService {
     return this.http.post<AIRecommendationsInfo>(
       `${this.apiUrl}/ai-recommendations/regenerate?rmId=${rmId}&clientId=${clientId}`,
       {
-        userFeedback: userFeedback
+        user_feedback: userFeedback
       }
     );
 
@@ -147,7 +147,7 @@ export class MeetingsService {
       `${this.apiUrl}/ai-talking-points/regenerate?clientId=${clientId}`,
       {
         section: section,
-        userFeedback: userFeedback
+        user_feedback: userFeedback
       }
     );
   }
