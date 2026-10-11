@@ -59,6 +59,10 @@ export class AiTalkingPointsComponent implements OnInit {
     this.loadTalkingPoints();
   }
 
+  trackByIndex(index: number): number {
+    return index;
+  }
+
   loadTalkingPoints(): void {
     if (this.rmId && this.clientId) {
       this.meetingsService.getTalkingPoints(
