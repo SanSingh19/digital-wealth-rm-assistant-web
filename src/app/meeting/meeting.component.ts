@@ -16,6 +16,8 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AiTalkingPointsComponent } from './ai-talking-points/ai-talking-points.component';
 import { AiCopilotComponent } from './ai-copilot/ai-copilot.component';
+import {Meetings} from '../interfaces/meeting.interface';
+import {MeetingsListService} from '../services/meetings-list.service';
 
 @Component({
   selector: 'app-meeting',
@@ -48,19 +50,60 @@ export class MeetingComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private meetingsListService: MeetingsListService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const state = window.history.state;
-
-      this.relationshipManagerId.set(state?.rmId ?? null);
-      this.clientUniqueId.set(state?.clientId ?? null);
-
-      console.log('RM ID:', this.relationshipManagerId());
-      console.log('Client ID:', this.clientUniqueId());
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
     }
+
+    const state = window.history.state;
+
+    console.log('Navigation state:', state);
+
+    // If opened from the meetings list, use the selected IDs.
+    if (state?.clientId != null && state?.rmId != null) {
+      this.clientUniqueId.set(String(state.clientId));
+      this.relationshipManagerId.set(String(state.rmId));
+
+      console.log('Using navigation IDs:', {
+        rmId: this.relationshipManagerId(),
+        clientId: this.clientUniqueId()
+      });
+
+      return;
+    }
+
+    // If opened directly, fetch the meetings first.
+    console.log('Direct URL detected. Fetching meetings for RM 1001...');
+
+    this.meetingsListService.getMeetingByRMId('1001').subscribe({
+      next: (response: Meetings) => {
+        console.log('Meetings API response:', response);
+
+        const firstMeeting = response?.meetings?.[0];
+
+        if (!firstMeeting) {
+          console.error(
+            'No first meeting found. Check the API response structure.'
+          );
+          return;
+        }
+
+        this.relationshipManagerId.set('1001');
+        this.clientUniqueId.set(String(firstMeeting.clientId));
+
+        console.log('IDs set from first meeting:', {
+          rmId: this.relationshipManagerId(),
+          clientId: this.clientUniqueId()
+        });
+      },
+      error: (error: any) => {
+        console.error('Failed to fetch meetings:', error);
+      }
+    });
   }
 
   goBackToMeetings(): void {
