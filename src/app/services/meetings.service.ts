@@ -39,10 +39,10 @@ export class MeetingsService {
   }
 
   getSummaryFromLastMeeting(
-    clientId: number
+    briefId: number
   ): Observable<ClientMeetingSummaryResponse> {
     return this.http.get<ClientMeetingSummaryResponse>(
-      `${this.apiUrl}/last-meeting-summary?clientId=${clientId}`
+      `${this.apiUrl}/last-meeting-summary?briefId=${briefId}`
     );
   }
 
@@ -104,18 +104,18 @@ export class MeetingsService {
     // });
   }
 
-  getMarketOutlook(rmId:string, clientId:string): Observable<MarketOutlookInfo> {
+  getMarketOutlook(rmId:string, briefId:number): Observable<MarketOutlookInfo> {
 
-   return this.http.get<MarketOutlookInfo>(`${this.apiUrl}/market/outlook?rmId=1001&clientId=${clientId}`);
+   return this.http.get<MarketOutlookInfo>(`${this.apiUrl}/market/outlook?rmId=${rmId}&briefId=${briefId}`);
   }
 
   regenerateMarketOutlook(
-    clientId: string,
+    briefId: number,
     userFeedback: string
   ): Observable<MarketOutlookInfo> {
 
     return this.http.post<MarketOutlookInfo>(
-      `${this.apiUrl}/market/outlook/regenerate?clientId=${clientId}`,
+      `${this.apiUrl}/market/outlook/regenerate?briefId=${briefId}`,
       {
         user_feedback: userFeedback
       }
@@ -123,35 +123,35 @@ export class MeetingsService {
   }
 
   updateMarketOutlook(
-    clientId: string,
+    briefId: number,
     marketOutlookSummary: string
   ): Observable<MarketOutlookInfo> {
 
     return this.http.put<MarketOutlookInfo>(
-      `${this.apiUrl}/market/outlook?clientId=${clientId}`,
+      `${this.apiUrl}/market/outlook?briefId=${briefId}`,
       {
         marketOutlookSummary: marketOutlookSummary
       }
     );
   }
 
-  getAIRecommendations(rmId:string, clientId:string): Observable<AIRecommendationsInfo> {
+  getAIRecommendations(rmId:string, briefId:number): Observable<AIRecommendationsInfo> {
 
-   return this.http.get<AIRecommendationsInfo>(`${this.apiUrl}/ai-recommendations?rmId=1001&clientId=${clientId}`);
+   return this.http.get<AIRecommendationsInfo>(`${this.apiUrl}/ai-recommendations?rmId=${rmId}&briefId=${briefId}`);
   }
 
-  getTalkingPoints(rmId:string, clientId:string): Observable<AiTakingPoints> {
-    return this.http.get<AiTakingPoints>(`${this.apiUrl}/ai-talking-points?rmId=1001&clientId=${clientId}`);
+  getTalkingPoints(rmId:string, briefId:number): Observable<AiTakingPoints> {
+    return this.http.get<AiTakingPoints>(`${this.apiUrl}/ai-talking-points?rmId=${rmId}&briefId=${briefId}`);
   }
 
   regenerateAIRecommendations(
     rmId: string,
-    clientId: string,
+    briefId: number,
     userFeedback: string
   ): Observable<AIRecommendationsInfo> {
 
     return this.http.post<AIRecommendationsInfo>(
-      `${this.apiUrl}/ai-recommendations/regenerate?rmId=${rmId}&clientId=${clientId}`,
+      `${this.apiUrl}/ai-recommendations/regenerate?rmId=${rmId}&briefId=${briefId}`,
       {
         user_feedback: userFeedback
       }
@@ -160,12 +160,12 @@ export class MeetingsService {
   }
 
   regenerateTalkingPoints(
-    clientId: string,
+    briefId: number,
     section: string,
     userFeedback: string
   ): Observable<AiTakingPoints> {
     return this.http.post<AiTakingPoints>(
-      `${this.apiUrl}/ai-talking-points/regenerate?clientId=${clientId}`,
+      `${this.apiUrl}/ai-talking-points/regenerate?briefId=${briefId}`,
       {
         section: section,
         user_feedback: userFeedback
@@ -174,12 +174,12 @@ export class MeetingsService {
   }
 
   updateTalkingPoints(
-    clientId: string,
+    briefId: number,
     section: string,
     content: string[]
   ): Observable<AiTakingPoints> {
     return this.http.put<AiTakingPoints>(
-      `${this.apiUrl}/ai-talking-points?clientId=${clientId}`,
+      `${this.apiUrl}/ai-talking-points?briefId=${briefId}`,
       {
         section,
         content

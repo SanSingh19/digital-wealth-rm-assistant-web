@@ -22,6 +22,7 @@ export class SummaryFromLastMeeting implements OnInit {
   meetingSummaries = signal<ClientMeetingSummary[]>([]);
   summaryData = signal<ClientMeetingSummary | null>(null);
 
+  @Input() briefId: number | null = null;
   @Input() clientId: number | null = null;
 
   // Upload dialog state
@@ -46,9 +47,9 @@ export class SummaryFromLastMeeting implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.clientId) {
+    if (this.briefId !== null) {
       this.meetingsService
-        .getSummaryFromLastMeeting(this.clientId)
+        .getSummaryFromLastMeeting(this.briefId)
         .subscribe(data => {
 
           this.meetingSummaries.set(data.meetingSummaries || []);

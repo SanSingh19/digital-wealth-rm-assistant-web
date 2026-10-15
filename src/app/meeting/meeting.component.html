@@ -38,16 +38,17 @@
 <app-client-profile [clientId]="clientUniqueId()"> </app-client-profile>
 <app-performance [clientId]="clientUniqueId()" [rmId]="relationshipManagerId()"> </app-performance>
   <app-summary-from-last-meeting
+    [briefId]="briefId()"
     [clientId]="clientUniqueId() !== null ? Number(clientUniqueId()) : null">
   </app-summary-from-last-meeting>
 <app-last-five-transactions [clientId]="clientUniqueId()"></app-last-five-transactions>
 <app-personal-aspects [clientId]="clientUniqueId()"></app-personal-aspects>
 <app-risk-indicators [clientId]="clientUniqueId()"></app-risk-indicators>
 <app-client-constraints [clientId]="clientUniqueId()"> </app-client-constraints>
-<app-market-outlook [clientId]="clientUniqueId()" [rmId]="relationshipManagerId()"></app-market-outlook>
+<app-market-outlook [briefId]="briefId()" [rmId]="relationshipManagerId()"></app-market-outlook>
 </div>
-<app-ai-recommendations [clientId]="clientUniqueId()" [rmId]="relationshipManagerId()"></app-ai-recommendations>
-<app-ai-talking-points [clientId]="clientUniqueId()" [rmId]="relationshipManagerId()"></app-ai-talking-points>
+<app-ai-recommendations [briefId]="briefId()" [rmId]="relationshipManagerId()"></app-ai-recommendations>
+<app-ai-talking-points [briefId]="briefId()" [rmId]="relationshipManagerId()"></app-ai-talking-points>
   }
 <app-ai-copilot></app-ai-copilot>
 </div>

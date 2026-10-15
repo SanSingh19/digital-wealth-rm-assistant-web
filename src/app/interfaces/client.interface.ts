@@ -74,7 +74,7 @@ export interface MarketOutlookCitation {
 }
 
 export interface AIRecommendationsInfo {
-  clientId: string;
+  briefId: number;
   rmId: string;
   complianceStatus: string;
   suitabilityProfile: string;
@@ -141,7 +141,7 @@ export interface AssetAllocationItem {
 }
 
 export interface ClientMeetingSummary {
-  clientId: number;
+  briefId: number;
   rmId: string;
   lastMeetingDate: string;
   mainDiscussionPoints: string[];
@@ -149,12 +149,12 @@ export interface ClientMeetingSummary {
 }
 
 export interface ClientMeetingSummaryResponse {
-  clientId: number;
+  briefId: number;
   meetingSummaries: ClientMeetingSummary[];
 }
 
 export interface AiTakingPoints {
-  clientId: string;
+  briefId: number;
   conversationOpeners : string[];
 	portfolioDiscussion : string[];
 	productIntroduction : string[];

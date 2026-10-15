@@ -26,7 +26,7 @@ export class AiTalkingPointsComponent implements OnInit {
 
   talkingPointsDB = signal<AiTakingPoints | null>(null);
 
-  @Input() clientId: string | null = null;
+  @Input() briefId: number | null = null;
   @Input() rmId: string | null = null;
 
   editingSection: TalkingPointSection | null = null;
@@ -64,10 +64,10 @@ export class AiTalkingPointsComponent implements OnInit {
   }
 
   loadTalkingPoints(): void {
-    if (this.rmId && this.clientId) {
+    if (this.rmId && this.briefId !==null) {
       this.meetingsService.getTalkingPoints(
         this.rmId,
-        this.clientId
+        this.briefId
       ).subscribe(data => {
         this.talkingPointsDB.set(data);
 
@@ -95,7 +95,7 @@ export class AiTalkingPointsComponent implements OnInit {
   }
 
   saveSection(section: TalkingPointSection): void {
-    if (!this.clientId) {
+    if (this.briefId === null) {
       return;
     }
 
@@ -103,7 +103,7 @@ export class AiTalkingPointsComponent implements OnInit {
 
     this.meetingsService
       .updateTalkingPoints(
-        this.clientId,
+        this.briefId,
         section,
         content
       )
@@ -161,11 +161,11 @@ export class AiTalkingPointsComponent implements OnInit {
   }
 
   regenerateSection(): void {
-    const clientId = this.clientId;
+    const briefId = this.briefId;
     const section = this.selectedSection;
     const feedback = this.regenerateComment.trim();
 
-    if (!clientId || !section) {
+    if (briefId === null || !section) {
       return;
     }
 
@@ -173,7 +173,7 @@ export class AiTalkingPointsComponent implements OnInit {
 
     this.meetingsService
       .regenerateTalkingPoints(
-        clientId,
+        briefId,
         section,
         feedback
       )

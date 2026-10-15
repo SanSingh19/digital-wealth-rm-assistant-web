@@ -24,7 +24,7 @@ export class AiRecommendations implements OnInit {
   aiRecommendations =
     signal<AIRecommendationsInfo | null>(null);
 
-  @Input() clientId: string | null = null;
+  @Input() briefId: number | null = null;
   @Input() rmId: string | null = null;
 
   // =========================================================
@@ -78,11 +78,11 @@ export class AiRecommendations implements OnInit {
 
   getAIRecommendations(): void {
 
-    if (this.rmId && this.clientId) {
+    if (this.rmId && this.briefId !== null) {
 
       this.meetingsService.getAIRecommendations(
         this.rmId,
-        this.clientId
+        this.briefId
       ).subscribe(data => {
 
         this.aiRecommendations.set(data);
@@ -130,7 +130,7 @@ export class AiRecommendations implements OnInit {
 
   regenerateAIRecommendations(): void {
 
-    if (!this.clientId || !this.rmId) {
+    if (this.briefId === null || !this.rmId) {
       return;
     }
 
@@ -141,7 +141,7 @@ export class AiRecommendations implements OnInit {
     this.meetingsService
       .regenerateAIRecommendations(
         this.rmId,
-        this.clientId,
+        this.briefId,
         feedback
       )
       .subscribe({

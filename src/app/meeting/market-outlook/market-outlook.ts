@@ -23,7 +23,7 @@ export class MarketOutlook implements OnInit {
 
   marketOutlook = signal<MarketOutlookInfo | null>(null);
 
-  @Input() clientId: string | null = null;
+  @Input() briefId: number | null = null;
   @Input() rmId: string | null = null;
 
 
@@ -78,11 +78,11 @@ export class MarketOutlook implements OnInit {
 
   getMarketOutlook(): void {
 
-    if (this.rmId && this.clientId) {
+    if (this.rmId && this.briefId !== null) {
 
       this.meetingsService.getMarketOutlook(
         this.rmId,
-        this.clientId
+        this.briefId
       ).subscribe(data => {
 
         this.marketOutlook.set(data);
@@ -112,13 +112,13 @@ export class MarketOutlook implements OnInit {
     } else {
 
       // Save to backend
-      if (!this.clientId) {
+      if (this.briefId == null) {
         return;
       }
 
       this.meetingsService
         .updateMarketOutlook(
-          this.clientId,
+          this.briefId,
           this.editedSummary
         )
         .subscribe({
@@ -171,7 +171,7 @@ export class MarketOutlook implements OnInit {
 
   regenerateMarketOutlook(): void {
 
-    if (!this.clientId) {
+    if (this.briefId == null) {
       return;
     }
 
@@ -182,7 +182,7 @@ export class MarketOutlook implements OnInit {
 
     this.meetingsService
       .regenerateMarketOutlook(
-        this.clientId,
+        this.briefId,
         feedback
       )
       .subscribe({

@@ -47,6 +47,7 @@ export class MeetingComponent implements OnInit {
 
   clientUniqueId = signal<string | null>(null);
   relationshipManagerId = signal<string | null>(null);
+  briefId = signal<number | null>(null);
 
   constructor(
     private router: Router,
@@ -67,6 +68,10 @@ export class MeetingComponent implements OnInit {
     if (state?.clientId != null && state?.rmId != null) {
       this.clientUniqueId.set(String(state.clientId));
       this.relationshipManagerId.set(String(state.rmId));
+
+      if (state?.briefId != null) {
+        this.briefId.set(Number(state.briefId));
+      }
 
       console.log('Using navigation IDs:', {
         rmId: this.relationshipManagerId(),
