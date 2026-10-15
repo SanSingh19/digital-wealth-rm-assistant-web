@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MeetingsListService } from '../services/meetings-list.service';
 import { Meeting, Meetings, MeetingStatus } from '../interfaces/meeting.interface';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-meeting-list',
@@ -15,6 +16,9 @@ export class MeetingList implements OnInit {
   // Create a meetings signal array
   meetingsSignal = signal<Meeting[]>([]);
 
+  preparingBriefs = signal<Record<string, boolean>>({});
+  preparedBriefIds = signal<Record<string, number>>({});
+
   // Create signal variables for meeting statistics
   meetingsOfThisWeek = signal<number>(0);
   briefsReady = signal<number>(0);
@@ -23,6 +27,7 @@ export class MeetingList implements OnInit {
 
   // Expose MeetingStatus enum to template
   MeetingStatus = MeetingStatus;
+  String = String;
 
   // Property to hold the current date
   today = new Date();
@@ -38,17 +43,21 @@ export class MeetingList implements OnInit {
   }
 
   getMeetingByRMId(id: string): void {
-    this.meetingsListService.getMeetingByRMId(id).subscribe({
-      next: (meetings: Meetings) => {
-        // Assign meetings.meetings to the signal array
-        this.meetingsSignal.set(meetings.meetings);
+    console.log('Fetching meetings for RM ID:', id);
 
-        // Assign meeting statistics to signal variables
-        this.getMeetingReadyStats(meetings);
-        this.getTotalAum(meetings);
-        this.meetingsOfThisWeek.set(meetings.meetings.length);
+    this.meetingsListService.getMeetingByRMId(id).subscribe({
+      next: (response: Meetings) => {
+        console.log('Meetings API response:', response);
+
+        const meetingList = response?.meetings ?? [];
+
+        this.meetingsSignal.set(meetingList);
+        this.getMeetingReadyStats({ ...response, meetings: meetingList });
+        this.getTotalAum({ ...response, meetings: meetingList });
+        this.meetingsOfThisWeek.set(meetingList.length);
         this.avgAIPrepTime.set('38 sec');
 
+        console.log('Meetings loaded:', meetingList.length);
       },
       error: (error) => {
         console.error('Error fetching meetings:', error);
@@ -104,5 +113,74 @@ export class MeetingList implements OnInit {
   // Navigation method to meeting component
   navigateToMeeting(rmId:string, clientId: string): void {
     this.router.navigate(['/meeting'], { state: { rmId: rmId, clientId: clientId } });
+  }
+
+  prepareBrief(
+    meetingId: number | string,
+    _clientId?: string | number
+  ): void {
+    const id = String(meetingId);
+
+    // Prevent duplicate requests for the same meeting
+    if (this.preparingBriefs()[id]) {
+      return;
+    }
+
+    this.preparingBriefs.update(current => ({
+      ...current,
+      [id]: true
+    }));
+
+    this.meetingsListService
+      .prepareBrief(Number(meetingId))
+      .pipe(
+        finalize(() => {
+          this.preparingBriefs.update(current => ({
+            ...current,
+            [id]: false
+          }));
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          console.log('Prepare Brief API response:', response);
+
+          this.preparedBriefIds.update(current => ({
+            ...current,
+            [id]: response.briefId
+          }));
+
+          console.log(
+            `Brief prepared for meeting ${id}. Brief ID:`,
+            response.briefId
+          );
+        },
+        error: (error) => {
+          console.error('Failed to prepare brief:', error);
+          alert('Failed to prepare the brief. Please try again.');
+        }
+      });
+  }
+
+  viewBrief(
+    meetingId: number | string,
+    clientId: string | number
+  ): void {
+    const briefId = this.preparedBriefIds()[String(meetingId)];
+
+    if (!briefId) {
+      alert('Please prepare the brief first.');
+      return;
+    }
+
+    this.router.navigate(['/meeting'], {
+      state: {
+        rmId: '1001',
+        clientId: String(clientId),
+        meetingId: Number(meetingId),
+        briefId: briefId,
+        action: 'view'
+      }
+    });
   }
 }

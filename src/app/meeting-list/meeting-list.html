@@ -33,17 +33,29 @@
       </div>
 
       <div class="right-section">
-        <span [class]="'status-badge ' + getStatusClass(meeting.meetingStatus)">
-          {{ getStatusText(meeting.meetingStatus) }}
-        </span>
+        <button
+          class="action-btn"
+          [disabled]="preparingBriefs()[String(meeting.id)]"
+          (click)="prepareBrief(meeting.id, meeting.clientId)">
 
-        <button [class]="'action-btn ' + (meeting.meetingStatus === 1 ? 'status-ready-btn' : '')"
-                (click)="navigateToMeeting(meeting.id,meeting.clientId)">
-          @if (meeting.meetingStatus === 1) {
-            View Brief
-          } @else {
-            Prepare Brief
-          }
+    <span *ngIf="preparingBriefs()[String(meeting.id)]">
+      Preparing...
+    </span>
+
+          <span *ngIf="!preparingBriefs()[String(meeting.id)]">
+      Prepare Brief
+    </span>
+
+          <span class="arrow" *ngIf="!preparingBriefs()[String(meeting.id)]">
+      →
+    </span>
+        </button>
+
+        <button
+          class="action-btn status-ready-btn"
+          (click)="viewBrief(meeting.id, meeting.clientId)">
+
+          View Brief
           <span class="arrow">→</span>
         </button>
       </div>

@@ -9,7 +9,7 @@ import { Meeting, Meetings, MeetingStatus } from '../interfaces/meeting.interfac
 export class MeetingsListService {
   private apiUrl = 'http://localhost:8080/meeting/view'; // Update with your actual API endpoint
 
-  
+
   // Mock data for meetings
   // private mockMeeting: Meeting[] = [
   //   {
@@ -81,6 +81,28 @@ export class MeetingsListService {
     return this.http.get<Meetings>(`${this.apiUrl}?rmId=${id}`);
 
    // return of(this.mockMeetings);
+  }
+
+  prepareBrief(
+    meetingId: number
+  ): Observable<{
+    briefId: number;
+    status: string;
+    message: string;
+  }> {
+    return this.http.post<{
+      briefId: number;
+      status: string;
+      message: string;
+    }>(
+      'http://localhost:8080/client/prepare-brief',
+      null,
+      {
+        params: {
+          meetingId: meetingId.toString()
+        }
+      }
+    );
   }
 }
 
