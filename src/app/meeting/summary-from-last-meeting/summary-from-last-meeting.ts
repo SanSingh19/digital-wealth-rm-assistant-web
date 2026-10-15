@@ -21,6 +21,7 @@ export class SummaryFromLastMeeting implements OnInit {
 
   meetingSummaries = signal<ClientMeetingSummary[]>([]);
   summaryData = signal<ClientMeetingSummary | null>(null);
+  isRefreshing = false;
 
   @Input() briefId: number | null = null;
   @Input() clientId: number | null = null;
@@ -47,6 +48,7 @@ export class SummaryFromLastMeeting implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadSummaries();
     if (this.briefId !== null) {
       this.meetingsService
         .getSummaryFromLastMeeting(this.briefId)
@@ -60,6 +62,46 @@ export class SummaryFromLastMeeting implements OnInit {
         });
     }
   }
+  refreshSummaries(): void {
+      if (this.isRefreshing) {
+        return;
+      }
+
+      this.isRefreshing = true;
+      this.loadSummaries(() => {
+        this.isRefreshing = false;
+      });
+    }
+
+    private loadSummaries(onDone?: () => void): void {
+      if (!this.clientId) {
+        onDone?.();
+        return;
+      }
+
+      const previouslySelectedDate = this.summaryData()?.lastMeetingDate;
+
+      this.meetingsService
+        .getSummaryFromLastMeeting(this.clientId)
+        .subscribe({
+          next: data => {
+            const summaries = data.meetingSummaries || [];
+            this.meetingSummaries.set(summaries);
+
+            const preserved = summaries.find(
+              meeting => meeting.lastMeetingDate === previouslySelectedDate
+            );
+
+            this.summaryData.set(preserved || summaries[0] || null);
+            onDone?.();
+          },
+          error: error => {
+            console.error('Failed to load meeting summaries:', error);
+            onDone?.();
+          }
+        });
+    }
+
 
   selectMeeting(lastMeetingDate: string): void {
     const selectedMeeting = this.meetingSummaries().find(

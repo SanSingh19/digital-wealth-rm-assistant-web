@@ -100,11 +100,18 @@
 
 /* Existing meeting dropdown */
 
+.meeting-dropdown-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
 .meeting-dropdown {
   width: auto;
   max-width: 260px;
   min-height: unset;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   padding: 4px 8px;
   border: 1px solid #d1d5db;
   border-radius: 4px;
@@ -117,6 +124,48 @@
 .meeting-dropdown:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 2px rgb(59 130 246 / 10%);
+}
+
+.refresh-meeting-btn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.refresh-meeting-btn:hover:not(:disabled) {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.refresh-meeting-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.refresh-meeting-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.refresh-meeting-btn.spinning svg {
+  animation: refreshSpin 0.8s linear infinite;
+}
+
+@keyframes refreshSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* =========================
@@ -906,7 +955,8 @@
   .upload-modal,
   .processing-ring,
   .progress-indeterminate,
-  .processing-status-dot {
+  .processing-status-dot,
+  .refresh-meeting-btn.spinning svg {
     animation: none;
   }
 }

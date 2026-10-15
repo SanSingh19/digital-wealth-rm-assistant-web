@@ -33,14 +33,30 @@
     <div *ngIf="summaryData() as summary">
       <p class="card-content-desc">Previous Meeting Date:</p>
 
-      <select class="meeting-dropdown"
-              [value]="summary.lastMeetingDate"
-              (change)="selectMeeting($any($event.target).value)">
-        <option *ngFor="let meeting of meetingSummaries()"
-                [value]="meeting.lastMeetingDate">
-          {{ meeting.lastMeetingDate }}
-        </option>
-      </select>
+      <div class="meeting-dropdown-row">
+        <select class="meeting-dropdown"
+                [value]="summary.lastMeetingDate"
+                (change)="selectMeeting($any($event.target).value)">
+          <option *ngFor="let meeting of meetingSummaries()"
+                  [value]="meeting.lastMeetingDate">
+            {{ meeting.lastMeetingDate }}
+          </option>
+        </select>
+
+        <button type="button" class="refresh-meeting-btn"
+                [class.spinning]="isRefreshing"
+                [disabled]="isRefreshing"
+                aria-label="Refresh meeting summaries"
+                title="Refresh"
+                (click)="refreshSummaries()">
+          <svg width="14" height="14" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 4v6h-6M1 20v-6h6"/>
+            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+          </svg>
+        </button>
+      </div>
 
       <p class="card-heading-desc">
         <span class="card-heading-content-desc">Main Discussion Points:</span>
@@ -84,8 +100,8 @@
           </svg>
         </div>
         <div>
-          <h2 id="upload-modal-title">{{ uploadSuccessful ? 'Transcription Completed!' : 'Upload Meeting' }}</h2>
-          <p>Add a meeting recording to get started</p>
+          <h2 id="upload-modal-title">{{ uploadSuccessful ? 'Submitted for Transcription!' : 'Upload Meeting' }}</h2>
+          <p>{{ uploadSuccessful ? '' : 'Add a meeting recording to get started' }}</p>
         </div>
       </div>
 
@@ -227,7 +243,7 @@
         </div>
       </div>
 
-      <h2>Transcription in Progress</h2>
+      <h2>Upload in Progress</h2>
       <p class="processing-description">
         Your meeting recording is ready for the transcription workflow.
       </p>
@@ -249,7 +265,7 @@
       </div>
 
       <div class="progress-label-row">
-        <span>Preparing transcription</span>
+        <span>Preparing for transcription</span>
         <span class="processing-pulse">In progress</span>
       </div>
       <div class="progress-track">
@@ -285,10 +301,10 @@
         </div>
       </div>
 
-      <h2>Transcription Completed!</h2>
+      <h2>Submitted for Transcription</h2>
 
       <p class="processing-description">
-        Your meeting recording has been uploaded successfully.
+        Option to view summary of the uploaded meeting recording will appear once the transcription is completed.
       </p>
 
       <div class="processing-file-summary" *ngIf="selectedFile">
