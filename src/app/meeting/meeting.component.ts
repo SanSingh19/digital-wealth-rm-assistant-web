@@ -88,7 +88,7 @@ export class MeetingComponent implements OnInit {
       next: (response: Meetings) => {
         console.log('Meetings API response:', response);
 
-        const firstMeeting = response?.meetings?.[0];
+        const firstMeeting = response?.upcomingMeetings?.[0] ?? response?.pastMeetings?.[0];
 
         if (!firstMeeting) {
           console.error(

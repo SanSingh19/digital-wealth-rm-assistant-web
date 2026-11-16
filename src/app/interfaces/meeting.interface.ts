@@ -22,11 +22,8 @@ export interface Meeting {
 }
 
 export interface Meetings {
-  meetings: Meeting[];
-  meetingsOfThisWeek: number;
-  briefsReady: number;
-  totalAum: string;
-  avgAIPrepTime: string;
+  upcomingMeetings: Meeting[];
+  pastMeetings: Meeting[];
 }
 
 

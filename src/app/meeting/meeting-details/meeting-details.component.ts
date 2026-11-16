@@ -27,19 +27,29 @@ export class MeetingDetailsComponent implements OnInit {
   }
 
   getMeetingByClientId(rmId: string, clientId: string): void {
-      this.meetingsListService.getMeetingByRMId(rmId).subscribe({
-        next: (meetings: Meetings) => {
-          if (meetings && Array.isArray(meetings.meetings) && meetings.meetings.length > 0) {
-            const meeting = meetings.meetings.find(meeting => meeting.clientId === clientId);
-            if (meeting) {
-              this.meetingDetails.set(meeting);
-            }
-          }
-        },
-        error: (error) => {
-          console.error('Error fetching meetings:', error);
-        }
-      });
-    }
+    this.meetingsListService.getMeetingByRMId(rmId).subscribe({
+      next: (response: Meetings) => {
 
+        // Combine upcoming and past meetings
+        const allMeetings: Meeting[] = [
+          ...(response?.upcomingMeetings ?? []),
+          ...(response?.pastMeetings ?? [])
+        ];
+
+        // Find the meeting belonging to the selected client
+        const meeting = allMeetings.find(
+          (meeting: Meeting) => meeting.clientId === clientId
+        );
+
+        if (meeting) {
+          this.meetingDetails.set(meeting);
+        } else {
+          console.warn('No meeting found for client:', clientId);
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching meetings:', error);
+      }
+    });
+  }
 }

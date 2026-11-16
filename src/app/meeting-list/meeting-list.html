@@ -1,30 +1,43 @@
 <div style="background-color: rgb(240 242 245);">
-
-
   <div class="max-width-container">
+
+    <!-- Upcoming Meetings -->
     <div class="flex items-center justify-between">
       <div>
-        <h2 class="text-lg font-bold textcolor-primary">Upcoming Client Meetings</h2>
-        <p class="text-xs text-gray-500">Select a client to view or generate their meeting preparation brief</p>
+        <h2 class="text-lg font-bold textcolor-primary">
+          Upcoming Client Meetings
+        </h2>
+        <p class="text-xs text-gray-500">
+          Select a client to view or generate their meeting preparation brief
+        </p>
       </div>
+
       <div class="text-xs text-gray-400">
         Today: {{ today | date:'dd MMMM yyyy' }}
       </div>
     </div>
 
-    <div class="meeting-card" *ngFor="let meeting of meetingsSignal()">
+    <!-- Upcoming Meeting Cards -->
+    <div
+      class="meeting-card"
+      *ngFor="let meeting of upcomingMeetings()"
+    >
       <div class="left-section">
         <div class="user-circle">{{ meeting.shortName }}</div>
+
         <div class="details">
           <div class="name-row">
-            <span class="name">{{ meeting.title }} {{ meeting.name }}</span>
-            <span class="tag">{{ meeting.accountType}}</span>
+            <span class="name">
+              {{ meeting.title }} {{ meeting.name }}
+            </span>
+            <span class="tag">{{ meeting.accountType }}</span>
           </div>
+
           <div class="info-row">
             <span>{{ meeting.date }} at {{ meeting.time }}</span>
             <span class="divider">|</span>
             <span class="video-call">
-              {{ meeting.meetingType }}  —   {{ meeting.location }}
+              {{ meeting.meetingType }} — {{ meeting.location }}
             </span>
             <span class="divider">|</span>
             <span>AUM: &euro;{{ meeting.amount }}M</span>
@@ -32,51 +45,243 @@
         </div>
       </div>
 
+      <!-- Upcoming Meeting Actions -->
       <div class="right-section">
+
         <button
           class="action-btn"
           [disabled]="preparingBriefs()[String(meeting.id)]"
-          (click)="prepareBrief(meeting.id, meeting.clientId)">
-
-    <span *ngIf="preparingBriefs()[String(meeting.id)]">
-      Preparing...
-    </span>
+          (click)="prepareBrief(meeting.id, meeting.clientId)"
+        >
+          <span *ngIf="preparingBriefs()[String(meeting.id)]">
+            Preparing...
+          </span>
 
           <span *ngIf="!preparingBriefs()[String(meeting.id)]">
-      Prepare Brief
-    </span>
+            Prepare Brief
+          </span>
 
-          <span class="arrow" *ngIf="!preparingBriefs()[String(meeting.id)]">
-      →
-    </span>
+          <span
+            class="arrow"
+            *ngIf="!preparingBriefs()[String(meeting.id)]"
+          >
+            →
+          </span>
         </button>
 
         <button
           class="action-btn status-ready-btn"
-          (click)="viewBrief(meeting.id, meeting.clientId)">
-
+          [disabled]="!preparedBriefIds()[String(meeting.id)]"
+          (click)="viewBrief(meeting.id, meeting.clientId)"
+        >
           View Brief
           <span class="arrow">→</span>
         </button>
+
       </div>
     </div>
 
+    <p
+      class="text-sm text-gray-500"
+      *ngIf="upcomingMeetings().length === 0"
+    >
+      No upcoming meetings.
+    </p>
+
+    <!-- Summary Cards -->
     <div class="summary-cards-container">
+
       <div class="summary-card">
         <p class="card-title">Total Meetings</p>
-        <h3 class="card-value value-1">{{ meetingsOfThisWeek() }}</h3>
+        <h3 class="card-value value-1">
+          {{ meetingsOfThisWeek() }}
+        </h3>
       </div>
 
       <div class="summary-card">
         <p class="card-title">Briefs Ready</p>
-        <h3 class="card-value value-2">{{ briefsReady() }}/{{ meetingsOfThisWeek() }}</h3>
+        <h3 class="card-value value-2">
+          {{ briefsReady() }}/{{ meetingsOfThisWeek() }}
+        </h3>
       </div>
 
       <div class="summary-card">
         <p class="card-title">Total AUM</p>
-        <h3 class="card-value value-3">&euro;{{ totalAum() }}</h3>
+        <h3 class="card-value value-3">
+          &euro;{{ totalAum() }}
+        </h3>
+      </div>
+
+    </div>
+
+    <!-- Past Meetings -->
+    <div
+      class="flex items-center justify-between"
+      style="margin-top: 32px;"
+    >
+      <div>
+        <h2 class="text-lg font-bold textcolor-primary">
+          Past Client Meetings
+        </h2>
+        <p class="text-xs text-gray-500">
+          Upload meeting recordings for completed meetings
+        </p>
+      </div>
+    </div>
+
+    <!-- Past Meeting Cards -->
+    <div
+      class="meeting-card"
+      *ngFor="let meeting of pastMeetings()"
+    >
+      <div class="left-section">
+        <div class="user-circle">{{ meeting.shortName }}</div>
+
+        <div class="details">
+          <div class="name-row">
+            <span class="name">
+              {{ meeting.title }} {{ meeting.name }}
+            </span>
+            <span class="tag">{{ meeting.accountType }}</span>
+          </div>
+
+          <div class="info-row">
+            <span>{{ meeting.date }} at {{ meeting.time }}</span>
+            <span class="divider">|</span>
+            <span class="video-call">
+              {{ meeting.meetingType }} — {{ meeting.location }}
+            </span>
+            <span class="divider">|</span>
+            <span>AUM: &euro;{{ meeting.amount }}M</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past Meeting Action: Upload Only -->
+      <div class="right-section">
+        <button
+          class="action-btn"
+          (click)="uploadMeeting(meeting)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 16V4" />
+            <path d="m7 9 5-5 5 5" />
+            <path d="M20 16.5v3a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5v-3" />
+          </svg>
+
+          Upload Meeting
+        </button>
+      </div>
+
+    </div>
+
+    <p
+      class="text-sm text-gray-500"
+      *ngIf="pastMeetings().length === 0"
+    >
+      No past meetings.
+    </p>
+
+  </div>
+
+  <!-- Upload Meeting Popup -->
+  <div
+    class="modal-overlay"
+    *ngIf="showUploadPopup()"
+  >
+    <div class="upload-modal">
+
+      <!-- Popup Header -->
+      <div class="modal-header">
+        <h2>Upload Meeting Recording</h2>
+
+        <button
+          type="button"
+          class="modal-close"
+          (click)="closeUploadPopup()"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Popup Body -->
+      <div
+        class="modal-body"
+        *ngIf="selectedMeeting() as meeting"
+      >
+
+        <p class="text-sm text-gray-500">
+          Upload the recording for
+          <strong>
+            {{ meeting.title }} {{ meeting.name }}
+          </strong>
+        </p>
+
+        <!-- Meeting Date -->
+        <div class="upload-field">
+          <label>Meeting Date</label>
+
+          <input
+            type="text"
+            [value]="meeting.date"
+            readonly
+          />
+        </div>
+
+        <!-- MP4 File Selection -->
+        <div class="upload-field">
+          <label>Select MP4 Recording</label>
+
+          <input
+            type="file"
+            accept=".mp4,video/mp4"
+            (change)="onUploadFileSelected($event)"
+          />
+        </div>
+
+        <!-- Selected File -->
+        <p
+          *ngIf="selectedUploadFile() as file"
+          class="selected-file"
+        >
+          Selected file: {{ file.name }}
+        </p>
+
+      </div>
+
+      <!-- Popup Footer -->
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          (click)="closeUploadPopup()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="action-btn"
+          [disabled]="!selectedUploadFile()"
+          (click)="submitMeetingUpload()"
+        >
+          Upload Recording
+        </button>
+
       </div>
 
     </div>
   </div>
+
 </div>
