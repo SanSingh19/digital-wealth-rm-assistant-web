@@ -49,9 +49,9 @@ export class SummaryFromLastMeeting implements OnInit {
 
   ngOnInit(): void {
     this.loadSummaries();
-    if (this.briefId !== null) {
+    if (this.clientId !== null) {
       this.meetingsService
-        .getSummaryFromLastMeeting(this.briefId)
+        .getSummaryFromLastMeeting(this.clientId)
         .subscribe(data => {
 
           this.meetingSummaries.set(data.meetingSummaries || []);

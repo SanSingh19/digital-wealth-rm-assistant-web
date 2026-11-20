@@ -39,10 +39,10 @@ export class MeetingsService {
   }
 
   getSummaryFromLastMeeting(
-    briefId: number
+    clientId: number
   ): Observable<ClientMeetingSummaryResponse> {
     return this.http.get<ClientMeetingSummaryResponse>(
-      `${this.apiUrl}/last-meeting-summary?briefId=${briefId}`
+      `${this.apiUrl}/last-meeting-summary?clientId=${clientId}`
     );
   }
 
