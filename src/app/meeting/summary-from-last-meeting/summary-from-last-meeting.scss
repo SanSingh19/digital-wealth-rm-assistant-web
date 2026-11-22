@@ -1,4 +1,3 @@
-
 :host {
   display: block;
   width: 100%;
@@ -61,6 +60,27 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.approve-meeting-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.approve-meeting-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.approve-meeting-btn.approved {
+  background-color: #198754;
 }
 
 /* Blue Upload Meeting button */

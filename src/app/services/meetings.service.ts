@@ -173,6 +173,13 @@ export class MeetingsService {
     );
   }
 
+  approveMeetingSummary(summaryId: number): Observable<{ status: string; message: string }> {
+    return this.http.post<{ status: string; message: string }>(
+      `${this.apiUrl}/meeting-summary/approve?summaryId=${summaryId}`,
+      {}
+    );
+  }
+
   updateTalkingPoints(
     briefId: number,
     section: string,

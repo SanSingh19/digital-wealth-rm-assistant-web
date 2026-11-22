@@ -141,11 +141,14 @@ export interface AssetAllocationItem {
 }
 
 export interface ClientMeetingSummary {
-  briefId: number;
+  id: number;
+  clientId: number;
   rmId: string;
   lastMeetingDate: string;
   mainDiscussionPoints: string[];
   clientQuestions: string[];
+  isApproved?: boolean | null;
+  approvedDatetime?: string | null;
 }
 
 export interface ClientMeetingSummaryResponse {

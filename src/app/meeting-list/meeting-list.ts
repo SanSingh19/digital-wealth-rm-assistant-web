@@ -69,6 +69,17 @@ export class MeetingList implements OnInit {
         this.upcomingMeetings.set(upcoming);
         this.pastMeetings.set(past);
 
+        // Restore existing brief IDs from backend
+        const existingBriefIds: Record<string, number> = {};
+
+        upcoming.forEach(meeting => {
+          if (meeting.briefId != null) {
+            existingBriefIds[String(meeting.id)] = Number(meeting.briefId);
+          }
+        });
+
+        this.preparedBriefIds.set(existingBriefIds);
+
         // Combine lists for dashboard statistics only
         const allMeetings: Meeting[] = [
           ...upcoming,

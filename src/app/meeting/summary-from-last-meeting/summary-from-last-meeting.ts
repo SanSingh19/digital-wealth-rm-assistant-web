@@ -1,16 +1,13 @@
-import { Component, Input, OnInit, signal, ChangeDetectorRef } from '@angular/core';
+
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { MeetingsService } from '../../services/meetings.service';
 import { ClientMeetingSummary } from '../../interfaces/client.interface';
 
 @Component({
   selector: 'app-summary-from-last-meeting',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CommonModule],
   templateUrl: './summary-from-last-meeting.html',
   styleUrls: [
     '../meeting.component.scss',
@@ -21,244 +18,159 @@ export class SummaryFromLastMeeting implements OnInit {
 
   meetingSummaries = signal<ClientMeetingSummary[]>([]);
   summaryData = signal<ClientMeetingSummary | null>(null);
+
   isRefreshing = false;
+  isApproving = false;
+  approvalError = '';
 
   @Input() briefId: number | null = null;
   @Input() clientId: number | null = null;
 
-  // Upload dialog state
-  showUploadDialog = false;
-  selectedMeetingDate = '';
-  selectedFile: File | null = null;
-
-  // Transcription state
-  isTranscribing = false;
-  uploadSuccessful = false;
-
-  // File-picker state
-  isDragOver = false;
-  uploadError = '';
-
-  // Today's date in local time, formatted for input[type=date]
-  today = this.getLocalDateString();
-
   constructor(
-    private meetingsService: MeetingsService,
-    private cdr: ChangeDetectorRef
+    private meetingsService: MeetingsService
   ) {}
 
   ngOnInit(): void {
     this.loadSummaries();
-    if (this.clientId !== null) {
-      this.meetingsService
-        .getSummaryFromLastMeeting(this.clientId)
-        .subscribe(data => {
-
-          this.meetingSummaries.set(data.meetingSummaries || []);
-
-          if (data.meetingSummaries?.length > 0) {
-            this.summaryData.set(data.meetingSummaries[0]);
-          }
-        });
-    }
   }
-  refreshSummaries(): void {
-      if (this.isRefreshing) {
-        return;
-      }
 
-      this.isRefreshing = true;
-      this.loadSummaries(() => {
-        this.isRefreshing = false;
+  // Load meeting summaries for the selected client
+  private loadSummaries(onDone?: () => void): void {
+
+    if (this.clientId === null) {
+      onDone?.();
+      return;
+    }
+
+    const previouslySelectedDate =
+      this.summaryData()?.lastMeetingDate;
+
+    this.meetingsService
+      .getSummaryFromLastMeeting(this.clientId)
+      .subscribe({
+
+        next: data => {
+
+          const summaries = data.meetingSummaries || [];
+
+          this.meetingSummaries.set(summaries);
+
+          const preserved = summaries.find(
+            meeting =>
+              meeting.lastMeetingDate === previouslySelectedDate
+          );
+
+          this.summaryData.set(
+            preserved || summaries[0] || null
+          );
+
+          onDone?.();
+        },
+
+        error: error => {
+
+          console.error(
+            'Failed to load meeting summaries:',
+            error
+          );
+
+          onDone?.();
+        }
       });
+  }
+
+  // Refresh meeting summaries
+  refreshSummaries(): void {
+
+    if (this.isRefreshing) {
+      return;
     }
 
-    private loadSummaries(onDone?: () => void): void {
-      if (!this.clientId) {
-        onDone?.();
-        return;
-      }
+    this.isRefreshing = true;
 
-      const previouslySelectedDate = this.summaryData()?.lastMeetingDate;
+    this.loadSummaries(() => {
+      this.isRefreshing = false;
+    });
+  }
 
-      this.meetingsService
-        .getSummaryFromLastMeeting(this.clientId)
-        .subscribe({
-          next: data => {
-            const summaries = data.meetingSummaries || [];
-            this.meetingSummaries.set(summaries);
-
-            const preserved = summaries.find(
-              meeting => meeting.lastMeetingDate === previouslySelectedDate
-            );
-
-            this.summaryData.set(preserved || summaries[0] || null);
-            onDone?.();
-          },
-          error: error => {
-            console.error('Failed to load meeting summaries:', error);
-            onDone?.();
-          }
-        });
-    }
-
-
+  // Select a previous meeting summary
   selectMeeting(lastMeetingDate: string): void {
+
     const selectedMeeting = this.meetingSummaries().find(
-      meeting => meeting.lastMeetingDate === lastMeetingDate
+      meeting =>
+        meeting.lastMeetingDate === lastMeetingDate
     );
 
     if (selectedMeeting) {
       this.summaryData.set(selectedMeeting);
+      this.approvalError = '';
     }
   }
 
-  // Open the upload modal
-  openUploadDialog(): void {
-    this.showUploadDialog = true;
-    this.selectedMeetingDate = '';
-    this.selectedFile = null;
-    this.uploadError = '';
-    this.isTranscribing = false;
-    this.uploadSuccessful = false;
-  }
+  // Approve the selected meeting summary
+  approveSummary(): void {
 
+    const summary = this.summaryData();
 
-  // Close the upload modal, even while transcription is running
-  closeUploadDialog(): void {
-    this.isTranscribing = false;
-    this.showUploadDialog = false;
-    this.uploadError = '';
-    this.isDragOver = false;
-    this.uploadSuccessful = false;
-  }
-
-  // File picker selection
-  onMeetingFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-
-    if (file) {
-      this.validateAndSetFile(file);
-    }
-
-    // Allow selecting the same file again
-    input.value = '';
-  }
-
-  // Drag-and-drop support
-  onFileDragOver(event: DragEvent): void {
-    event.preventDefault();
-
-    if (!this.isTranscribing) {
-      this.isDragOver = true;
-    }
-  }
-
-  onFileDragLeave(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragOver = false;
-  }
-
-  onMeetingFileDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragOver = false;
-
-    if (this.isTranscribing) {
-      return;
-    }
-
-    const file = event.dataTransfer?.files?.[0];
-
-    if (file) {
-      this.validateAndSetFile(file);
-    }
-  }
-
-  // Validate the selected file
-  private validateAndSetFile(file: File): void {
-    this.uploadError = '';
-
-    const isMp4 =
-      file.name.toLowerCase().endsWith('.mp4') &&
-      (!file.type || file.type === 'video/mp4');
-
-    if (!isMp4) {
-      this.selectedFile = null;
-      this.uploadError = 'Please select an MP4 video file.';
-      return;
-    }
-
-    this.selectedFile = file;
-  }
-
-  removeSelectedFile(): void {
-    if (this.isTranscribing) {
-      return;
-    }
-
-    this.selectedFile = null;
-    this.uploadError = '';
-  }
-
-  formatFileSize(bytes: number): string {
-    if (bytes < 1024 * 1024) {
-      return `${(bytes / 1024).toFixed(1)} KB`;
-    }
-
-    return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-  }
-
-
-  startTranscription(): void {
     if (
-      this.clientId === null ||
-      !this.selectedMeetingDate ||
-      !this.selectedFile ||
-      this.isTranscribing
+      !summary ||
+      summary.id == null ||
+      summary.isApproved === true ||
+      this.isApproving
     ) {
       return;
     }
 
-    this.uploadError = '';
-    this.uploadSuccessful = false;
-    this.isTranscribing = true;
+    this.isApproving = true;
+    this.approvalError = '';
 
-    this.meetingsService.uploadMeetingAudio(
-      this.clientId,
-      this.selectedMeetingDate,
-      this.selectedFile
-    ).subscribe({
-      next: (response) => {
-        console.log('Meeting upload successful:', response);
+    this.meetingsService
+      .approveMeetingSummary(summary.id)
+      .subscribe({
 
-        this.isTranscribing = false;
-        this.uploadSuccessful = true;
+        next: response => {
 
-        this.cdr.detectChanges();
-      },
+          console.log(
+            'Meeting summary approved:',
+            response
+          );
 
-      error: (error) => {
-        console.error('Meeting upload failed:', error);
+          // Update the selected summary after backend approval
+          const approvedSummary: ClientMeetingSummary = {
+            ...summary,
+            isApproved: true
+          };
 
-        this.isTranscribing = false;
-        this.uploadSuccessful = false;
-        this.uploadError =
-          error?.error?.message ||
-          'Failed to upload the meeting recording. Please try again.';
+          this.summaryData.set(approvedSummary);
 
+          // Update the corresponding summary in the list
+          this.meetingSummaries.update(summaries =>
+            summaries.map(meeting =>
+              meeting.id === summary.id
+                ? approvedSummary
+                : meeting
+            )
+          );
 
-        this.cdr.detectChanges();
-      }
-    });
-  }
+          // Reload from backend to retrieve approvedDatetime
+          this.loadSummaries(() => {
+            this.isApproving = false;
+          });
+        },
 
-  private getLocalDateString(): string {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+        error: error => {
 
-    return `${year}-${month}-${day}`;
+          console.error(
+            'Failed to approve meeting summary:',
+            error
+          );
+
+          this.approvalError =
+            error?.error?.message ||
+            'Failed to approve the meeting summary. Please try again.';
+
+          this.isApproving = false;
+        }
+      });
   }
 }

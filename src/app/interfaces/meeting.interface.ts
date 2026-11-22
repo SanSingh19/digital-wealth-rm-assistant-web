@@ -19,6 +19,8 @@ export interface Meeting {
   location: string;//Amsterdam — Zuid office
   currency: string;//AUM
   amount: string;//12.5M
+
+  briefId?: number | null;
 }
 
 export interface Meetings {
