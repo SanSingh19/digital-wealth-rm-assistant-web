@@ -9,6 +9,8 @@ import {
   MeetingStatus
 } from '../interfaces/meeting.interface';
 import { finalize } from 'rxjs';
+import {MeetingsService} from '../services/meetings.service';
+import {ClientMeetingSummary, ClientMeetingSummaryResponse} from '../interfaces/client.interface';
 
 @Component({
   selector: 'app-meeting-list',
@@ -37,6 +39,13 @@ export class MeetingList implements OnInit {
   totalAum = signal<string>('');
   avgAIPrepTime = signal<string>('');
 
+  meetingSummaries = signal<ClientMeetingSummary[]>([]);
+  selectedSummaryId = signal<number | null>(null);
+  selectedSummary = signal<ClientMeetingSummary | null>(null);
+
+  uploadingMeeting = signal<boolean>(false);
+
+
   MeetingStatus = MeetingStatus;
   String = String;
 
@@ -44,6 +53,7 @@ export class MeetingList implements OnInit {
 
   constructor(
     private meetingsListService: MeetingsListService,
+    private meetingsService: MeetingsService,
     private router: Router
   ) {}
 
@@ -285,20 +295,71 @@ export class MeetingList implements OnInit {
     this.selectedUploadFile.set(file);
   }
 
+  loadMeetingSummaries(clientId: number): void {
+    this.meetingsService
+      .getSummaryFromLastMeeting(clientId)
+      .subscribe({
+        next: (response: ClientMeetingSummaryResponse) => {
+          const summaries = response.meetingSummaries ?? [];
+
+          this.meetingSummaries.set(summaries);
+
+          if (summaries.length > 0) {
+            this.selectedSummaryId.set(summaries[0].id);
+            this.selectedSummary.set(summaries[0]);
+          } else {
+            this.selectedSummaryId.set(null);
+            this.selectedSummary.set(null);
+          }
+        },
+        error: (error) => {
+          console.error('Failed to load meeting summaries:', error);
+        }
+      });
+  }
+
   submitMeetingUpload(): void {
     const meeting = this.selectedMeeting();
     const file = this.selectedUploadFile();
 
     if (!meeting || !file) {
-      alert('Please select an MP4 file.');
+      alert('Please select a meeting and recording.');
       return;
     }
 
-    console.log('Selected meeting:', meeting);
-    console.log('Selected meeting date:', meeting.date);
-    console.log('Selected client ID:', meeting.clientId);
+    const clientId = Number(meeting.clientId);
+    const meetingDate = new Date(meeting.date).toISOString().slice(0, 10);// Confirm this property in meeting.interface.ts
+
+    if (!clientId || !meetingDate) {
+      alert('Meeting client ID or date is missing.');
+      return;
+    }
+
+    console.log('Meeting client ID:', clientId);
+    console.log('Meeting date:', meetingDate);
     console.log('Selected file:', file);
 
-    // Actual API upload will be connected here.
+    this.uploadingMeeting.set(true);
+
+    this.meetingsService
+      .uploadMeetingAudio(clientId, meetingDate, file)
+      .pipe(
+        finalize(() => {
+          this.uploadingMeeting.set(false);
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.closeUploadPopup();
+
+          // Load summaries for this client after upload.
+          this.loadMeetingSummaries(clientId);
+        },
+        error: (error) => {
+          console.error('Meeting upload failed:', error);
+          alert('Meeting upload failed. Please try again.');
+        }
+      });
   }
+
 }
