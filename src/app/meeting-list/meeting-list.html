@@ -161,9 +161,12 @@
       <div class="right-section">
         <button
           class="action-btn"
+          [class.status-ready-btn]="uploadedMeetingIds()[String(meeting.id)]"
           (click)="uploadMeeting(meeting)"
         >
+          <!-- Show upload icon only before upload -->
           <svg
+            *ngIf="!uploadedMeetingIds()[String(meeting.id)]"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -179,7 +182,15 @@
             <path d="M20 16.5v3a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5v-3" />
           </svg>
 
-          Upload Meeting
+          <!-- Before upload -->
+          <span *ngIf="!uploadedMeetingIds()[String(meeting.id)]">
+            Upload Meeting
+          </span>
+
+          <!-- After upload -->
+          <span *ngIf="uploadedMeetingIds()[String(meeting.id)]">
+            Meeting Uploaded ✓
+          </span>
         </button>
       </div>
 

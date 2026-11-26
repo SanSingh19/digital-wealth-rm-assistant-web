@@ -44,6 +44,8 @@ export class MeetingList implements OnInit {
   selectedSummary = signal<ClientMeetingSummary | null>(null);
 
   uploadingMeeting = signal<boolean>(false);
+  // Tracks which past meetings have successfully uploaded a recording
+  uploadedMeetingIds = signal<Record<string, boolean>>({});
 
 
   MeetingStatus = MeetingStatus;
@@ -223,10 +225,14 @@ export class MeetingList implements OnInit {
         next: (response) => {
           console.log('Prepare Brief API response:', response);
 
+          // Store the generated brief ID
           this.preparedBriefIds.update(current => ({
             ...current,
             [id]: response.briefId
           }));
+
+          // Show success popup after brief preparation completes
+          alert('Meeting Brief Prepared Successfully!');
 
           console.log(
             `Brief prepared for meeting ${id}. Brief ID:`,
@@ -350,9 +356,20 @@ export class MeetingList implements OnInit {
       )
       .subscribe({
         next: () => {
+
+          // Mark this meeting as successfully uploaded
+          this.uploadedMeetingIds.update(current => ({
+            ...current,
+            [String(meeting.id)]: true
+          }));
+
+          // Close the upload popup
           this.closeUploadPopup();
 
-          // Load summaries for this client after upload.
+          // Show upload success popup
+          alert('Meeting Recording Uploaded Successfully!');
+
+          // Load summaries for this client after upload
           this.loadMeetingSummaries(clientId);
         },
         error: (error) => {
